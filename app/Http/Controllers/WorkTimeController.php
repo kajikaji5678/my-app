@@ -12,4 +12,10 @@ class WorkTimeController extends Controller
         session(['start_time' => $start]);
         return redirect('main')->with('message', '出勤ありがとう');
     }
+
+    public function end() {
+        $end = Carbon::now();
+        session(['end_time' => $end]);
+        return redirect('main');
+    }
 }

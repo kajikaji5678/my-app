@@ -13,7 +13,7 @@
         <p id="timer"></p>
         <script>
             const startTime = new Date("{{ session('start_time') }}");
-            setInterval(() => {
+            const timer = setInterval(() => {
                 const now = new Date();
                 const diff = Math.floor((now - startTime) / 1000);
                 const hours = String(Math.floor(diff / 3600)).padStart(2, '0');
@@ -27,6 +27,10 @@
     <form action="main/post" method="POST">
         @csrf
         <button type="submit">出勤</button>
+    </form>
+    <form action="main/end" method="POST">
+        @csrf
+        <button type="submit">退勤</button>
     </form>
     @if (session('message'))
         <p>{{ session('message') }}</p>
