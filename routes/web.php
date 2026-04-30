@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WorkTimeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/main', function () {
+    return view('main');
+});
+
+Route::post('/main/post', [WorkTimeController::class, 'go']);
