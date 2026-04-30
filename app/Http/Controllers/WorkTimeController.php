@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\StartAndEnd_TimeTable; // モデル使用宣言
+use App\Models\start_and_end_time;
 
 class WorkTimeController extends Controller
 {
