@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('test_table', function (Blueprint $table) {
             $table->id();
-            $table->integer('time');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->timestamps();
         });
     }
