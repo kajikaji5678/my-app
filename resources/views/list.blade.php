@@ -8,8 +8,13 @@
 </head>
 <body>
     @foreach ($works as $work)
-        <p>出勤: {{ $work->start_time }}</p>
-        <p>退勤: {{ $work->end_time }}</p>
+        @php
+            $start = \Carbon\Carbon::parse($work->start_time);
+        @endphp
+
+        <p>{{ $start->format('Y年') }}</p>
     @endforeach
+
+    <p>{{ $start->format('Y年') }}</p>
 </body>
 </html>
