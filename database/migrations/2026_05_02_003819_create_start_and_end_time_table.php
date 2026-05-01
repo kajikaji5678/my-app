@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('start_and_end_times', function (Blueprint $table) {
             $table->id();
-            $table->integer('start_time');
-            $table->integer('end_time');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('start_and_end_time');
+        Schema::dropIfExists('start_and_end_times');
     }
 };
