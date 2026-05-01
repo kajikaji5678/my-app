@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('test_table', function (Blueprint $table) {
+        Schema::create('StartAndEndTime', function (Blueprint $table) {
             $table->id();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
