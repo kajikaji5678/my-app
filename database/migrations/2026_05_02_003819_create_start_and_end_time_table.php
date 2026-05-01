@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('StartAndEndTime', function (Blueprint $table) {
+        Schema::create('start_and_end_times', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('end_time')->nullable();
+            $table->integer('start_time');
+            $table->integer('end_time');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('StartAndEndTime');
+        Schema::dropIfExists('start_and_end_time');
     }
 };
