@@ -27,6 +27,17 @@ class WorkTimeController extends Controller
 
     public function get() {
         $works = StartAndEndTime::latest()->get();
+        foreach ($works as $work) {
+            $start = Carbon::parse($work->start_time);
+            $end = Carbon::parse($work->end_time);
+
+            $min = floor($start->diffInSeconds($end) / 60);
+            $hourly = 1000;
+
+            $work->salaly = floor(($min / 60) * $hourly);
+            $work->min = $min;
+        }
+
         return view('list', compact('works'));
     }
 }

@@ -10,11 +10,14 @@
     @foreach ($works as $work)
         @php
             $start = \Carbon\Carbon::parse($work->start_time);
+            $end = \Carbon\Carbon::parse($work->end_time);
         @endphp
 
+        <p>開始時間</p>
         <p>{{ $start->format('Y年') }}</p>
+        <p>{{ $start->format('m月d日') }}</p>
+        <p>{{ $start->format('H:i:s') }}</p>
+        <p>{{ $work->salary ?? '計算できませんでした'}}円</p>
     @endforeach
-
-    <p>{{ $start->format('Y年') }}</p>
 </body>
 </html>
