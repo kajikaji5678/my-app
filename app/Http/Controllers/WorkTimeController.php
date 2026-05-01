@@ -24,4 +24,9 @@ class WorkTimeController extends Controller
         }
         return redirect('main');
     }
+
+    public function get() {
+        $works = StartAndEndTime::latest()->get();
+        return view('list', compact('works'));
+    }
 }

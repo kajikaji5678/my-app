@@ -24,3 +24,4 @@ Route::get('/main', function () {
 
 Route::post('/main/post', [WorkTimeController::class, 'go']);
 Route::post('/main/end', [WorkTimeController::class, 'end']);
+Route::get('/main/list', [WorkTimeController::class, 'get']);
