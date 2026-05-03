@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User; // Userモデルと接続
 
 /**
  * @mixin IdeHelperStartAndEndTime
@@ -16,4 +17,7 @@ class StartAndEndTime extends Model
         'start_time' => 'datetime',
         'end_time' => 'datetime'
     ];
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
