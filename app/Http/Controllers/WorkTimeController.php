@@ -34,22 +34,4 @@ class WorkTimeController extends Controller
         return redirect('main');
     }
 
-    public function get() {
-        $works = Auth::user()->works()->latest()->get();
-        // end()と同様
-        
-        foreach ($works as $work) {
-            $start = Carbon::parse($work->start_time);
-            $end = Carbon::parse($work->end_time);
-
-            $min = floor($start->diffInSeconds($end) / 60);
-            $hourly = Auth::user()->hourly_wage; // 給与計算をそれぞれに分ける
-
-            $work->salaly = floor(($min / 60) * $hourly);
-            $work->min = $min;
-        }
-        // 計算式
-
-        return view('list', compact('works'));
-    }
 }
