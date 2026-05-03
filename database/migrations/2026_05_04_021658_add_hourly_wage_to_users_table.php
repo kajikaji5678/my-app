@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('hourly_wage')->default(1000);
-            $table->integer('salary_sum');
+            $table->integer('salary_sum')->default(0);
         });
     }
 

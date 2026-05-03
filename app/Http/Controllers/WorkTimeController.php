@@ -34,6 +34,7 @@ class WorkTimeController extends Controller
             $min = $start->diffInMinutes($end);
             $hourly = Auth::user()->hourly_wage;
             $saraly = floor(($min / 60) * $hourly);
+            
             $work->salaly_sum = $saraly;
             $work->save();
         }
