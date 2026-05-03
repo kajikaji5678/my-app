@@ -15,5 +15,6 @@
     @if (session('msg'))
         <p>{{ session('msg') }}</p>
     @endif
+    <a href={{ url('/main') }}>戻る</a>
 </body>
 </html>

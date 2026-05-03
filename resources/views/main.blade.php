@@ -38,6 +38,7 @@
     @if (session('error'))
         <p>{{ session('error') }}</p>
     @endif
+    <a href={{ url('/salary') }}>給与更新リンク</a>
 </body>
 
 </html>
