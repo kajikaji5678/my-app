@@ -23,8 +23,21 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $names = [
+            '福田',
+            '藤原',
+            '岸和田',
+            '金崎',
+            '大分',
+            '岩本',
+            '橋田',
+            '五十嵐',
+            '鬼割',
+            '小林',
+            '加藤'
+        ];
         return [
-            'name' => fake()->name(),
+            'name' => $this->faker->randomElement($names),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

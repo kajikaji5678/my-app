@@ -17,8 +17,9 @@ class StartAndEndTimeFactory extends Factory
      */
     public function definition(): array
     {
-        $start = Carbon::now()->subHours(rand(1, 8));
-        $end = (clone $start)->addHours(rand(1, 8));
+        $date = Carbon::now()->subDays(rand(1, 30));
+        $start = (clone $date)->setTime(rand(9, 11), rand(0,59));
+        $end = (clone $start)->addHours(rand(4, 7));
         return [
             'user_id' => User::factory(),
             'start_time' => $start,

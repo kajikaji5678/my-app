@@ -11,7 +11,7 @@ class WorkTimeController extends Controller
 {
     public function go() {
         // 同日に出勤しているかチェックする
-        $todayWork = StartAndEndTime::where('user_id', '=', Auth::id())->whereDate('start_time', '=', today())->exists();
+        $todayWork = StartAndEndTime::where('user_id', '=', Auth::id())->whereDate('start_time', '=', now()->toDateString())->exists();
         if ($todayWork) {
             return redirect('main')->with('error', '今日はすでに出勤済みです');
         }
@@ -34,7 +34,7 @@ class WorkTimeController extends Controller
             $min = $start->diffInMinutes($end);
             $hourly = Auth::user()->hourly_wage;
             $saraly = floor(($min / 60) * $hourly);
-            
+
             $work->salaly_sum = $saraly;
             $work->save();
         }
