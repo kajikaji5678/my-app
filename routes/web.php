@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkTimeController;
+use App\Http\Controllers\UpdateSalary;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/main/post', [WorkTimeController::class, 'go']);
     Route::post('/main/end', [WorkTimeController::class, 'end']);
     Route::get('/main/list', [WorkTimeController::class, 'get']);
+
+    Route::get('/salary', function() {
+        return view('salary');
+    });
+    Route::post('/salary/update', [UpdateSalary::class, 'up']);
 });
 
 require __DIR__.'/auth.php';

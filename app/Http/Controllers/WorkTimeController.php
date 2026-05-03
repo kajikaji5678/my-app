@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Carbon\Carbon; // 時間設計クラスを使用
 use App\Models\StartAndEndTime;
 use Illuminate\Support\Facades\Auth; // 認証機能クラスを使用
 
@@ -37,6 +37,7 @@ class WorkTimeController extends Controller
     public function get() {
         $works = Auth::user()->works()->latest()->get();
         // end()と同様
+        
         foreach ($works as $work) {
             $start = Carbon::parse($work->start_time);
             $end = Carbon::parse($work->end_time);
@@ -47,6 +48,7 @@ class WorkTimeController extends Controller
             $work->salaly = floor(($min / 60) * $hourly);
             $work->min = $min;
         }
+        // 計算式
 
         return view('list', compact('works'));
     }
