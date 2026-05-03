@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth; // 認証機能クラスを使用
 class WorkTimeController extends Controller
 {
     public function go() {
+        // 同日に出勤しているかチェックする
+        $todayWork = StartAndEndTime::where('user_id', '=', Auth::id())->whereDate('start_time', '=', today())->exists();
+        if ($todayWork) {
+            return back()->with('error', '今日はすでに出勤済みです');
+        }
+
         $start = new StartAndEndTime();
         $start->start_time = now();
         $start->user_id = Auth::id(); // その人のidをぶち込む
