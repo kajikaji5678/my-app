@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>リスト仮</title>
 </head>
-<body>
-    @foreach ($works as $work)
-        @php
-            $start = \Carbon\Carbon::parse($work->start_time);
-            $end = \Carbon\Carbon::parse($work->end_time);
-        @endphp
 
-        <p>開始時間</p>
-        <p>{{ $start->format('Y年') }}</p>
-        <p>{{ $start->format('m月d日') }}</p>
-        <p>{{ $start->format('H:i:s') }}</p>
-        <p>{{ $work->salary ?? '計算できませんでした'}}円</p>
-    @endforeach
+<body>
+    <form action={{ url('/list/narrow') }} method="POST">
+        @csrf
+        <input type="number" name="year" value="2025">
+        <input type="number" name="month" value="4">
+        <button>検索</button>
+    </form>
+    <h1>{{ $year ?? now()->year}}年{{ $month ?? now()->month}}月</h1>
+
+    @if(isset($works))
+        @foreach ($works as $work)
+            <p>{{ $work->start_time }}</p>
+            <p>{{ $work->end_time }}</p>
+        @endforeach
+    @endif
 </body>
+
 </html>

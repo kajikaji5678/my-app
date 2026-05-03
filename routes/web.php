@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkTimeController;
 use App\Http\Controllers\UpdateSalary;
+use App\Http\Controllers\ListUp;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,11 @@ Route::middleware('auth')->group(function () {
         return view('salary');
     });
     Route::post('/salary/update', [UpdateSalary::class, 'up']);
+
+    Route::get('/list', function() {
+        return view('list');
+    });
+    Route::post('/list/narrow', [ListUp::class, 'list']);
 });
 
 require __DIR__.'/auth.php';
