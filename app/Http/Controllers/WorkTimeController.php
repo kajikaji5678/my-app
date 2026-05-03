@@ -24,12 +24,18 @@ class WorkTimeController extends Controller
     }
 
     public function end() {
-        $end = Auth::user()->works()->latest()->first(); 
+        $work = Auth::user()->works()->latest()->first(); 
         // ログインユーザーの勤怠一覧を新しい順に並べて一件取得
 
-        if ($end) {
-            $end->end_time = Carbon::now(); // end_timeはnullなんで追加
-            $end->save();
+        if ($work && !$work->end_time) {
+            $work->end_time = Carbon::now();
+            $start = Carbon::parse($work->start_time);
+            $end = Carbon::parse($work->end_time);
+            $min = $start->diffInMinutes($end);
+            $hourly = Auth::user()->hourly_wage;
+            $saraly = floor(($min / 60) * $hourly);
+            $work->salaly_sum = $saraly;
+            $work->save();
         }
         return redirect('main');
     }
