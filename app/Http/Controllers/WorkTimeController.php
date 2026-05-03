@@ -16,29 +16,29 @@ class WorkTimeController extends Controller
             return redirect('main')->with('error', '今日はすでに出勤済みです');
         }
 
-        $start = new StartAndEndTime();
-        $start->start_time = now();
-        $start->user_id = Auth::id(); // その人のidをぶち込む
-        $start->save();
+        StartAndEndTime::create([
+            'user_id' => Auth::id(),
+            'start_time' => now()
+        ]);
         return redirect('main')->with('message', '出勤ありがとう');
     }
 
     public function end() {
-        $work = Auth::user()->works()->latest()->first(); 
-        // ログインユーザーの勤怠一覧を新しい順に並べて一件取得
+        $work = StartAndEndTime::where('user_id', '=', Auth::id())
+            ->whereNull('end_time')
+            ->latest()
+            ->first();
 
-        if ($work && !$work->end_time) {
-            $work->end_time = Carbon::now();
-            $start = Carbon::parse($work->start_time);
-            $end = Carbon::parse($work->end_time);
-            $min = $start->diffInMinutes($end);
-            $hourly = Auth::user()->hourly_wage;
-            $saraly = floor(($min / 60) * $hourly);
-
-            $work->salaly_sum += $saraly;
-            $work->save();
+        dd($work->salary_sum);
+        if (!$work) {
+            return redirect('main')->with('error', '今日はすでに退勤済みです');
         }
-        return redirect('main');
+
+        $work->end_time = now();
+        $work->save();
+
+        return redirect('main')->with('message', 'お疲れ様');
+
     }
 
 }

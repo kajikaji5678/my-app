@@ -17,7 +17,20 @@ class StartAndEndTime extends Model
         'start_time' => 'datetime',
         'end_time' => 'datetime'
     ];
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function getSalarySumAttribute()
+    {
+        if (!$this->start_time || !$this->end_time) {
+            return 0;
+        } 
+
+        $min = $this->start_time->diffInMinutes($this->end_time);
+        $hourly = $this->user->hourly_wage;
+
+        return floor(($min / 60) * $hourly);
     }
 }

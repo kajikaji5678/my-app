@@ -21,8 +21,8 @@
         @foreach ($works as $work)
             <p>{{ $work->start_time }}</p>
             <p>{{ $work->end_time }}</p>
+            <p>合計金額: {{ $work->salary_sum }}</p>
         @endforeach
-        <p>合計金額: {{ $work->saraly_sum }}</p>
     @endif
 </body>
 
