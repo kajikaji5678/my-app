@@ -43,7 +43,7 @@ class WorkTimeController extends Controller
             $end = Carbon::parse($work->end_time);
 
             $min = floor($start->diffInSeconds($end) / 60);
-            $hourly = 1000;
+            $hourly = Auth::user()->hourly_wage; // 給与計算をそれぞれに分ける
 
             $work->salaly = floor(($min / 60) * $hourly);
             $work->min = $min;
