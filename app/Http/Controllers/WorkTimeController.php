@@ -29,7 +29,8 @@ class WorkTimeController extends Controller
     }
 
     public function get() {
-        $works = StartAndEndTime::latest()->get();
+        $works = Auth::user()->works()->latest()->get();
+        // end()と同様
         foreach ($works as $work) {
             $start = Carbon::parse($work->start_time);
             $end = Carbon::parse($work->end_time);
