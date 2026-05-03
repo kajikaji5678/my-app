@@ -13,7 +13,7 @@ class WorkTimeController extends Controller
         // 同日に出勤しているかチェックする
         $todayWork = StartAndEndTime::where('user_id', '=', Auth::id())->whereDate('start_time', '=', today())->exists();
         if ($todayWork) {
-            return back()->with('error', '今日はすでに出勤済みです');
+            return redirect('main')->with('error', '今日はすでに出勤済みです');
         }
 
         $start = new StartAndEndTime();

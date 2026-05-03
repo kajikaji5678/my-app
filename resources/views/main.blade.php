@@ -24,16 +24,19 @@
         </script>
     @endif
 
-    <form action="main/post" method="POST">
+    <form action={{ url('/main/post') }} method="POST">
         @csrf
         <button type="submit">出勤</button>
     </form>
-    <form action="main/end" method="POST">
+    <form action={{ url('/main/end') }} method="POST">
         @csrf
         <button type="submit">退勤</button>
     </form>
     @if (session('message'))
         <p>{{ session('message') }}</p>
+    @endif
+    @if (session('error'))
+        <p>{{ session('error') }}</p>
     @endif
 </body>
 
