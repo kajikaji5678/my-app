@@ -22,6 +22,7 @@
             <p>{{ $work->start_time }}</p>
             <p>{{ $work->end_time }}</p>
         @endforeach
+        <p>合計金額: {{ $work->saraly_sum }}</p>
     @endif
 </body>
 
