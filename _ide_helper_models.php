@@ -20,6 +20,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $user_id
+ * @property int $status
+ * @property-read mixed $salary_sum
  * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\StartAndEndTimeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime newModelQuery()
@@ -29,6 +31,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereEndTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereUserId($value)
  */
