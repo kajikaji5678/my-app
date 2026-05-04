@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="Ja">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <a href={{ "/admin/working" }}>出勤一覧ページ</a>
+    <h1>出勤中一覧</h1>
+    @foreach ($workingUsers as $work)
+        <div>
+            {{ $work->user->name }} - {{ $work->star_time }}
+        </div>
+    @endforeach
 </body>
 </html>

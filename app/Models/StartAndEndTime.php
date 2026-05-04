@@ -33,4 +33,5 @@ class StartAndEndTime extends Model
 
         return floor(($min / 60) * $hourly);
     }
+
 }
