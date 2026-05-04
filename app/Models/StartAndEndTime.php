@@ -12,7 +12,7 @@ use App\Models\User; // Userモデルと接続
 class StartAndEndTime extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','start_time', 'end_time'];
+    protected $fillable = ['user_id','start_time', 'end_time', 'status'];
     protected $casts = [
         'start_time' => 'datetime',
         'end_time' => 'datetime'
