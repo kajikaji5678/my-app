@@ -1,0 +1,11 @@
+.admin_top {
+    width: 50%;
+    margin: 0 auto;
+    padding: 50px 100px;
+    background-color: rgb(122, 186, 243);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
