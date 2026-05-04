@@ -18,23 +18,23 @@ class WorkTimeController extends Controller
 
         StartAndEndTime::create([
             'user_id' => Auth::id(),
-            'start_time' => now()
+            'start_time' => now(),
+            'status' => 1
         ]);
         return redirect('main')->with('message', '出勤ありがとう');
     }
 
     public function end() {
-        $work = StartAndEndTime::where('user_id', '=', Auth::id())
+        $work = StartAndEndTime::where('status', '=', 1)
             ->whereNull('end_time')
             ->latest()
             ->first();
-
-        dd($work->salary_sum);
         if (!$work) {
             return redirect('main')->with('error', '今日はすでに退勤済みです');
         }
 
         $work->end_time = now();
+        $work->status = 2;
         $work->save();
 
         return redirect('main')->with('message', 'お疲れ様');
