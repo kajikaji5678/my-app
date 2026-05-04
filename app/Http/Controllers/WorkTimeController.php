@@ -17,11 +17,15 @@ class WorkTimeController extends Controller
             return redirect('main')->with('error', '今日はすでに出勤済みです');
         }
 
-        $work = new StartAndEndTime();
-        $work->user_id = Auth::id();
-        $work->start_time = now();
-        $work->status = 1;
-        $work->save();
+        StartAndEndTime::create([
+
+            'user_id' => Auth::id(),
+
+            'start_time' => now(),
+
+            'status' => 1
+
+        ]);
         return redirect('main')->with('message', '出勤ありがとう');
     }
 

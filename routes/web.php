@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkTimeController;
 use App\Http\Controllers\UpdateSalary;
 use App\Http\Controllers\ListUp;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,10 @@ Route::middleware('auth')->group(function () {
         return view('list');
     });
     Route::post('/list/narrow', [ListUp::class, 'list']);
+});
+
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index']);
 });
 
 require __DIR__.'/auth.php';
