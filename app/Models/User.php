@@ -49,6 +49,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // 従業員はいくつもの出退勤を行うリレーション
     public function works() {
         return $this->hasMany(StartAndEndTime::class);
     }

@@ -17,11 +17,13 @@ class StartAndEndTime extends Model
         'start_time' => 'datetime',
         'end_time' => 'datetime'
     ];
+    //出退勤の時刻はUserひとつというリレーション
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    // 毎日の出退勤の合計
     public function getSalarySumAttribute()
     {
         if (!$this->start_time || !$this->end_time) {
@@ -33,5 +35,4 @@ class StartAndEndTime extends Model
 
         return floor(($min / 60) * $hourly);
     }
-
 }

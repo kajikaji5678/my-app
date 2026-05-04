@@ -12,6 +12,7 @@ class ListUp extends Controller
         $year = $request->input('year', date('Y'));
         $month = $request->input('month', date('m'));
 
+        // 個人の給与のみ表示されるように、あと月別トータルも
         $works = Auth::user()
             ->works()
             ->whereYear('start_time', $year)
@@ -19,6 +20,7 @@ class ListUp extends Controller
             ->latest()
             ->get();
 
-        return view('list', compact('works', 'year', 'month'));
+        $total = $works->sum('salary_sum');
+        return view('list', compact('works', 'year', 'month', 'total'));
     }
 }

@@ -8,5 +8,6 @@
 </head>
 <body>
     <a href={{ "/admin/working" }}>出勤一覧ページ</a>
+    <a href="{{ "/admin/salary_total" }}">支出一覧ページ</a>
 </body>
 </html>

@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/admin/working', [AdminController::class, 'working']);
+    Route::get('/admin/salary_total', [AdminController::class, 'monthlySalaryTotal']);
 });
 
 require __DIR__.'/auth.php';
