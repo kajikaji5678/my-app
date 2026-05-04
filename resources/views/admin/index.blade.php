@@ -11,8 +11,16 @@
 
 <body>
     <div class="admin_top">
-        <a href={{ "/admin/working" }}>出勤一覧ページ</a>
-        <a href="{{ " /admin/salary_total" }}">支出一覧ページ</a>
+        <a href={{ "/admin/working" }}>
+            <div class="admin_link_button">
+                <p>出勤一覧ページ</p>
+            </div>
+        </a>
+        <a href={{ "/admin/salary_total" }}>
+            <div class="admin_link_button_2">
+                <p>支出一覧ページ</p>
+            </div>
+        </a>
     </div>
 </body>
 
