@@ -2,12 +2,32 @@ import { Calendar } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('calendar');
     const calendar = new Calendar(el, {
         locale: 'ja',
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth', // 月別表示
+        events: function(_, successCallback) {
+            fetch('/main/schedules')
+            // JSON形式にする
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('HTTP eroor' + res.status)
+                }
+                return res.json();
+            })
+            // FullCalendarが読み取れるように変更する
+            .then(data => {
+                successCallback(
+                    data.map(item => ({
+                        title: item.title,
+                        start: item.date
+                    }))
+                )
+            });
+        },
 
         dateClick: function(info) {
             const title = prompt('予定を入力');
@@ -28,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     calendar.addEvent({
                         title: date.title,
                         start: date.date,
-                        color: 'green'
+                        color: 'blue'
                     });
                 }).catch(error => {
                     console.error('Error:', error);

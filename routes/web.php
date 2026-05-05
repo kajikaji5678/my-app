@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/main/calendar', function () {
         return view('calender');
     });
+    Route::get('/main/schedules', [ScheduleController::class, 'get']);
     Route::post('/main/schedules', [ScheduleController::class, 'register']);
 });
 
