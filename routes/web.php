@@ -61,6 +61,10 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/admin/working', [AdminController::class, 'working']);
     Route::get('/admin/salary_total', [AdminController::class, 'monthlySalaryTotal']);
+
+    // 給与変更の承認
+    Route::post('/salaly/{salaryRequest}/approve', [AdminController::class, 'approve']);
+    Route::post('/admin/{Request}/reject', [AdminController::class, 'reject']);
 });
 
 require __DIR__.'/auth.php';
