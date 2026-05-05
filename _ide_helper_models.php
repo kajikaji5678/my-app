@@ -13,9 +13,54 @@
 
 namespace App\Models{
 /**
+ * @property int $id
+ * @property int $user_id
+ * @property int $before_salary
+ * @property int $after_salary
+ * @property string $reason
+ * @property string $status
+ * @property int|null $approved_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\SalaryRequestFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereAfterSalary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereApprovedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereBeforeSalary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereReason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereUserId($value)
+ */
+	class SalaryRequest extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string $title
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $date
+ * @property int|null $start_time
+ * @property int|null $end_time
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Schedule newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Schedule newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Schedule query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereUserId($value)
  */
 	class Schedule extends \Eloquent {}
 }
