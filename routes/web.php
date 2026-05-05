@@ -48,7 +48,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::post('/list/narrow', [ListUp::class, 'list']);
 
-    Route::get('/main/calender', function () {
+    // カレンダー
+    Route::get('/main/calendar', function () {
         return view('calender');
     });
 });

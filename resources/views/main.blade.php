@@ -40,6 +40,7 @@
     @endif
     <a href={{ url('/salary') }}>給与更新リンク</a>
     <a href={{ url('/list') }}>給与確認リンク</a>
+    <a href={{ url('/main/calendar') }}>カレンダーリンク</a>
 </body>
 
 </html>
