@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = prompt('予定を入力');
             if (title) {
                 // POST送信
-                fetch('/main/schedule',{
+                fetch('/main/schedules',{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
