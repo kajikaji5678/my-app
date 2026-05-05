@@ -8,13 +8,30 @@ document.addEventListener('DOMContentLoaded', () => {
         locale: 'ja',
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth', // 月別表示
+
         dateClick: function(info) {
             const title = prompt('予定を入力');
             if (title) {
-                calendar.addEvent({
-                    title: title,
-                    start: info.dateStr,
-                    color: 'green'
+                // POST送信
+                fetch('/main/schedule',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        date: info.dateStr
+                    })
+                }).then(response => response.json())
+                .then(date => {
+                    calendar.addEvent({
+                        title: date.title,
+                        start: date.date,
+                        color: 'green'
+                    });
+                }).catch(error => {
+                    console.error('Error:', error);
                 });
             }
         }
