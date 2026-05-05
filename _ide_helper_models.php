@@ -13,6 +13,15 @@
 
 namespace App\Models{
 /**
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedule query()
+ */
+	class Schedule extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @mixin IdeHelperStartAndEndTime
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $start_time
@@ -51,8 +60,11 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $hourly_wage
  * @property int $salary_sum
+ * @property int $role
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Schedule> $schedules
+ * @property-read int|null $schedules_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StartAndEndTime> $works
@@ -69,6 +81,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSalarySum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */

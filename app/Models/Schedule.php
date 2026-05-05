@@ -9,4 +9,8 @@ use App\Models\User;
 class Schedule extends Model
 {
     use HasFactory;
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\StartAndEndTime; // 出勤退勤時間との接続
+use App\Models\Schedule; // スケジュールとの接続
 
 /**
  * @mixin IdeHelperUser
@@ -52,5 +53,9 @@ class User extends Authenticatable
     // 従業員はいくつもの出退勤を行うリレーション
     public function works() {
         return $this->hasMany(StartAndEndTime::class);
+    }
+
+    public function schedules() {
+        return $this->hasMany(Schedule::class);
     }
 }
