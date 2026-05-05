@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\SalaryRequest;
+use App\Models\User;
 
 class SalaryRequestSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class SalaryRequestSeeder extends Seeder
      */
     public function run(): void
     {
-        SalaryRequest::factory()->count(10)->create();
+        SalaryRequest::factory()->count(10)->create([
+        ]);
     }
 }

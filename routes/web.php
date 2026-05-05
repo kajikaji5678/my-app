@@ -63,8 +63,9 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/salary_total', [AdminController::class, 'monthlySalaryTotal']);
 
     // 給与変更の承認
-    Route::post('/salaly/{salaryRequest}/approve', [AdminController::class, 'approve']);
-    Route::post('/admin/{Request}/reject', [AdminController::class, 'reject']);
+    Route::get('/admin/salaryList', [AdminController::class, 'salaryList']);
+    Route::post('/admin/salary/{salaryRequest}/approve', [AdminController::class, 'approve']);
+    Route::post('/admin/salary/{Request}/reject', [AdminController::class, 'reject']);
 });
 
 require __DIR__.'/auth.php';

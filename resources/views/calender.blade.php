@@ -12,6 +12,5 @@
     <div id="calendar">
         @vite('resources/js/calendar.js')
     </div>
-    dd(Auth::id());
 </body>
 </html>

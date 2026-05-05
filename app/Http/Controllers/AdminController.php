@@ -23,6 +23,16 @@ class AdminController extends Controller
         return view('admin.working', compact('workingUsers'));
     }
 
+    public function salaryList()
+    {
+        $requests = SalaryRequest::where('status', 'pending')
+            ->with(['user'])
+            ->latest()
+            ->get();
+        dd($requests->toArray());
+        return view('admin.salary_change', compact('requests'));
+    }
+
     public function monthlySalaryTotal(Request $request)
     {
         $year = $request->input('year', date('Y'));
