@@ -47,6 +47,10 @@ Route::middleware('auth')->group(function () {
         return view('list');
     });
     Route::post('/list/narrow', [ListUp::class, 'list']);
+
+    Route::get('/main/calender', function () {
+        return view('calender');
+    });
 });
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
