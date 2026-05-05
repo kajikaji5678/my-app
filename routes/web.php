@@ -6,6 +6,7 @@ use App\Http\Controllers\WorkTimeController;
 use App\Http\Controllers\UpdateSalary;
 use App\Http\Controllers\ListUp;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/main/calendar', function () {
         return view('calender');
     });
+    Route::post('/main/schedules', [ScheduleController::class, 'registar']);
 });
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
