@@ -29,7 +29,8 @@ class AdminController extends Controller
             ->with(['user'])
             ->latest()
             ->get();
-        dd($requests->toArray());
+        // dd($requests->toArray());
+        // デバック確認済み
         return view('admin.salary_change', compact('requests'));
     }
 
@@ -50,6 +51,8 @@ class AdminController extends Controller
     // 給与の承認
     public function approve(SalaryRequest $salaryRequest)
     {
+        // dd(auth()->user());
+        // デバック解決済み
         if ($salaryRequest->status !== 'pending') {
             return response()->json(['message' => 'すでに処理済み']);
         }
@@ -63,7 +66,9 @@ class AdminController extends Controller
         $user->hourly_wage = $salaryRequest->after_salary;
         $user->save();
 
-        return response()->json(['message' => '承認しました']);
+        return response()->json([
+            'message' => '承認しました'],
+        200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function reject(SalaryRequest $salaryRequest)

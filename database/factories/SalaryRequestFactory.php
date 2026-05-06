@@ -12,7 +12,7 @@ use App\Models\User;
 class SalaryRequestFactory extends Factory
 {
     /**
-     * Define the model's default state.
+    * Define the model's default state.
      *
      * @return array<string, mixed>
      */
