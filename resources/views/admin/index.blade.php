@@ -22,9 +22,9 @@
             </div>
         </a>
 
-        <a href={{ "/admin/salaryList" }}>
+        <a href={{ "/admin/request" }}>
             <div class="admin_link_button_2">
-                <p>給与変更一覧ページ</p>
+                <p>申請確認ページ</p>
             </div>
         </a>
     </div>

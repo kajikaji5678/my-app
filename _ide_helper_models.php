@@ -15,6 +15,32 @@ namespace App\Models{
 /**
  * @property int $id
  * @property int $user_id
+ * @property string $start_date
+ * @property string $end_date
+ * @property string $days
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereUserId($value)
+ */
+	class PtoRequest extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $user_id
  * @property int $before_salary
  * @property int $after_salary
  * @property string $reason
@@ -22,6 +48,7 @@ namespace App\Models{
  * @property int|null $approved_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\SalaryRequestFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newQuery()
@@ -75,6 +102,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $user_id
  * @property int $status
+ * @property-read mixed $overtime_minutes
  * @property-read mixed $salary_sum
  * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\StartAndEndTimeFactory factory($count = null, $state = [])
@@ -108,6 +136,8 @@ namespace App\Models{
  * @property int $role
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SalaryRequest> $salaryRequest
+ * @property-read int|null $salary_request_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Schedule> $schedules
  * @property-read int|null $schedules_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens

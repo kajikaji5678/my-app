@@ -18,13 +18,9 @@ class WorkTimeController extends Controller
         }
 
         StartAndEndTime::create([
-
             'user_id' => Auth::id(),
-
             'start_time' => now(),
-
             'status' => 1
-
         ]);
         return redirect('main')->with('message', '出勤ありがとう');
     }
