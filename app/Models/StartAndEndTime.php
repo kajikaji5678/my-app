@@ -33,6 +33,11 @@ class StartAndEndTime extends Model
         $min = $this->start_time->diffInMinutes($this->end_time);
         $hourly = $this->user->hourly_wage;
 
-        return floor(($min / 60) * $hourly);
+        // 8時間超えた分だけ残業にする
+        $overTime = max(0, $min - 480);
+        $normalSalary = floor(($min / 60) * $hourly);
+        $overTimeBonus = floor(($overTime / 60) * $hourly * 0.25);
+
+        return $normalSalary + $overTimeBonus;
     }
 }

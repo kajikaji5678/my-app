@@ -22,7 +22,7 @@
             </div>
         </a>
 
-        <a href={{ "/admin/salary_change" }}>
+        <a href={{ "/admin/salaryList" }}>
             <div class="admin_link_button_2">
                 <p>給与変更一覧ページ</p>
             </div>
