@@ -21,6 +21,8 @@ class ListUp extends Controller
             ->get();
 
         $total = $works->sum('salary_sum');
+        $totalOvertimeMin = $works->sum('overtime_minutes');
+        $isOvertimeWarning = $totalOvertimeMin >= 1000;
         return view('list', compact('works', 'year', 'month', 'total'));
     }
 }

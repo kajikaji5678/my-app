@@ -26,6 +26,10 @@ l
         @endforeach
         <p>月の合計金額: {{ $total }}</p>
     @endif
+
+    @if ($isOvertimeWarning)
+        <p>残業時間が30時間を超えています</p>
+    @endif
 </body>
 
 </html>

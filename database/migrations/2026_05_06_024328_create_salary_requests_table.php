@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('salary_requests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->integer('before_salary')->default(1000);
             $table->integer('after_salary');
             $table->text('reason');
