@@ -12,7 +12,7 @@ use App\Models\User; // Userモデルと接続
 class StartAndEndTime extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','start_time', 'end_time', 'status'];
+    protected $fillable = ['user_id', 'start_time', 'end_time', 'status'];
     protected $casts = [
         'start_time' => 'datetime',
         'end_time' => 'datetime'
@@ -28,7 +28,7 @@ class StartAndEndTime extends Model
     {
         if (!$this->start_time || !$this->end_time) {
             return 0;
-        } 
+        }
 
         $min = $this->start_time->diffInMinutes($this->end_time);
         $hourly = $this->user->hourly_wage;
@@ -39,5 +39,11 @@ class StartAndEndTime extends Model
         $overTimeBonus = floor(($overTime / 60) * $hourly * 0.25);
 
         return $normalSalary + $overTimeBonus;
+    }
+
+    public function getOvertimeMinutesAttribute()
+    {
+        $min = $this->start_time->diffInMinutes($this->end_time);
+        return max(0, $min - 480);
     }
 }

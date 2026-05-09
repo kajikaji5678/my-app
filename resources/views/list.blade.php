@@ -22,6 +22,7 @@
             <p>{{ $work->start_time }}</p>
             <p>{{ $work->end_time }}</p>
             <p>合計金額: {{ $work->salary_sum }}</p>
+            <p>残業時間: {{ $work->overtime_minutes }}</p>
         @endforeach
         <p>月の合計金額: {{ $total }}</p>
     @endif

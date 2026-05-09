@@ -24,6 +24,6 @@ class MyStartAndEndTimeSeeder extends Seeder
             'role' => 1,
         ]);
 
-
+        StartAndEndTime::factory()->count(5)->create(['user_id' => $user->id]);
     }
 }

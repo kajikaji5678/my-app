@@ -10,6 +10,7 @@
     <form action={{ url('/salary/update') }} method="POST">
         @csrf
         <input type="number" name="hourly_wage" value="{{ Auth::user()->hourly_wage }}">
+        <textarea name="reason" placeholder="申請理由を入力してください"></textarea>
         <button>更新</button>
     </form>
     @if (session('msg'))
