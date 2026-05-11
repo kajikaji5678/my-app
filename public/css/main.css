@@ -1,0 +1,70 @@
+.main {
+    margin-top: 100px;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+    height: 500px;
+    background-color: rgb(188, 213, 255);
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+    padding: 30px 50px;
+    border-radius: 16px;
+}
+
+.buttons_area {
+    width: 40%;
+    height: 70%;
+}
+
+.attendance_buttons {
+    width: 100%;
+    height: 50%;
+    margin-bottom: 30px;
+    background-color: rgb(255, 193, 87);
+    border-radius: 3px;
+    box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.attendance_buttons.active {
+    box-shadow: none;
+    transform: translate(10px, 10px);
+    background-color: rgb(255, 233, 196);
+}
+
+.attendance_buttons form {
+    width: 100%;
+    height: 100%;
+}
+
+.attendance_buttons button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 32px;
+    font-family: "Noto Sans JP";
+    font-weight: 600;
+    color: white;
+}
+
+button {
+    /* 1. 背景・枠線・見た目のリセット */
+    background: none;
+    border: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    /* Safari用 */
+
+    /* 2. 余白・フォントのリセット */
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    text-align: inherit;
+
+    /* 3. クリック時の反応などを調整 */
+    cursor: pointer;
+}

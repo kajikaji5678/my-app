@@ -31,10 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/main', function() {
-        return view('main');
-    });
 
+    Route::get('/main', [WorkTimeController::class, 'index']);
     Route::post('/main/post', [WorkTimeController::class, 'go']);
     Route::post('/main/end', [WorkTimeController::class, 'end']);
     Route::get('/main/list', [WorkTimeController::class, 'get']);

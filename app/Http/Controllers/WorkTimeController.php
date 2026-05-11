@@ -12,7 +12,7 @@ class WorkTimeController extends Controller
     public function go()
     {
         // 同日に出勤しているかチェックする
-        $todayWork = StartAndEndTime::where('user_id', '=', Auth::id())->whereDate('start_time', '=', now()->toDateString())->exists();
+        $todayWork = StartAndEndTime::where('user_id', Auth::id())->whereDate('start_time', now()->toDateString())->exists();
         if ($todayWork) {
             return redirect('main')->with('error', '今日はすでに出勤済みです');
         }
@@ -22,6 +22,7 @@ class WorkTimeController extends Controller
             'start_time' => now(),
             'status' => 1
         ]);
+
         return redirect('main')->with('message', '出勤ありがとう');
     }
 
