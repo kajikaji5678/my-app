@@ -14,7 +14,12 @@ class SalaryRequestSeeder extends Seeder
      */
     public function run(): void
     {
-        SalaryRequest::factory()->count(10)->create([
-        ]);
+        $users = User::all();
+
+        foreach($users as $user) {
+            SalaryRequest::factory()->count(1)->create([
+                'user_id' => $user->id,
+            ]);
+        }
     }
 }

@@ -17,13 +17,11 @@ class MyStartAndEndTimeSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->create([
+        User::factory()->create([
             'name' => '福田',
             'email' => 'aaa@gmail.com',
             'password' => Hash::make('kajikaji1'),
             'admin' => 1,
         ]);
-
-        StartAndEndTime::factory()->count(5)->create(['user_id' => $user->id]);
     }
 }
