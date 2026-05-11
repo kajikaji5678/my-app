@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth; // 認証機能クラスを使用
 
 class WorkTimeController extends Controller
 {
+
+    public function index() {
+        $working = StartAndEndTime::where('user_id', Auth::id())
+            ->where('status', 1)
+            ->whereNull('end_time')
+            ->exists();
+
+        return view('main', compact('working'));
+    }
+
     public function go()
     {
         // 同日に出勤しているかチェックする

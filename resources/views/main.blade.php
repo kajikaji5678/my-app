@@ -11,10 +11,12 @@
 <body>
     <div class="main">
         <div class="buttons_area">
-            <div class="attendance_buttons {{ session('') }}">
+            <div class="attendance_buttons {{$working ? 'active' : ''}}">
                 <form action={{ url('/main/post') }} method="POST">
                     @csrf
-                    <button type="submit">出勤</button>
+                    <button type="submit">
+                        {{ $working ? '出勤中' : '出勤' }}
+                    </button>
                 </form>
             </div>
             <div class="attendance_buttons">
