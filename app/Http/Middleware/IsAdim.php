@@ -16,7 +16,7 @@ class IsAdim
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role !== 1) {
+        if (Auth::user()->admin !== 1) {
             abort(403);
         }
         return $next($request);

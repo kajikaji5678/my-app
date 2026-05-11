@@ -11,6 +11,7 @@ use App\Models\StartAndEndTime; // 出勤退勤時間との接続
 use App\Models\Schedule; // スケジュールとの接続
 use App\Models\SalaryRequest; // 給与更新との接続
 use App\Models\PtoRequest;
+use App\Models\Role;
 
 /**
  * @mixin IdeHelperUser
@@ -29,7 +30,7 @@ class User extends Authenticatable
         'email',
         'password',
         'houry_wage',
-        'role',
+        'admin',
     ];
 
     /**
@@ -67,5 +68,9 @@ class User extends Authenticatable
 
     public function ptoRequest() {
         return $this->hasMany(PtoRequest::class);
+    }
+
+    public function roles() {
+        return $this->belongsTo(Role::class);
     }
 }

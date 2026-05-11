@@ -22,6 +22,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ * @method static \Database\Factories\PtoRequestFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest query()
@@ -40,6 +41,25 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Role|null $role
+ * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
+ */
+	class Role extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property int $user_id
  * @property int $before_salary
  * @property int $after_salary
@@ -48,7 +68,7 @@ namespace App\Models{
  * @property int|null $approved_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User|null $user
+ * @property-read \App\Models\User $user
  * @method static \Database\Factories\SalaryRequestFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newQuery()
@@ -76,7 +96,7 @@ namespace App\Models{
  * @property string|null $date
  * @property int|null $start_time
  * @property int|null $end_time
- * @property-read \App\Models\User|null $user
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Schedule newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Schedule newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Schedule query()
@@ -104,7 +124,7 @@ namespace App\Models{
  * @property int $status
  * @property-read mixed $overtime_minutes
  * @property-read mixed $salary_sum
- * @property-read \App\Models\User|null $user
+ * @property-read \App\Models\User $user
  * @method static \Database\Factories\StartAndEndTimeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime newQuery()
@@ -133,9 +153,11 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $hourly_wage
  * @property int $salary_sum
- * @property int $role
+ * @property string $role
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PtoRequest> $ptoRequest
+ * @property-read int|null $pto_request_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SalaryRequest> $salaryRequest
  * @property-read int|null $salary_request_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Schedule> $schedules
