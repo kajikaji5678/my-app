@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>勤怠管理アプリ</title>
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" </head>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+</head>
 
 <body>
     <div class="main">
@@ -26,6 +27,14 @@
                 </form>
             </div>
         </div>
+
+        <div class="other_area">
+
+        </div>
+
+        <div class="time_area">
+            <p id="clock"></p>
+        </div>
     </div>
     @if (session('message'))
     <p>{{ session('message') }}</p>
@@ -36,6 +45,7 @@
     <a href={{ url('/salary') }}>給与更新リンク</a>
     <a href={{ url('/list') }}>給与確認リンク</a>
     <a href={{ url('/main/calendar') }}>カレンダーリンク</a>
+@vite('resources/js/main.js')
 </body>
 
 </html>
