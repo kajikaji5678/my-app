@@ -11,29 +11,38 @@
 
 <body>
     <div class="main">
-        <div class="buttons_area">
-            <div class="attendance_buttons {{$working ? 'active' : ''}}">
-                <form action={{ url('/main/post') }} method="POST">
-                    @csrf
-                    <button type="submit">
-                        {{ $working ? '出勤中' : '出勤' }}
-                    </button>
-                </form>
+        <div class="area1">
+            <div class="buttons_area">
+                <div class="attendance_buttons {{$working ? 'active' : ''}}">
+                    <form action={{ url('/main/post') }} method="POST">
+                        @csrf
+                        <button type="submit">
+                            {{ $working ? '出勤中' : '出勤' }}
+                        </button>
+                    </form>
+                </div>
+                <div class="attendance_buttons">
+                    <form action={{ url('/main/end') }} method="POST">
+                        @csrf
+                        <button type="submit">退勤</button>
+                    </form>
+                </div>
             </div>
-            <div class="attendance_buttons">
-                <form action={{ url('/main/end') }} method="POST">
-                    @csrf
-                    <button type="submit">退勤</button>
-                </form>
+
+            <div class="time_area">
+                <div class="clock">
+                    <p class="clock_top_text">現在の時刻は</p>
+                    <p>
+                        <span id="show_hour"></span>時
+                        <span id="show_min"></span>分
+                        <span id="show_sec"></span>秒
+                    </p>
+                </div>
             </div>
         </div>
 
         <div class="other_area">
 
-        </div>
-
-        <div class="time_area">
-            <p id="clock"></p>
         </div>
     </div>
     @if (session('message'))
@@ -45,7 +54,7 @@
     <a href={{ url('/salary') }}>給与更新リンク</a>
     <a href={{ url('/list') }}>給与確認リンク</a>
     <a href={{ url('/main/calendar') }}>カレンダーリンク</a>
-@vite('resources/js/main.js')
+    @vite('resources/js/main.js')
 </body>
 
 </html>
