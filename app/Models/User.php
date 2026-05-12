@@ -12,6 +12,7 @@ use App\Models\Schedule; // スケジュールとの接続
 use App\Models\SalaryRequest; // 給与更新との接続
 use App\Models\PtoRequest;
 use App\Models\Role;
+use App\Models\Projects;
 
 /**
  * @mixin IdeHelperUser
@@ -72,5 +73,9 @@ class User extends Authenticatable
 
     public function roles() {
         return $this->belongsTo(Role::class);
+    }
+
+    public function projects () {
+        return $this->belongsToMany(Projects::class);
     }
 }

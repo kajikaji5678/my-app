@@ -14,6 +14,25 @@
 namespace App\Models{
 /**
  * @property int $id
+ * @property string $name
+ * @property string|null $deadline
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects whereDeadline($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Projects whereUpdatedAt($value)
+ */
+	class Projects extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property int $user_id
  * @property string $start_date
  * @property string $end_date
@@ -44,8 +63,8 @@ namespace App\Models{
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Role|null $role
- * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user
+ * @property-read int|null $user_count
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role query()
@@ -153,11 +172,13 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $hourly_wage
  * @property int $salary_sum
- * @property string $role
+ * @property int $role_id
+ * @property int $admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PtoRequest> $ptoRequest
  * @property-read int|null $pto_request_count
+ * @property-read \App\Models\Role|null $roles
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SalaryRequest> $salaryRequest
  * @property-read int|null $salary_request_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Schedule> $schedules
@@ -170,6 +191,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
@@ -178,7 +200,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSalarySum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
