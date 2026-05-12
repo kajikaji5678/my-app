@@ -3,11 +3,11 @@ p {
 }
 
 .main {
-    margin-top: 100px;
+    margin-top: 10vh;
     width: 60%;
     margin-right: auto;
     margin-left: auto;
-    height: 500px;
+    height: 70vh;
     background-color: rgb(188, 213, 255);
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
     padding: 50px 50px;

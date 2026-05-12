@@ -13,7 +13,7 @@
     <div class="main">
         <div class="area1">
             <div class="buttons_area">
-                <div class="attendance_buttons {{$working ? 'active' : ''}}">
+                <div class="attendance_buttons {{ $working ? 'active' : '' }}">
                     <form action={{ url('/main/post') }} method="POST">
                         @csrf
                         <button type="submit">
@@ -41,17 +41,25 @@
             </div>
         </div>
 
-        <div class="other_area">
+        <div class="area2">
+            <div class="other_buttons">
+                <div class="right_large_circle">
+                    <div class="rigth_small_circle">
 
+                    </div>
+                </div>
+                <div class="left_string">
+                    <a href={{ url('/salary') }}>給与更新リンク</a>
+                </div>
+            </div>
         </div>
     </div>
     @if (session('message'))
-    <p>{{ session('message') }}</p>
+        <p>{{ session('message') }}</p>
     @endif
     @if (session('error'))
-    <p>{{ session('error') }}</p>
+        <p>{{ session('error') }}</p>
     @endif
-    <a href={{ url('/salary') }}>給与更新リンク</a>
     <a href={{ url('/list') }}>給与確認リンク</a>
     <a href={{ url('/main/calendar') }}>カレンダーリンク</a>
     @vite('resources/js/main.js')
