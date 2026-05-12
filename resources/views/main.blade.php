@@ -51,16 +51,11 @@
 
                     </div>
                     <div class="def_view">
-                        <div class="left_large_circle">
-                        </div>
-                        <div class="right_string">
-                            <p>給与関連一覧</p>
-                        </div>
+                        <p>給与関連一覧</p>
                     </div>
                     <div class="act_view">
-                        <div class="right_string">
-                            <a href={{ url('/salary') }}>給与更新リンク</a>
-                        </div>
+                        <a href={{ url('/salary') }} class="act_view_button">給与更新リンク</a>
+                        <a href={{ url('/list') }} class="act_view_button">給与確認リンク</a>
                     </div>
                 </div>
                 <div class="other_buttons">

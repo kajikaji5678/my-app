@@ -160,12 +160,17 @@ button {
     opacity: 0;
 }
 
-.act_view {
-    display: none;
+.def_view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-.def_view {
-    height: 100%;
+
+.act_view {
+    display: none;
+
 }
 
 .other_buttons.active .def_view {
@@ -173,5 +178,21 @@ button {
 }
 
 .other_buttons.active .act_view {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.act_view_button {
+    width: 150px;
+    height: 60px;
+    border-radius: 4px;
+    background-color: #BCD5FF;
+    text-align: center;
+    padding-top: 20px;
+    text-decoration: none;
+    color: white;
+    box-shadow: 7px 7px 0px 0px rgba(0, 0, 0, 0.4);
+    margin-top: 15px;
+}
+
