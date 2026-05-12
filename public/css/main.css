@@ -7,16 +7,42 @@ p {
     width: 60%;
     margin-right: auto;
     margin-left: auto;
-    height: 70vh;
+    height: 60vh;
     background-color: rgb(188, 213, 255);
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
     padding: 50px 50px;
     border-radius: 16px;
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
-.area1 {
+.top_area {
+    height: 10%;
+    background-color: white;
+    text-align: center;
+}
+
+.bottom_area {
+    height: 90%;
+    display: flex;
+    gap: 50px;
+}
+
+.bottom_area_1 {
     width: 40%;
     height: 100%;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+}
+
+.buttom_area_2 {
+    height: 100%;
+    width: 60%;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
 }
 
 .buttons_area {
@@ -29,8 +55,7 @@ p {
 
 .time_area {
     width: 100%;
-    height: 25%;
-    margin-top: 30px;
+    height: 30%;
     background-color: rgb(20, 75, 171);
     align-items: center;
     justify-content: center;
@@ -42,7 +67,7 @@ p {
     text-shadow: 0 0 20px #0aafe6;
     line-height: 1.2;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 #show_hour,
@@ -103,4 +128,50 @@ button {
 
     /* 3. クリック時の反応などを調整 */
     cursor: pointer;
+}
+
+.other_buttons {
+    border-radius: 32px;
+    background-color: rgb(132, 228, 132);
+    height: 25%;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    transition: 0.4s;
+}
+
+.left_large_circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    top: 0;
+}
+
+.right_string {
+    text-align: center;
+    height: 100%;
+}
+
+
+.buttom_area_2.opened .other_buttons:not(.active) {
+    flex: 0;
+    opacity: 0;
+}
+
+.act_view {
+    display: none;
+}
+
+.def_view {
+    height: 100%;
+}
+
+.other_buttons.active .def_view {
+    display: none;
+}
+
+.other_buttons.active .act_view {
+    display: block;
 }

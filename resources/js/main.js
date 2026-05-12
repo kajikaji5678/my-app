@@ -13,3 +13,21 @@ function updateClock() {
 updateClock();
 
 setInterval(updateClock, 1000);
+
+const items = document.querySelectorAll('.other_buttons');
+const parent = document.querySelector('.buttom_area_2')
+
+items.forEach(item => {
+    item.addEventListener('click', () => {
+        if(item.classList.contains('active')) {
+            items.forEach(i => i.classList.remove('active'));
+            parent.classList.remove('opened');
+            return;
+        }
+
+        items.forEach(i => i.classList.remove('active'));
+
+        item.classList.add('active');
+        parent.classList.add('opened');
+    });
+});
