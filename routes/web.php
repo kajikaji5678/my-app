@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WorkTimeController;
-use App\Http\Controllers\UpdateSalary;
-use App\Http\Controllers\ListUp;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ListUp;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\UpdateSalary;
+use App\Http\Controllers\WorkTimeController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/main/end', [WorkTimeController::class, 'end']);
     Route::get('/main/list', [WorkTimeController::class, 'get']);
 
-    Route::get('/salary', function() {
+    Route::get('/salary', function () {
         return view('salary');
     });
     Route::post('/salary/update', [UpdateSalary::class, 'up']);
 
-    Route::get('/list', function() {
+    Route::get('/list', function () {
         return view('list');
     });
     Route::post('/list/narrow', [ListUp::class, 'list']);
@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function () {
         return view('calender');
     });
     Route::get('/main/schedules', [ScheduleController::class, 'get']);
-    Route::post('/main/schedules', [ScheduleController::class, 'register']);
+    Route::post('/main/a', [ScheduleController::class, 'register']);
 });
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
@@ -60,7 +60,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/working', [AdminController::class, 'working']);
     Route::get('/admin/salary_total', [AdminController::class, 'monthlySalaryTotal']);
 
-    //申請リスト一覧
+    // 申請リスト一覧
     Route::get('/admin/request', function () {
         return view('/admin/request');
     });

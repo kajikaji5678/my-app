@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const endTime = prompt('終了時間');
             if (!endTime) return;
 
-            fetch('/main/schedules', {
+            fetch('/main/a', {
                 method: 'POST',
+                credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -51,22 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     end_time: endTime,
                     status: 'pending'
                 })
-            })
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error(res.status);
-                }
-                return res.json();
-            })
-            .then(data => {
-                calendar.addEvent({
-                    title: `${data.title} ${data.start_time} ~ ${data.end_time}`,
-                    start: data.date,
-                    color: 'orange'
-                });
-            })
-            .catch(error => {
-                console.error(error);
             });
         }
     });

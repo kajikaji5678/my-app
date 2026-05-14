@@ -13,7 +13,8 @@ class ScheduleController extends Controller
     }
 
     public function register(Request $request) {
-        $schedule = Schedule::create([
+        try {
+            Schedule::create([
             'title' => $request->title,
             'date' => $request->date,
             'user_id' => Auth::id(),
@@ -21,10 +22,8 @@ class ScheduleController extends Controller
             'end_time' => $request->end_time,
             'status' => $request->status
         ]);
-
-        return response()->json([
-            'title' => $schedule->title,
-            'date' => $request->date,
-        ]);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
 }
