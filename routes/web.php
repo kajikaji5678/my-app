@@ -62,13 +62,18 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
     // 申請リスト一覧
     Route::get('/admin/request', function () {
-        return view('/admin/request');
+        return view('admin.request');
     });
 
     // 給与変更の承認
     Route::get('/admin/salaryList', [AdminController::class, 'salaryList']);
     Route::post('/admin/salary/{salaryRequest}/approve', [AdminController::class, 'approve']);
     Route::post('/admin/salary/{Request}/reject', [AdminController::class, 'reject']);
+
+    // ガントチャートテスト
+    Route::get('/admin/chartList', function() {
+        return view('admin.chartList');
+    });
 });
 
 require __DIR__.'/auth.php';
