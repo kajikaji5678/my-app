@@ -22,8 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 successCallback(
                     data.map(item => ({
-                        title: item.title,
-                        start: item.date
+                        title: `${item.title}. ${item.start_time} ~ ${item.end_time}`,
+                        start: item.date,
+                        color: item.status === 'approve' ? 'green' : 'orange'
                     }))
                 )
             });
