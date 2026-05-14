@@ -1,7 +1,6 @@
 import { Calendar } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { start } from 'alpinejs';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -48,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({
                     title: title,
                     date: info.dateStr,
-                    startTime: startTime,
+                    start_time: startTime,
                     end_time: endTime,
                     status: 'pending'
                 })

@@ -17,6 +17,9 @@ class ScheduleController extends Controller
             'title' => $request->title,
             'date' => $request->date,
             'user_id' => Auth::id(),
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'status' => $request->status
         ]);
 
         return response()->json([
