@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\Authenticate;
 use App\Models\SalaryRequest;
-use Illuminate\Http\Request;
+use App\Models\Schedule;
 use App\Models\StartAndEndTime;
 use App\Models\User;
 use Auth;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -20,6 +19,7 @@ class AdminController extends Controller
     public function working()
     {
         $workingUsers = StartAndEndTime::with('user')->where('status', 1)->get();
+
         return view('admin.working', compact('workingUsers'));
     }
 
@@ -29,6 +29,7 @@ class AdminController extends Controller
             ->with(['user'])
             ->latest()
             ->get();
+
         // dd($requests->toArray());
         // デバック確認済み
         return view('admin.salary_change', compact('requests'));
@@ -68,7 +69,7 @@ class AdminController extends Controller
 
         return response()->json([
             'message' => '承認しました'],
-        200, [], JSON_UNESCAPED_UNICODE);
+            200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function reject(SalaryRequest $salaryRequest)
@@ -82,5 +83,12 @@ class AdminController extends Controller
         $salaryRequest->save();
 
         return response()->json(['message' => '却下しました']);
+    }
+
+    // シフト表
+    public function shift()
+    {
+        $works = Schedule::with('user:name,id')->get();
+        return view('admin.chartList', compact('works'));
     }
 }

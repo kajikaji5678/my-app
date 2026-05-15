@@ -71,9 +71,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/admin/salary/{Request}/reject', [AdminController::class, 'reject']);
 
     // ガントチャートテスト
-    Route::get('/admin/chartList', function() {
-        return view('admin.chartList');
-    });
+    Route::get('/admin/chartList', [AdminController::class, 'shift']);
 });
 
 require __DIR__.'/auth.php';
