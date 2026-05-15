@@ -8,7 +8,6 @@
 // const startIndex = startHour - 9;
 // const endIndex = endHour - 9;
 
-console.table(data);
 
 for (let j = 0; j < data.length; j++) {
     const createChartbox = document.createElement('div');
