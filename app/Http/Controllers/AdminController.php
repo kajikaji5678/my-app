@@ -88,7 +88,12 @@ class AdminController extends Controller
     // シフト表
     public function shift()
     {
-        $works = Schedule::with('user:name,id')->get();
+        $works = Schedule::with('user:name,id')->get()
+            ->map(fn($w) => [
+                'name' => $w->user->name ?? null,
+                'start_time' => $w->start_time,
+                'end_time' => $w->end_time,
+            ]);
         return view('admin.chartList', compact('works'));
     }
 }
