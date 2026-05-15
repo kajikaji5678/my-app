@@ -7,13 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/chartList.css') }}">
 </head>
 <body>
-    <table>
-        <tr>
-            <th>×</th><th>6:00</th><th>8:00</th><th>10:00</th>
-        </tr>
-        <tr>
-            <th>福田</th><th>6:00</th><th>8:00</th><th>10:00</th>
-        </tr>
-    </table>
+    <div class="main">
+        <div class="row_height"></div>
+        <div class="row_width"></div>
+        <div class="content"></div>
+    </div>
 </body>
 </html>
