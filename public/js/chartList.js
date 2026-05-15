@@ -1,15 +1,14 @@
-const data = [
-    { name: "Aさん", start_time: "10:00", end_time: "11:00" },
-    { name: "Bさん", start_time: "13:00", end_time: "18:00" },
-];
-
+// const data = [
+//     { name: "Aさん", start_time: "10:00", end_time: "11:00" },
+//     { name: "Bさん", start_time: "13:00", end_time: "18:00" },
+// ];
 // const startHour = Number(data.start_time.split(':')[0]);
 // const endHour = Number(data.end_time.split(':')[0]);
 
 // const startIndex = startHour - 9;
 // const endIndex = endHour - 9;
 
-
+console.table(data);
 
 for (let j = 0; j < data.length; j++) {
     const createChartbox = document.createElement('div');
@@ -26,7 +25,7 @@ for (let j = 0; j < data.length; j++) {
 
         const newDiv = document.createElement("div");
         newDiv.classList.add('box');
-        if (active) newDiv.classList.add('act');
+        if (active) newDiv.classList.add('act')
         createChartbox.appendChild(newDiv);
     }
 }

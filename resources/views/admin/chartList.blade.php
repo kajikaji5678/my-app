@@ -26,6 +26,10 @@
         </div>
     </div>
 
+    <script>
+        const data = @json($works);
+        console.log(data);
+    </script>
     <script src="{{ asset('js/chartList.js') }}"></script>
 </body>
 
