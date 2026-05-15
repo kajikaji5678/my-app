@@ -1,3 +1,18 @@
-table {
+.main {
     width: 80%;
+    height: 80vh;
+    margin: 0 auto;
+    position: relative;
+    background-color: rgb(213, 235, 253);
+    margin-top: 100px;
+}
+
+.row_height {
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    border-right: 3px solid #333;
 }
