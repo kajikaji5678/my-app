@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ガントチャートテスト</title>
-    <link rel="stylesheet" href="{{ asset('css/chartList.css') }}"
+    <link rel="stylesheet" href="{{ asset('css/chartList.css') }}">
 </head>
+
 <body>
+    <script src="{{ asset('js/chartList.js') }}"></script>
     <div class="main">
         <div class="row_height">
             <div class="row_height_content">
@@ -33,7 +36,7 @@
                 <div class="box"></div>
                 <div class="box"></div>
                 <div class="box"></div>
-                <div class="box act"></div>
+                <div class="box"></div>
                 <div class="box"></div>
                 <div class="box"></div>
                 <div class="box"></div>
@@ -42,4 +45,5 @@
         </div>
     </div>
 </body>
+
 </html>
