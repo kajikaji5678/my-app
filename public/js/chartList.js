@@ -10,14 +10,13 @@ const endHour = Number(data.end_time.split(':')[0]);
 const startIndex = startHour - 9;
 const endIndex = endHour - 9;
 
-let html = '';
+const box = document.querySelector('.content_1');
 
 for (let i = 0; i < 14; i++) {
     const active = i >= startIndex && i < endIndex;
 
-    html += `
-        <div class="box ${active ? 'act' : ''}<div>"
-    `;
+    const newDiv = document.createElement("div");
+    newDiv.classList.add('box');
+    if (active) newDiv.classList.add('act');
+    document.querySelector('.content_1').appendChild(newDiv);
 }
-
-document.querySelector('.content_1').innerHTML = html;

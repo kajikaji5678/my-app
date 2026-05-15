@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <script src="{{ asset('js/chartList.js') }}"></script>
+
     <div class="main">
         <div class="row_height">
             <div class="row_height_content">
@@ -27,23 +27,11 @@
         </div>
         <div class="content">
             <div class="content_1">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/chartList.js') }}"></script>
 </body>
 
 </html>
