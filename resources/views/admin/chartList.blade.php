@@ -12,9 +12,6 @@
 
     <div class="main">
         <div class="row_height">
-            <div class="row_height_content">
-                <p>あああ</p>
-            </div>
         </div>
         <div class="row_width">
             <div class="row_width_content">9:00</div>
@@ -26,8 +23,6 @@
             <div class="row_width_content">23:00</div>
         </div>
         <div class="content">
-            <div class="content_1">
-            </div>
         </div>
     </div>
 
