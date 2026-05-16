@@ -24,6 +24,12 @@
         </div>
         <div class="content">
         </div>
+        <div class="back">
+            <p>前日</p>
+        </div>
+        <div class="next">
+            <p>翌日</p>
+        </div>
     </div>
 
     <script>

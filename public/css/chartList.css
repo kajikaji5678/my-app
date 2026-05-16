@@ -77,3 +77,23 @@
 .box.act {
     background-color: rebeccapurple;
 }
+
+.back,
+.next {
+    border-radius: 50%;
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    background-color: rgb(198, 255, 231);
+    top: -50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.back {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}

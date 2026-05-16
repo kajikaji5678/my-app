@@ -1,38 +1,50 @@
+// 現在時刻
+// ただし下記はあくまで文字列としてあつかっているので不採用
+// const now = new Date();
+// const formatted = now
+//     .toLocaleDateString("ja-JP", {
+//         year: "numeric",
+//         month: "2-digit",
+//         day: "2-digit",
+//     })
+//     .split("/")
+//     .join("-");
+// const date2 = date.filter(item => item.date === formatted);
 
 
-// 計算・描写を行う関数
-function content() {
-    for (let j = 0; j < data.length; j++) {
-        const createChartbox = document.createElement('div');
-        createChartbox.classList.add('content_1');
-        document.querySelector('.content').appendChild(createChartbox);
+// 現在時刻
+let now = new Date();
+let year = now.getFullYear();
+let month = now.getMonth() + 1;
+let day = now.getDate();
 
-        for (let i = 0; i < 14; i++) {
-            const startHour = Number(data[j].start_time.split(':')[0]);
-            const endHour = Number(data[j].end_time.split(':')[0]);
+// 当日の配列を組む関数
+function createNameArray() {
+    // データの数字（文字列）を数値に変換した
+    const arrayInt = data.map(item => item.date.split("-").map(Number));
+    const data2 = [];
 
-            const startIndex = startHour - 9;
-            const endIndex = endHour - 9;
-            const active = i >= startIndex && i < endIndex;
-
-            const newDiv = document.createElement("div");
-            newDiv.classList.add('box');
-            if (active) newDiv.classList.add('act')
-            createChartbox.appendChild(newDiv);
+    for (let i = 0; i < data.length; i++) {
+        if (year === arrayInt[i][0] && month === arrayInt[i][1] && day === arrayInt[i][2]) {
+            data2.push(data[i]);
         }
     }
+
+    return data2;
 }
 
 // 列側の名前を入れる関数
 // dateの長さは人数分
 // 順番は子から親に連結させていくイメージ
 function nameList() {
-    for (let i = 0; i < data.length; i++) {
+    const data2 = createNameArray();
+    console.log(data2);
+    for (let i = 0; i < data2.length; i++) {
         // 子コード
         /// pタグを生成する
         /// pタグのテキストをデータからとってくる
         const p = document.createElement('p');
-        p.textContent = data[i].name;
+        p.textContent = data2[i].name;
         // 親コード
         /// pタグの親であるdivタグを生成する
         /// 親にクラス名をつける
@@ -45,30 +57,29 @@ function nameList() {
     }
 }
 
-// 現在時刻
-// ただし下記はあくまで文字列としてあつかっているので不採用
-// const now = new Date();
-// const formatted = now
-//     .toLocaleDateString("ja-JP", {
-//         year: "numeric",
-//         month: "2-digit",
-//         day: "2-digit",
-//     })
-//     .split("/")
-//     .join("-");
+// 計算・描写を行う関数
+function content() {
+    const data2 = createNameArray();
+    for (let j = 0; j < data2.length; j++) {
+        const createChartbox = document.createElement('div');
+        createChartbox.classList.add('content_1');
+        document.querySelector('.content').appendChild(createChartbox);
 
-// const date2 = date.filter(item => item.date === formatted);
+        for (let i = 0; i < 14; i++) {
+            const startHour = Number(data2[j].start_time.split(':')[0]);
+            const endHour = Number(data2[j].end_time.split(':')[0]);
 
-// 現在時刻
-const now = new Date();
-const year = now.getFullYear();
-const month = now.getMonth();
-const day = now.getDate();
+            const startIndex = startHour - 9;
+            const endIndex = endHour - 9;
+            const active = i >= startIndex && i < endIndex;
 
-const arrayString = data.map(item => item.date);
-const split = arrayString[0].split("-");
-console.log(split);
-
+            const newDiv = document.createElement("div");
+            newDiv.classList.add('box');
+            if (active) newDiv.classList.add('act')
+            createChartbox.appendChild(newDiv);
+        }
+    }
+}
 
 window.addEventListener('DOMContentLoaded', () => {
     nameList();
