@@ -1,3 +1,6 @@
+
+
+// 計算・描写を行う関数
 function content() {
     for (let j = 0; j < data.length; j++) {
         const createChartbox = document.createElement('div');
@@ -21,7 +24,7 @@ function content() {
 }
 
 // 列側の名前を入れる関数
-// dataの長さは人数分
+// dateの長さは人数分
 // 順番は子から親に連結させていくイメージ
 function nameList() {
     for (let i = 0; i < data.length; i++) {
@@ -41,6 +44,31 @@ function nameList() {
         document.querySelector('.row_height').appendChild(createBox);
     }
 }
+
+// 現在時刻
+// ただし下記はあくまで文字列としてあつかっているので不採用
+// const now = new Date();
+// const formatted = now
+//     .toLocaleDateString("ja-JP", {
+//         year: "numeric",
+//         month: "2-digit",
+//         day: "2-digit",
+//     })
+//     .split("/")
+//     .join("-");
+
+// const date2 = date.filter(item => item.date === formatted);
+
+// 現在時刻
+const now = new Date();
+const year = now.getFullYear();
+const month = now.getMonth();
+const day = now.getDate();
+
+const arrayString = data.map(item => item.date);
+const split = arrayString[0].split("-");
+console.log(split);
+
 
 window.addEventListener('DOMContentLoaded', () => {
     nameList();
