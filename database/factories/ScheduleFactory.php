@@ -27,7 +27,8 @@ class ScheduleFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id,
             'start_time' => $start,
             'end_time' => $end,
-            'title' => "あああ"
+            'title' => "あああ",
+            'date' => Carbon::create(2026, 5, rand(16, 18)),
         ];
     }
 }

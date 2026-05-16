@@ -93,7 +93,7 @@ class AdminController extends Controller
                 'name' => $w->user->name ?? null,
                 'start_time' => $w->start_time,
                 'end_time' => $w->end_time,
-                'data' => $w->data,
+                'date' => $w->date,
             ]);
         return view('admin.chartList', compact('works'));
     }
