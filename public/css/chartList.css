@@ -75,7 +75,8 @@
 }
 
 .box.act {
-    background-color: rebeccapurple;
+    background-color: orange;
+    cursor: pointer;
 }
 
 .back,

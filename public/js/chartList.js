@@ -11,12 +11,36 @@
 //     .join("-");
 // const date2 = date.filter(item => item.date === formatted);
 
+// クリア関数
+function clearView() {
+    document.querySelector(".row_height").innerHTML = "";
+    document.querySelector(".content").innerHTML = "";
+}
+
+// セレクタ宣言
+const back = document.querySelector(".back");
+const next = document.querySelector(".next");
 
 // 現在時刻
 let now = new Date();
 let year = now.getFullYear();
 let month = now.getMonth() + 1;
 let day = now.getDate();
+
+// 時刻いじって描写
+back.addEventListener('click', () => {
+    day -= 1;
+    clearView();
+    nameList();
+    content();
+});
+
+next.addEventListener('click', () => {
+    day += 1;
+    clearView();
+    nameList();
+    content();
+});
 
 // 当日の配列を組む関数
 function createNameArray() {
@@ -81,7 +105,14 @@ function content() {
     }
 }
 
+// 1度だけ発火するもの
 window.addEventListener('DOMContentLoaded', () => {
     nameList();
     content();
+    document.querySelectorAll('.box.act').forEach(box => {
+        box.addEventListener('click', () => {
+        });
+    });
+
+    console.log();
 });
