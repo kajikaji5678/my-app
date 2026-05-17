@@ -11,6 +11,8 @@
 //     .join("-");
 // const date2 = date.filter(item => item.date === formatted);
 
+const token = document.querySelector('meta[name="csrf-token"]').content;
+
 // クリア関数
 function clearView() {
     document.querySelector(".row_height").innerHTML = "";
@@ -100,6 +102,7 @@ function content() {
             const newDiv = document.createElement("div");
             newDiv.classList.add('box');
             if (active) newDiv.classList.add('act')
+            if (active) newDiv.dataset.userId = data2[j].user_id;
             createChartbox.appendChild(newDiv);
         }
     }
@@ -110,9 +113,22 @@ window.addEventListener('DOMContentLoaded', () => {
     nameList();
     content();
     document.querySelectorAll('.box.act').forEach(box => {
-        box.addEventListener('click', () => {
+        box.addEventListener('click',async (el) => {
+            const box = el.target.closest('.box.act');
+            const userId = box.dataset.userId;
+            const res = await fetch(`/admin/chartList/approved/`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    "X-CSRF-TOKEN": token
+                },
+                body: JSON.stringify({
+                    user_id: userId
+                })
+            });
+
+            const data = await res.json();
+            alert(data.message);
         });
     });
-
-    console.log();
 });

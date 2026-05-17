@@ -72,6 +72,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
     // ガントチャートテスト
     Route::get('/admin/chartList', [AdminController::class, 'shift']);
+    Route::post('/admin/chartList/approved', [AdminController::class, 'shiftApproved']);
 });
 
 require __DIR__.'/auth.php';

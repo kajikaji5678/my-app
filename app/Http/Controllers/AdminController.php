@@ -94,7 +94,19 @@ class AdminController extends Controller
                 'start_time' => $w->start_time,
                 'end_time' => $w->end_time,
                 'date' => $w->date,
+                'user_id' => $w->user_id,
             ]);
         return view('admin.chartList', compact('works'));
     }
+
+    public function shiftApproved(Request $request) {
+        $schedule = Schedule::find($request->user_id);
+        $schedule->approve = 'approved';
+        $schedule->save();
+
+        return response()->json([
+            'message' => '承認しました'
+        ]);
+    }
+
 }
