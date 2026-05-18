@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\StartAndEndTime; // 出勤退勤時間との接続
-use App\Models\Schedule; // スケジュールとの接続
+use App\Models\Schedules; // スケジュールとの接続
 use App\Models\SalaryRequest; // 給与更新との接続
 use App\Models\PtoRequest;
 use App\Models\Role;
@@ -60,7 +60,7 @@ class User extends Authenticatable
     }
 
     public function schedules() {
-        return $this->hasMany(Schedule::class);
+        return $this->hasMany(Schedules::class);
     }
 
     public function salaryRequest() {

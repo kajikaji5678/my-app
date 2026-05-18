@@ -120,6 +120,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                     "X-CSRF-TOKEN": token
                 },
                 body: JSON.stringify({
@@ -128,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await res.json();
-            alert(data.message);
+            console.log(data);
         });
     });
 });

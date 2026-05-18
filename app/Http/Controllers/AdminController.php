@@ -101,7 +101,7 @@ class AdminController extends Controller
 
     public function shiftApproved(Request $request) {
         $schedule = Schedule::find($request->user_id);
-        $schedule->approve = 'approved';
+        $schedule->status = 'approved';
         $schedule->save();
 
         return response()->json([
