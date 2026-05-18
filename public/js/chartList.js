@@ -101,7 +101,8 @@ function content() {
 
             const newDiv = document.createElement("div");
             newDiv.classList.add('box');
-            if (active) newDiv.classList.add('act')
+            if (active && data2[j].status === 'pending') newDiv.classList.add('act_pending');
+            if (active && data2[j].status === 'approved') newDiv.classList.add('act_approved');
             if (active) newDiv.dataset.userId = data2[j].user_id;
             if (active) newDiv.dataset.id = data2[j].id;
             createChartbox.appendChild(newDiv);
@@ -113,26 +114,30 @@ function content() {
 window.addEventListener('DOMContentLoaded', () => {
     nameList();
     content();
-    document.querySelectorAll('.box.act').forEach(box => {
-        box.addEventListener('click',async (el) => {
-            const box = el.target.closest('.box.act');
-            const userId = box.dataset.userId;
-            const id = box.dataset.id
-            const res = await fetch(`/admin/chartList/approved/`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    "X-CSRF-TOKEN": token
-                },
-                body: JSON.stringify({
-                    user_id: userId,
-                    id: id
-                })
-            });
+});
 
-            const data = await res.json();
-            alert(data.message);
-        });
+document.addEventListener('click', async (el) => {
+    const box = el.target.closest('.box.act_pending');
+    if (!box) return;
+
+    const userId = box.dataset.userId;
+    const id = box.dataset.id;
+
+    const res = await fetch('/admin/chartList/approved/', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "X-CSRF-TOKEN": token
+        },
+        body: JSON.stringify({
+            user_id: userId,
+            id: id
+        })
     });
+
+    const data = await res.json();
+    alert(data.message);
+
+    location.reload();
 });

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Schedule;
+use App\Models\Schedules;
 use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
     public function get() {
-        return Schedule::where('user_id', Auth::id())->get();
+        return Schedules::where('user_id', Auth::id())->get();
     }
 
     public function register(Request $request) {
         try {
-            Schedule::create([
+            Schedules::create([
             'title' => $request->title,
             'date' => $request->date,
             'user_id' => Auth::id(),

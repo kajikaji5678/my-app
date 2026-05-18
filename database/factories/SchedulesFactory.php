@@ -9,7 +9,7 @@ use App\Models\User;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Schedule>
  */
-class ScheduleFactory extends Factory
+class SchedulesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,7 @@ class ScheduleFactory extends Factory
      */
     public function definition(): array
     {
-        $baseDate = Carbon::create(2026, 5, 13);
+        $baseDate = Carbon::create(2026, 5, rand(19, 30));
         $startHour = rand(9, 14);
         $start = (clone $baseDate)->setTime($startHour, 0);
         $duration = rand(2, 5);
@@ -28,7 +28,7 @@ class ScheduleFactory extends Factory
             'start_time' => $start,
             'end_time' => $end,
             'title' => "あああ",
-            'date' => Carbon::create(2026, 5, rand(16, 18)),
+            'date' => $baseDate,
         ];
     }
 }

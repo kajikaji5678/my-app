@@ -21,7 +21,6 @@ class StartAndEndTimeFactory extends Factory
         $start = (clone $date)->setTime(rand(9, 11), rand(0,59));
         $end = (clone $start)->addHours(rand(8, 10));
         return [
-            'user_id' => 1,
             'start_time' => $start,
             'end_time' => $end,
             'created_at' => now(),

@@ -18,7 +18,7 @@ class StartAndEndTimeSeeder extends Seeder
         $users = User::all();
         // 各ユーザーに勤怠5件
         foreach($users as $user) {
-            StartAndEndTime::factory()->count(5)->create(['user_id' => $user->id]);
+            StartAndEndTime::factory()->count(20)->create(['user_id' => $user->id]);
         } 
     }
 }

@@ -74,9 +74,13 @@
     height: 100%;
 }
 
-.box.act {
+.box.act_pending {
     background-color: orange;
     cursor: pointer;
+}
+
+.box.act_approved {
+    background-color: green;
 }
 
 .back,
