@@ -103,6 +103,7 @@ function content() {
             newDiv.classList.add('box');
             if (active) newDiv.classList.add('act')
             if (active) newDiv.dataset.userId = data2[j].user_id;
+            if (active) newDiv.dataset.id = data2[j].id;
             createChartbox.appendChild(newDiv);
         }
     }
@@ -116,6 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
         box.addEventListener('click',async (el) => {
             const box = el.target.closest('.box.act');
             const userId = box.dataset.userId;
+            const id = box.dataset.id
             const res = await fetch(`/admin/chartList/approved/`, {
                 method: "POST",
                 headers: {
@@ -124,12 +126,13 @@ window.addEventListener('DOMContentLoaded', () => {
                     "X-CSRF-TOKEN": token
                 },
                 body: JSON.stringify({
-                    user_id: userId
+                    user_id: userId,
+                    id: id
                 })
             });
 
             const data = await res.json();
-            console.log(data);
+            alert(data.message);
         });
     });
 });

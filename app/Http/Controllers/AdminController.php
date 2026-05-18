@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SalaryRequest;
-use App\Models\Schedule;
+use App\Models\Schedules;
 use App\Models\StartAndEndTime;
 use App\Models\User;
 use Auth;
@@ -88,19 +88,21 @@ class AdminController extends Controller
     // シフト表
     public function shift()
     {
-        $works = Schedule::with('user:name,id')->get()
+        $works = Schedules::with('user:name,id')->get()
             ->map(fn($w) => [
                 'name' => $w->user->name ?? null,
                 'start_time' => $w->start_time,
                 'end_time' => $w->end_time,
                 'date' => $w->date,
                 'user_id' => $w->user_id,
+                'id' => $w->id,
+                'status' => $w->status,
             ]);
         return view('admin.chartList', compact('works'));
     }
 
     public function shiftApproved(Request $request) {
-        $schedule = Schedule::find($request->user_id);
+        $schedule = Schedules::find($request->id);
         $schedule->status = 'approved';
         $schedule->save();
 

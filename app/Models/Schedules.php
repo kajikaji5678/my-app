@@ -10,7 +10,7 @@ class Schedules extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'user_id', 'date', 'start_time', 'end_time', 'status'];
+    protected $fillable = ['title', 'id', 'user_id', 'date', 'start_time', 'end_time', 'status'];
 
     public function user() {
         return $this->belongsTo(User::class);
