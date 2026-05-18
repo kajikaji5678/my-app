@@ -72,6 +72,10 @@ document.getElementById('saveEvent').addEventListener('click', () => {
     closeModal();
 });
 
+document.querySelector('.close_button').addEventListener('click', () => {
+    closeModal();
+});
+
 // fetch('/main/a', {
 //     method: 'POST',
 //     credentials: 'same-origin',

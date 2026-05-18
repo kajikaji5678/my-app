@@ -25,7 +25,9 @@
                 <button id="closeModal">キャンセル</button>
                 <button id="saveEvent">保存</button>
             </div>
+            <div class="close_button"><p>閉じる</p></div>
         </div>
+    </div>
 </body>
 
 </html>
