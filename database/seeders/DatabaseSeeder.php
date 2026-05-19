@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             StartAndEndTimeSeeder::class,
             SalaryRequestSeeder::class,
             PtoRequestSeeder::class,
-            ProjectSeeder::class,
+            ProjectsSeeder::class,
             ProjectUserSeeder::class,
         ]);
     }

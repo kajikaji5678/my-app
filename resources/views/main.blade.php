@@ -12,7 +12,9 @@
 <body>
     <div class="main">
         <div class="top_area">
-            <p>お知らせお知らせ</p>
+            <div class="notice_text">
+                {{ $absenceWarning }}
+            </div>
         </div>
         <div class="bottom_area">
             <div class="bottom_area_1">
@@ -100,6 +102,8 @@
     <a href={{ url('/list') }}>給与確認リンク</a>
     <a href={{ url('/main/calendar') }}>カレンダーリンク</a>
     @vite('resources/js/main.js')
+
+
 </body>
 
 </html>

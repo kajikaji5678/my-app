@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon; // 時間設計クラスを使用
 use App\Models\StartAndEndTime;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth; // 認証機能クラスを使用
+use App\Models\Schedules;
 
 class WorkTimeController extends Controller
 {
@@ -15,6 +17,19 @@ class WorkTimeController extends Controller
             ->where('status', 1)
             ->whereNull('end_time')
             ->exists();
+        
+        // これはOK
+        $absenceCheck_1 = Schedules::where('user_id', Auth::id())
+            ->where('status', 'approved')
+            ->exists();
+
+        $absenceCheck_2 = StartAndEndTime::where('user_id', Auth::id())
+            ->whereDate('start_time', today())
+            ->doesntExist();
+        
+        if ($absenceCheck_1 && $absenceCheck_2) {
+            return view('main', compact('working'))->with('absenceWarning', '出勤が押されていません！');
+        }
 
         return view('main', compact('working'));
     }
