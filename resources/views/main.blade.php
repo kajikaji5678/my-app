@@ -13,7 +13,9 @@
     <div class="main">
         <div class="top_area">
             <div class="notice_text">
-                {{ $absenceWarning }}
+                @if (session('absenceWarning'))
+                    {{ $absenceWarning }}
+                @endif
             </div>
         </div>
         <div class="bottom_area">
