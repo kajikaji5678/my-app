@@ -44,11 +44,14 @@ next.addEventListener('click', () => {
     content();
 });
 
+console.log(JSON.stringify(data, null, 2));
+
 // 当日の配列を組む関数
 function createNameArray() {
     // データの数字（文字列）を数値に変換した
     const arrayInt = data.map(item => item.date.split("-").map(Number));
     const data2 = [];
+    console.log(arrayInt);
 
     for (let i = 0; i < data.length; i++) {
         if (year === arrayInt[i][0] && month === arrayInt[i][1] && day === arrayInt[i][2]) {
@@ -64,7 +67,6 @@ function createNameArray() {
 // 順番は子から親に連結させていくイメージ
 function nameList() {
     const data2 = createNameArray();
-    console.log(data2);
     for (let i = 0; i < data2.length; i++) {
         // 子コード
         /// pタグを生成する
