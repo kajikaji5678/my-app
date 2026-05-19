@@ -8,6 +8,7 @@ use App\Models\StartAndEndTime;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
+use App\Models\Role;
 
 class AdminController extends Controller
 {
@@ -67,9 +68,14 @@ class AdminController extends Controller
         $user->hourly_wage = $salaryRequest->after_salary;
         $user->save();
 
-        return response()->json([
-            'message' => '承認しました'],
-            200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(
+            [
+                'message' => '承認しました'
+            ],
+            200,
+            [],
+            JSON_UNESCAPED_UNICODE
+        );
     }
 
     public function reject(SalaryRequest $salaryRequest)
@@ -88,6 +94,12 @@ class AdminController extends Controller
     // シフト表
     public function shift()
     {
+        $jobCount = Role::count();
+        
+
+
+        $jobs = Role::with('user')->where('id', 2)->first();
+        
         $works = Schedules::with('user:name,id')->get()
             ->map(fn($w) => [
                 'name' => $w->user->name ?? null,
@@ -98,10 +110,12 @@ class AdminController extends Controller
                 'id' => $w->id,
                 'status' => $w->status,
             ]);
+
         return view('admin.chartList', compact('works'));
     }
 
-    public function shiftApproved(Request $request) {
+    public function shiftApproved(Request $request)
+    {
         $schedule = Schedules::find($request->id);
         $schedule->status = 'approved';
         $schedule->save();
@@ -111,4 +125,5 @@ class AdminController extends Controller
         ]);
     }
 
+    public function user_jobs(Request $request) {}
 }

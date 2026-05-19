@@ -8,6 +8,28 @@ use App\Models\User; // Userモデルと接続
 
 /**
  * @mixin IdeHelperStartAndEndTime
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $start_time
+ * @property \Illuminate\Support\Carbon|null $end_time
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $user_id
+ * @property int $status
+ * @property-read mixed $overtime_minutes
+ * @property-read mixed $salary_sum
+ * @property-read User $user
+ * @method static \Database\Factories\StartAndEndTimeFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime query()
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereUserId($value)
+ * @mixin \Eloquent
  */
 class StartAndEndTime extends Model
 {

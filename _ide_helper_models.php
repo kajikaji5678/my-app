@@ -18,6 +18,9 @@ namespace App\Models{
  * @property string|null $deadline
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\ProjectsFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Projects newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Projects newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Projects query()
@@ -26,6 +29,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Projects whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Projects whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Projects whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Projects extends \Eloquent {}
 }
@@ -40,7 +44,7 @@ namespace App\Models{
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static \Database\Factories\PtoRequestFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest newQuery()
@@ -53,6 +57,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PtoRequest whereUserId($value)
+ * @mixin \Eloquent
  */
 	class PtoRequest extends \Eloquent {}
 }
@@ -63,7 +68,7 @@ namespace App\Models{
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $user
  * @property-read int|null $user_count
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
@@ -72,6 +77,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Role extends \Eloquent {}
 }
@@ -87,7 +93,7 @@ namespace App\Models{
  * @property int|null $approved_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static \Database\Factories\SalaryRequestFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest newQuery()
@@ -101,6 +107,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SalaryRequest whereUserId($value)
+ * @mixin \Eloquent
  */
 	class SalaryRequest extends \Eloquent {}
 }
@@ -110,25 +117,29 @@ namespace App\Models{
  * @property int $id
  * @property int $user_id
  * @property string $title
+ * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $date
- * @property int|null $start_time
- * @property int|null $end_time
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule query()
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereEndTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereStartTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Schedule whereUserId($value)
+ * @property string|null $start_time
+ * @property string|null $end_time
+ * @property-read User $user
+ * @method static \Database\Factories\SchedulesFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schedules whereUserId($value)
+ * @mixin \Eloquent
  */
-	class Schedule extends \Eloquent {}
+	class Schedules extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -143,7 +154,7 @@ namespace App\Models{
  * @property int $status
  * @property-read mixed $overtime_minutes
  * @property-read mixed $salary_sum
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static \Database\Factories\StartAndEndTimeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime newQuery()
@@ -155,6 +166,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StartAndEndTime whereUserId($value)
+ * @mixin \Eloquent
  */
 	class StartAndEndTime extends \Eloquent {}
 }
@@ -176,16 +188,18 @@ namespace App\Models{
  * @property int $admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PtoRequest> $ptoRequest
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Projects> $projects
+ * @property-read int|null $projects_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, PtoRequest> $ptoRequest
  * @property-read int|null $pto_request_count
- * @property-read \App\Models\Role|null $roles
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SalaryRequest> $salaryRequest
+ * @property-read Role|null $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, SalaryRequest> $salaryRequest
  * @property-read int|null $salary_request_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Schedule> $schedules
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Schedules> $schedules
  * @property-read int|null $schedules_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StartAndEndTime> $works
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, StartAndEndTime> $works
  * @property-read int|null $works_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -203,6 +217,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSalarySum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class User extends \Eloquent {}
 }
