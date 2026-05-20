@@ -19,15 +19,16 @@ class SchedulesFactory extends Factory
      */
     public function definition(): array
     {
-        $baseDate = Carbon::create(2026, 5, 19);
+        $baseDate = Carbon::create(2026, 5, 20);
 
         $startHour = rand(9, 14);
         $start = (clone $baseDate)->setTime($startHour, 0);
         $duration = rand(2, 5);
         $end = (clone $start)->addHours($duration);
+        static $userId = 1;
 
         return [
-            'user_id' => User::inRandomOrder()->first()->id,
+            'user_id' => $userId++,
             'start_time' => $start,
             'end_time' => $end,
             'title' => 'あああ',

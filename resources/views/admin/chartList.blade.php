@@ -33,6 +33,17 @@
         </div>
     </div>
 
+    <form action="/admin/chartList/get" method="GET">
+        <select name="item">
+            @foreach ($array as $key => $value)
+            <option value="{{ $key }}">
+                {{ $value }}
+            </option>
+            @endforeach
+        </select>
+        <button type="submit">検索</button>
+    </form>
+
     <script>
         const data = @json($works);
         console.log(data);

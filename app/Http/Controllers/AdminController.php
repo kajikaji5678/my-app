@@ -95,8 +95,12 @@ class AdminController extends Controller
     public function shift()
     {
         $jobCount = Role::count();
-        
+        $jobs = Role::with('user')->get();
+        $array = [];
 
+        for ($i = 0; $i < $jobCount; $i++) {
+            array_push($array, $jobs[$i]->name);
+        }
 
         $jobs = Role::with('user')->where('id', 2)->first();
         
@@ -111,7 +115,7 @@ class AdminController extends Controller
                 'status' => $w->status,
             ]);
 
-        return view('admin.chartList', compact('works'));
+        return view('admin.chartList', compact('works', 'array'));
     }
 
     public function shiftApproved(Request $request)
@@ -125,5 +129,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function user_jobs(Request $request) {}
+    public function get() {
+        dd(request('item'));
+    }
 }
