@@ -36,7 +36,7 @@
     <form action="/admin/chartList/get" method="GET">
         <select name="item">
             @foreach ($array as $key => $value)
-            <option value="{{ $key }}">
+            <option value="{{ $key }}" {{ $key == $item ? 'selected' : '' }}>
                 {{ $value }}
             </option>
             @endforeach

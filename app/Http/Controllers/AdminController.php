@@ -102,8 +102,6 @@ class AdminController extends Controller
             array_push($array, $jobs[$i]->name);
         }
 
-        $jobs = Role::with('user')->where('id', 2)->first();
-        
         $works = Schedules::with('user:name,id')->get()
             ->map(fn($w) => [
                 'name' => $w->user->name ?? null,
@@ -129,7 +127,28 @@ class AdminController extends Controller
         ]);
     }
 
-    public function get() {
-        dd(request('item'));
+    public function get()
+    {
+        $jobCount = Role::count();
+        $jobs = Role::with('user')->get();
+        $array = [];
+
+        for ($i = 0; $i < $jobCount; $i++) {
+            array_push($array, $jobs[$i]->name);
+        }
+        $item = request('item');
+        $condition1 = User::where('role_id', $item + 1)->pluck('id');
+        $condition2 = Schedules::whereIn('user_id', $condition1)->get();
+        $works = $condition2->map(fn($w) => [
+            'name' => $w->user->name,
+            'start_time' => $w->start_time,
+            'end_time' => $w->end_time,
+            'date' => $w->date,
+            'user_id' => $w->user_id,
+            'id' => $w->id,
+            'status' => $w->status,
+        ]);
+
+        return view('admin.chartList', compact('works', 'array', 'item'));
     }
 }
