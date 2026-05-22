@@ -53,6 +53,11 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/main/schedules', [ScheduleController::class, 'get']);
     Route::post('/main/a', [ScheduleController::class, 'register']);
+
+    // タスク管理
+    Route::get('/main/toDo', function () {
+        return view('toDo.main');
+    });
 });
 
 Route::middleware(['auth', 'is_admin'])->group(function () {

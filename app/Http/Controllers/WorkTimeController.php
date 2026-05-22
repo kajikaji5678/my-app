@@ -8,6 +8,8 @@ use App\Models\StartAndEndTime;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth; // 認証機能クラスを使用
 use App\Models\Schedules;
+use DB;
+use App\Models\Projects;
 
 class WorkTimeController extends Controller
 {
@@ -31,7 +33,16 @@ class WorkTimeController extends Controller
             return view('main', compact('working'))->with('absenceWarning', '出勤が押されていません！');
         }
 
-        return view('main', compact('working'));
+        $name = Auth::user()->name;
+        $id = Auth::user()->id;
+        $jobs = DB::table('project_user')->where('user_id', $id)->pluck('project_id');
+        $array = [];
+        
+        foreach ($jobs as $job) {
+            array_push($array, Projects::where('id', $job)->value('name'));
+        }
+
+        return view('main', compact('working', 'name', 'array'));
     }
 
     public function go()

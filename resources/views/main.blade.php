@@ -49,50 +49,19 @@
                 </div>
             </div>
 
-            <div class="buttom_area_2">
-                <div class="other_buttons">
-                    <div class="left_large_circle">
-
-                    </div>
-                    <div class="def_view">
-                        <p>給与関連一覧</p>
-                    </div>
-                    <div class="act_view">
-                        <a href={{ url('/salary') }} class="act_view_button">給与更新リンク</a>
-                        <a href={{ url('/list') }} class="act_view_button">給与確認リンク</a>
-                    </div>
-                </div>
-                <div class="other_buttons">
-                    <div class="left_large_circle">
-                        <div class="rigth_small_circle">
-
-                        </div>
-                    </div>
-                    <div class="right_string">
-                        <a href={{ url('/salary') }}>給与更新リンク</a>
-                    </div>
-                </div>
-                <div class="other_buttons">
-                    <div class="left_large_circle">
-                        <div class="rigth_small_circle">
-
-                        </div>
-                    </div>
-                    <div class="right_string">
-                        <a href={{ url('/salary') }}>給与更新リンク</a>
-                    </div>
-                </div>
-                <div class="other_buttons">
-                    <div class="left_large_circle">
-                        <div class="rigth_small_circle">
-
-                        </div>
-                    </div>
-                    <div class="right_string">
-                        <a href={{ url('/salary') }}>給与更新リンク</a>
-                    </div>
+            <div class="bottom_area_3">
+                <div class="border_top"></div>
+                <p>こんにちは、{{ $name }}さん</p>
+                <p>
+                    @foreach ($array as $job)
+                        {{ $job }}
+                    @endforeach
+                </p>
+                <div class="toDoList">
+                    <div class="right_infinite"></div>
                 </div>
             </div>
+
         </div>
     </div>
     @if (session('message'))
@@ -103,6 +72,7 @@
     @endif
     <a href={{ url('/list') }}>給与確認リンク</a>
     <a href={{ url('/main/calendar') }}>カレンダーリンク</a>
+    <a href={{ url('/salary') }}>給与更新リンク</a>
     @vite('resources/js/main.js')
 
 
