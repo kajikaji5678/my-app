@@ -51,23 +51,25 @@
 
             <div class="bottom_area_3">
                 <div class="border_top"></div>
-                <p>こんにちは、{{ $name }}さん</p>
-                <p>タスク管理</p>
-                <div>
-                    @for ($i = 0; $i < count($array); $i++)
-                        @if ($i % 2 == 0)
-                            <p class="task_list_left">
-                                {{ $array[$i] }}
-                            </p>
-                        @else
-                            <p class="task_list_right">
-                                {{ $array[$i] }}
-                            </p>
-                        @endif
-                    @endfor
-                </div>
+
                 <div class="toDoList">
                     <div class="right_infinite"></div>
+                    <div class="task_box">
+                        <p>こんにちは、{{ $name }}さん</p>
+                        <p class="task_box_title">担当業務一覧</p>
+                        @for ($i = 0; $i < count($array); $i++)
+                            @if ($i % 2 == 0)
+                                <div class="task_list_name">
+                                    {{ $array[$i] }}
+                                </div>
+                            @else
+                                <div class="task_list_deadline">
+                                    <p class="deadline_text">締め切り</p>
+                                    <p class="deatline">{{ $array[$i] }}</p>
+                                </div>
+                            @endif
+                        @endfor
+                    </div>
                 </div>
             </div>
 

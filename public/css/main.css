@@ -245,6 +245,7 @@ toDoList
     margin: 0 auto;
     border: 2px solid #333;
     position: relative;
+    margin-top: 24px;
 }
 
 .toDoList::before {
@@ -256,4 +257,24 @@ toDoList
     height: 100%;
     width: 10px;
     margin-left: 6px;
+}
+
+.task_box {
+    padding: 10px;
+    width: 88%;
+    position: absolute;
+    right: 0;
+}
+
+.deadline_text {
+    font-size: 12px;
+}
+
+.task_list_deadline {
+    display: flex;
+    align-items: flex-end;
+}
+
+.task_box_title {
+    margin-bottom: 16px;
 }
