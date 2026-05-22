@@ -36,10 +36,12 @@ class WorkTimeController extends Controller
         $name = Auth::user()->name;
         $id = Auth::user()->id;
         $jobs = DB::table('project_user')->where('user_id', $id)->pluck('project_id');
+
         $array = [];
         
         foreach ($jobs as $job) {
             array_push($array, Projects::where('id', $job)->value('name'));
+            array_push($array, Projects::where('id', $job)->value('deadline'));
         }
 
         return view('main', compact('working', 'name', 'array'));

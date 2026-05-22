@@ -36,3 +36,5 @@ echo kaji("hello", function ($z) {
 // 多対一はwith()でリレーション引っ張ることはできない
 // get()は複数のデータを含むため、中からデータを引っ張るには配列指定が必要
 /// 例: User::where("id", 1)->get()->name は使用できない
+
+// pluckはJSON、valueはそのまま

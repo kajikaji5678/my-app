@@ -52,11 +52,20 @@
             <div class="bottom_area_3">
                 <div class="border_top"></div>
                 <p>こんにちは、{{ $name }}さん</p>
-                <p>
-                    @foreach ($array as $job)
-                        {{ $job }}
-                    @endforeach
-                </p>
+                <p>タスク管理</p>
+                <div>
+                    @for ($i = 0; $i < count($array); $i++)
+                        @if ($i % 2 == 0)
+                            <p class="task_list_left">
+                                {{ $array[$i] }}
+                            </p>
+                        @else
+                            <p class="task_list_right">
+                                {{ $array[$i] }}
+                            </p>
+                        @endif
+                    @endfor
+                </div>
                 <div class="toDoList">
                     <div class="right_infinite"></div>
                 </div>
