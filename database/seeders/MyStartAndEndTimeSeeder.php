@@ -21,7 +21,7 @@ class MyStartAndEndTimeSeeder extends Seeder
             'name' => '福田',
             'email' => 'aaa@gmail.com',
             'password' => Hash::make('kajikaji1'),
-            'admin' => 1,
+            'role_id' => 1,
         ]);
     }
 }

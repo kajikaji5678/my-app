@@ -27,7 +27,6 @@ use App\Models\Projects;
  * @property int $hourly_wage
  * @property int $salary_sum
  * @property int $role_id
- * @property int $admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Projects> $projects
@@ -75,7 +74,6 @@ class User extends Authenticatable
         'email',
         'password',
         'houry_wage',
-        'admin',
     ];
 
     /**

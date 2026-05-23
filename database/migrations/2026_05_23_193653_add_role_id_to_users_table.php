@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
-            $table->date('due_time')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('role_id');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };
