@@ -29,7 +29,13 @@
 
     <main>
         <aside>
-
+            <div class="aside_menu_bar_box">
+                <div class="aside_menu_bar"></div>
+            </div>
+            <div class="asaid_menu_box">
+                <img src="{{ asset('img/home.png') }}">
+                <p>ホーム</p>
+            </div>
         </aside>
     </main>
 </body>

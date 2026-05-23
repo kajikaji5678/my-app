@@ -1,3 +1,7 @@
+/* -------------------------------------------
+ヘッダー
+-------------------------------------------- */
+
 header {
     background-color: #EDF4F0;
 }
@@ -5,6 +9,7 @@ header {
 body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
+    position: relative;
 }
 
 header ul {
@@ -15,7 +20,7 @@ header ul {
 
 header li {
     list-style: none;
-    padding: 8px 16px;
+    padding: 4px 16px;
     transition: 0.3s;
 }
 
@@ -35,4 +40,63 @@ header li:hover a {
 header a {
     text-decoration: none;
     color: #333333;
+}
+
+
+/* -------------------------------------------
+サイドバー
+-------------------------------------------- */
+
+aside {
+    position: absolute;
+    left: 0;
+    height: 100vh;
+    width: 200px;
+    background-color: #4CAF93;
+    box-sizing: border-box;
+}
+
+.aside_menu_bar_box {
+    width: 100%;
+    height: 48px;
+    padding: 8px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.aside_menu_bar {
+    width: 30px;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    background-color: #EDF4F0;
+}
+
+.aside_menu_bar::after,
+.aside_menu_bar::before {
+    content: "";
+    width: 30px;
+    height: 2px;
+    background-color: #EDF4F0;
+    position: absolute;
+    transition: 0.3s;
+}
+
+.aside_menu_bar::after {
+    top: -10px;
+}
+
+.aside_menu_bar_box:hover .aside_menu_bar::before {
+    width: 15px;
+    transform: rotate(405deg) translateX(-5px) translateY(-2px);
+}
+
+.aside_menu_bar_box:hover .aside_menu_bar::after {
+    width: 15px;
+    transform: rotate(-405deg) translateX(-5px) translateY(2px);
+}
+
+.aside_menu_bar::before {
+    top: 10px;
 }
