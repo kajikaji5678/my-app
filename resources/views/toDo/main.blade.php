@@ -58,6 +58,7 @@
             </div>
         </aside>
     </main>
+    <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
 </html>
