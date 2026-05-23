@@ -100,3 +100,28 @@ aside {
 .aside_menu_bar::before {
     top: 10px;
 }
+
+.aside_menu_box {
+    width: 100%;
+    height: 48px;
+    padding: 16px 16px;
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    height: auto;
+}
+
+.aside_menu_box a {
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 16px;
+    font-weight: 600;
+    color: #EDF4F0;
+    text-decoration: none;
+}
+
+.aside_menu_img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
