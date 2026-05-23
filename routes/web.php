@@ -37,6 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/main/end', [WorkTimeController::class, 'end']);
     Route::get('/main/list', [WorkTimeController::class, 'get']);
 
+    // メインページその2
+    Route::get('/main2', function () {
+        return view('/toDo/main');
+    });
+
     Route::get('/salary', function () {
         return view('salary');
     });
