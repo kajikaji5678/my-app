@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('task_name');
             $table->foreignId('project_id')->constrained();
             $table->foreignId('category_id')->constrained();
+            $table->foreignId('type_id')->constrained();
+            $table->foreignId('milestone_id')->constrained();
             $table->timestamps();
         });
     }

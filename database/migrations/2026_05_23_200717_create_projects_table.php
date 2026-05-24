@@ -15,7 +15,7 @@ return new class extends Migration
             // このしたのやつカラムタイプって言います
             $table->id();
             $table->timestamps();
-            $table->string('Projects_key');
+            $table->string('projects_key');
         });
     }
 

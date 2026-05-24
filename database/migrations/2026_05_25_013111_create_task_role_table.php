@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('admin');
+        Schema::create('task_role', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('task_id')->constrained();
+            $table->foreignId('role_id')->constrained();
+            $table->string('role_level');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('task_role');
     }
 };

@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('admin');
+        Schema::create('task_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('task_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->date('start_time');
+            $table->date('end_time');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('task_user');
     }
 };
