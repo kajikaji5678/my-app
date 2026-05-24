@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             // このしたのやつカラムタイプって言います
             $table->id();
+            $table->string('projects_name');
             $table->timestamps();
             $table->string('projects_key');
         });

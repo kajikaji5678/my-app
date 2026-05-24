@@ -13,6 +13,8 @@ use App\Models\SalaryRequest; // 給与更新との接続
 use App\Models\PtoRequest;
 use App\Models\Role;
 use App\Models\Projects;
+use App\Models\Task;
+
 
 /**
  * @mixin IdeHelperUser
@@ -113,11 +115,11 @@ class User extends Authenticatable
         return $this->hasMany(PtoRequest::class);
     }
 
-    public function roles() {
-        return $this->belongsTo(Role::class);
+    public function role() {
+        return $this->belongsToManyMany(Role::class);
     }
 
-    public function projects () {
-        return $this->belongsToMany(Projects::class);
+    public function task() {
+        return $this->belongsToMany(Task::class);
     }
 }

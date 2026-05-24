@@ -14,24 +14,64 @@
 namespace App\Models{
 /**
  * @property int $id
- * @property string $name
- * @property string|null $deadline
+ * @property string $category_name
+ * @property int $project_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
- * @property-read int|null $users_count
- * @method static \Database\Factories\ProjectsFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Projects newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Projects newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Projects query()
- * @method static \Illuminate\Database\Eloquent\Builder|Projects whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Projects whereDeadline($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Projects whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Projects whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Projects whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCategoryName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  */
-	class Projects extends \Eloquent {}
+	class Category extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $milestone_name
+ * @property string|null $start_time
+ * @property string|null $end_time
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereMilestoneName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereUpdatedAt($value)
+ */
+	class Milestone extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $projects_name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $projects_key
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
+ * @property-read int|null $categories_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
+ * @property-read int|null $tasks_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Project newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Project newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Project query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectsKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectsName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereUpdatedAt($value)
+ */
+	class Project extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -78,6 +118,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $role_name
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereRoleName($value)
  */
 	class Role extends \Eloquent {}
 }
@@ -173,6 +215,51 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property int $id
+ * @property string $task_name
+ * @property int $project_id
+ * @property int $category_id
+ * @property int $type_id
+ * @property int $milestone_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Project $project
+ * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereMilestoneId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
+ */
+	class Task extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $type_name
+ * @property int $projects_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Type newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereProjectsId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereTypeName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereUpdatedAt($value)
+ */
+	class Type extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @mixin IdeHelperUser
  * @property int $id
  * @property string $name
@@ -185,7 +272,6 @@ namespace App\Models{
  * @property int $hourly_wage
  * @property int $salary_sum
  * @property int $role_id
- * @property int $admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Projects> $projects
@@ -218,6 +304,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSalarySum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $admin
  */
 	class User extends \Eloquent {}
 }
