@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('milestone_name');
             $table->date('start_time')->nullable();
             $table->date('end_time')->nullable();
+            $table->foreignId('project_id')->constrained();
             $table->timestamps();
         });
     }

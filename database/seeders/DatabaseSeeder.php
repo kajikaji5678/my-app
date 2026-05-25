@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Type;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +26,11 @@ class DatabaseSeeder extends Seeder
             StartAndEndTimeSeeder::class,
             SalaryRequestSeeder::class,
             PtoRequestSeeder::class,
-            ProjectsSeeder::class,
+            // ここから新しいやつ
+            ProjectSeeder::class,
+            CategorySeeder::class,
+            TypeSeeder::class,
+            MilestoneSeeder::class,
         ]);
     }
 }
