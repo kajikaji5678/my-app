@@ -2,10 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Milestone;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Project;
+use App\Models\Type;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
+ * @extends Factory<Task>
  */
 class TaskFactory extends Factory
 {
@@ -17,7 +22,22 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'task_name' => fake()->name()
+            'task_name' => fake()->randomElement([
+                'ログイン修正',
+                '通知機能追加',
+                'UI改善',
+                'API修正',
+                'バグ対応',
+                '認証実装',
+                '一覧画面作成',
+                '検索機能追加',
+                '権限修正',
+                'レイアウト調整',
+            ]),
+            'project_id' => Project::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
+            'type_id' => Type::inRandomOrder()->first()->id,
+            'milestone_id' => Milestone::inRandomOrder()->first()->id
         ];
     }
 }

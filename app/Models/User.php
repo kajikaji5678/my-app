@@ -116,7 +116,7 @@ class User extends Authenticatable
     }
 
     public function role() {
-        return $this->belongsToManyMany(Role::class);
+        return $this->belongsToManyMany(Role::class)->withPivot('role_level');
     }
 
     public function task() {

@@ -15,10 +15,10 @@ class TypeSeeder extends Seeder
     public function run(): void
     {
         $types = [
-            '未対応',
-            '処理中',
-            '承認待ち',
-            '完了'
+            '確認依頼',
+            'バグ修正',
+            'タスク',
+            '要望'
         ];
 
         foreach ($types as $type) {

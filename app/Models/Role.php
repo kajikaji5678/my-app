@@ -32,12 +32,12 @@ class Role extends Model
         'name',
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('role_level');
     }
 
-    public function task()
+    public function tasks()
     {
         return $this->belongsToMany(User::class);
     }

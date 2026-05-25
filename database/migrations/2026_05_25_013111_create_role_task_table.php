@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task_role', function (Blueprint $table) {
+        Schema::create('role_task', function (Blueprint $table) {
             $table->id();
             $table->foreignId('task_id')->constrained();
             $table->foreignId('role_id')->constrained();

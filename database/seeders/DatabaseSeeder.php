@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             TypeSeeder::class,
             MilestoneSeeder::class,
+            TaskSeeder::class,
+            RoleSeeder::class
         ]);
     }
 }

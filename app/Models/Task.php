@@ -44,12 +44,12 @@ class Task extends Model
         return $this->belongsTo(Milestone::class);
     }
 
-    public function user()
+    public function users()
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function role()
+    public function roles()
     {
         return $this->belongsToMany(Role::class);
     }

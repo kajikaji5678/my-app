@@ -36,6 +36,7 @@ namespace App\Models{
  * @property string $milestone_name
  * @property string|null $start_time
  * @property string|null $end_time
+ * @property int $project_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone newModelQuery()
@@ -45,6 +46,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereEndTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereMilestoneName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereStartTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereUpdatedAt($value)
  */
@@ -58,10 +60,14 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string $projects_key
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Milestone> $Milestone
+ * @property-read int|null $milestone_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
  * @property-read int|null $categories_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
  * @property-read int|null $tasks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Type> $type
+ * @property-read int|null $type_count
  * @method static \Illuminate\Database\Eloquent\Builder|Project newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Project newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Project query()
@@ -119,6 +125,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property string $role_name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $task
+ * @property-read int|null $task_count
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereRoleName($value)
  */
 	class Role extends \Eloquent {}
@@ -223,7 +231,15 @@ namespace App\Models{
  * @property int $milestone_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category $category
+ * @property-read \App\Models\Milestone $milestone
  * @property-read \App\Models\Project $project
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $role
+ * @property-read int|null $role_count
+ * @property-read \App\Models\Type $type
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user
+ * @property-read int|null $user_count
+ * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Task query()
@@ -305,6 +321,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property int $admin
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $task
+ * @property-read int|null $task_count
  */
 	class User extends \Eloquent {}
 }
