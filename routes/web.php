@@ -42,6 +42,11 @@ Route::middleware('auth')->group(function () {
         return view('/toDo/main');
     });
 
+    // ボード
+    Route::get('/toDo/board', function () {
+        return view('toDo.borad');
+    });
+
     Route::get('/salary', function () {
         return view('salary');
     });
