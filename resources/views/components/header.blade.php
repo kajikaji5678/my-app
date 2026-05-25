@@ -9,8 +9,5 @@
             <li>
                 <a href="">お知らせ</a>
             </li>
-            <li>
-                <a href="">メンバー招待</a>
-            </li>
         </ul>
     </header>

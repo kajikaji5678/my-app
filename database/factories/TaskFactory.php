@@ -45,5 +45,6 @@ class TaskFactory extends Factory
             'type_id' => Type::inRandomOrder()->first()->id,
             'milestone_id' => Milestone::inRandomOrder()->first()->id
         ];
+
     }
 }

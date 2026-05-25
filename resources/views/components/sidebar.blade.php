@@ -1,4 +1,4 @@
-<aside>
+<aside class="sidebar">
             <div class="aside_menu_bar_box">
                 <div class="aside_menu_bar"></div>
             </div>

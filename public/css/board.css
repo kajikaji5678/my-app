@@ -4,15 +4,33 @@
     height: 100%;
 }
 
-.content {
-    flex: 1;
-    transition: 0.3s;
-    background-color: #F0F0F0;
+.content_main {
+    padding: 24px 32px;
 }
 
-.title {
-    font-weight: 600;
-    font-size: 18px;
-    margin: 16px 16px;
-    text-align: left;
+.task_top_text {
+    font-weight: bold;
+}
+
+p a {
+    font-family:  'Open Sans', sans-serif;;
+}
+
+.search {
+    gap: 32px;
+    display: flex;
+}
+
+.condition {
+    margin-top: 12px;
+}
+
+.condition_name {
+    font-size: 13px;
+    margin: 4px 0;
+}
+
+.condition_box {
+    width: 200px;
+    height: 32px;
 }
