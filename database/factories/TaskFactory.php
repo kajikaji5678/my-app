@@ -8,6 +8,7 @@ use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Project;
 use App\Models\Type;
+use App\Enums\TaskStatus;
 
 /**
  * @extends Factory<Task>
@@ -34,12 +35,9 @@ class TaskFactory extends Factory
                 '権限修正',
                 'レイアウト調整',
             ]),
-            'status' => fake()->randomElement([
-                '未対応',
-                '処理中',
-                '処理済み',
-                '完了'
-            ]),
+            'status' => fake()->randomElement(
+                array_map(fn($case) => $case->value, TaskStatus::cases())
+            ),
             'project_id' => Project::inRandomOrder()->first()->id,
             'category_id' => Category::inRandomOrder()->first()->id,
             'type_id' => Type::inRandomOrder()->first()->id,
