@@ -34,6 +34,12 @@ class TaskFactory extends Factory
                 '権限修正',
                 'レイアウト調整',
             ]),
+            'status' => fake()->randomElement([
+                '未対応',
+                '処理中',
+                '処理済み',
+                '完了'
+            ]),
             'project_id' => Project::inRandomOrder()->first()->id,
             'category_id' => Category::inRandomOrder()->first()->id,
             'type_id' => Type::inRandomOrder()->first()->id,
