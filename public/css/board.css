@@ -31,7 +31,7 @@ body {
 }
 
 p a {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', Meiryo, メイリオ,  sans-serif;
     ;
 }
 
@@ -118,6 +118,8 @@ p a {
     background-color: white;
     border-radius: 8px;
     flex: 0 0 300px;
+    gap: 12px;
+    overflow-y: auto;
 }
 
 .dynamic_box_top2 img {

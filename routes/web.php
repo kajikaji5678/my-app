@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ListUp;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\TaskBoardController;
 use App\Http\Controllers\UpdateSalary;
 use App\Http\Controllers\WorkTimeController;
 use Illuminate\Support\Facades\Route;
@@ -43,9 +44,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // ボード
-    Route::get('/toDo/board', function () {
-        return view('toDo.borad');
-    });
+    Route::get('/toDo/board', [TaskBoardController::class, 'get']);
 
     Route::get('/salary', function () {
         return view('salary');

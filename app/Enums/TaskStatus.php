@@ -2,6 +2,10 @@
 
 namespace App\Enums;
 
+
+//* 5/25/? Enumは使えるか実験段階ではあるがなれるといい
+//* 後々テーブルに変更する可能性もある
+//* その時はとりあえずTaskBoardControllerを見てくれ
 enum TaskStatus: string {
     case Pending = '未対応';
     case Doing = '処理中';
