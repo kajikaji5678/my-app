@@ -38,7 +38,17 @@
                     </div>
                 </div>
                 <div class="dynamic">
-                    <div class="dynamic_box"></div>
+                    <div class="dynamic_box">
+                        <div class="dynamic_box_top">
+                            <div class="dynamic_box_top1">
+                                <p class="dynamic_box_top_text1">未対応</p>
+                                <p class="dynamic_box_top_text2">5</p>
+                            </div>
+                            <div class="dynamic_box_top2">
+                                <img src={{ asset('img/plus16.png') }}>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

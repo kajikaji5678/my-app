@@ -6,7 +6,7 @@ aside {
     /* 絶対に縮まらない */
     flex-shrink: 0;
     left: 0;
-    height: 100vh;
+    height: calc(100vh - 50px);
     width: 200px;
     background-color: #4CAF93;
     box-sizing: border-box;
