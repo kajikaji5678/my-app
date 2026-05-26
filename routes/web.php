@@ -43,8 +43,9 @@ Route::middleware('auth')->group(function () {
         return view('/toDo/main');
     });
 
-    // ボード
+    //todo ボード
     Route::get('/toDo/board', [TaskBoardController::class, 'get']);
+    Route::get('/toDo/board/act', [TaskBoardController::class, 'act'])->name('board.form');
 
     Route::get('/salary', function () {
         return view('salary');

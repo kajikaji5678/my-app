@@ -25,18 +25,7 @@
                     課題
                 <p>
                 <div class="search">
-                    <div class="condition">
-                        <p class="condition_name">タイプ</p>
-                        <select class="condition_box"></select>
-                    </div>
-                    <div class="condition">
-                        <p class="condition_name">カテゴリー</p>
-                        <select class="condition_box"></select>
-                    </div>
-                    <div class="condition">
-                        <p class="condition_name">マイルストーン</p>
-                        <select class="condition_box"></select>
-                    </div>
+                    <x-board-search :types="$types" :milestones="$milestones" :categories="$categories"/>
                 </div>
                 <div class="dynamic">
                     <div class="dynamic_box">

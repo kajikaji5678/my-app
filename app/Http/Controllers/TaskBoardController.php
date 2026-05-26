@@ -2,27 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TaskStatus;
+use App\Models\Category;
+use App\Models\Milestone;
 use App\Models\Task;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class TaskBoardController extends Controller
 {
     public function get() {
         // todo 5/26/15 $teamsはコレクション（複数件）foreachで配列にしてから指定して取り出す
-        //* ただ多分もっといい方法もあると思う
         //  $teams = Task::with('type')->get() ;
         // $array = [];
         // foreach ($teams as $team) {
         //     array_push($array, $team);
         // }
         // dd($array[1]->type->type_name);
+        //* ただ多分もっといい方法もあると思う
 
+        //* 条件が2重になったら絞り込めばいいだけだ
+        //* ただしビューのほうでさらにステータス絞り込みをしている
         $tasks = Task::where('project_id', 1)->get();
-        $toDoCount = Task::where('project_id', 1)->where('status', '未対応')->count();
-        $doingCount = Task::where('project_id', 1)->where('status', '処理中')->count();
-        $doneCount = Task::where('project_id', 1)->where('status', '処理済み')->count();
-        $completeCount = Task::where('project_id', 1)->where('status', '完了')->count();
-        return view('toDo.borad', compact('tasks', 'toDoCount', 'doingCount', 'doneCount', 'completeCount'));
+        $toDoCount = $tasks->where('status', '未対応')->count();
+        $doingCount = $tasks->where('status', '処理中')->count();
+        $doneCount = $tasks->where('status', '処理済み')->count();
+        $completeCount = $tasks->where('status', '完了')->count();
+        $types = Type::all();
+        $categories = Category::all();
+        $milestones = Milestone::all();
+        return view('toDo.borad', 
+        compact('tasks', 'toDoCount', 'doingCount', 'doneCount', 'completeCount', 'types', 'categories', 'milestones'));
+    }
+
+    public function act() {
+        dd("やあ");
     }
 }
