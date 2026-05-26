@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/aside.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
             <x-projectbar />
             <div class="content_main">
                 <p class="task_top_text">
-                    あああ
+                    課題
                 <p>
                 <div class="search">
                     <div class="condition">
@@ -38,6 +39,40 @@
                     </div>
                 </div>
                 <div class="dynamic">
+                    <div class="dynamic_box">
+                        <div class="dynamic_box_top">
+                            <div class="dynamic_box_top1">
+                                <p class="dynamic_box_top_text1">未対応</p>
+                                <p class="dynamic_box_top_text2">5</p>
+                            </div>
+                            <div class="dynamic_box_top2">
+                                <img src={{ asset('img/plus16.png') }}>
+                            </div>
+                        </div>
+                        <x-board-box-content />
+                    </div>
+                    <div class="dynamic_box">
+                        <div class="dynamic_box_top">
+                            <div class="dynamic_box_top1">
+                                <p class="dynamic_box_top_text1">未対応</p>
+                                <p class="dynamic_box_top_text2">5</p>
+                            </div>
+                            <div class="dynamic_box_top2">
+                                <img src={{ asset('img/plus16.png') }}>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dynamic_box">
+                        <div class="dynamic_box_top">
+                            <div class="dynamic_box_top1">
+                                <p class="dynamic_box_top_text1">未対応</p>
+                                <p class="dynamic_box_top_text2">5</p>
+                            </div>
+                            <div class="dynamic_box_top2">
+                                <img src={{ asset('img/plus16.png') }}>
+                            </div>
+                        </div>
+                    </div>
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">

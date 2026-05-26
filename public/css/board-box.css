@@ -1,0 +1,15 @@
+.dynamic_box_content {
+    height: 84px;
+    border-radius: 4px;
+    border: 1px solid #C5C5C5;
+    margin-top: 12px;
+    padding: 8px;
+}
+
+.type {
+    padding: 4px 8px;
+    background-color: rgb(116, 116, 255);
+    font-size: 12px;
+    color: white;
+    border-radius: 8px;
+}
