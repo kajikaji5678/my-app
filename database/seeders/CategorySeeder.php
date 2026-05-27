@@ -20,11 +20,15 @@ class CategorySeeder extends Seeder
             'バックエンド'
         ];
 
-        foreach ($categories as $category) {
-            Category::create([
-                'category_name' => $category,
-                'project_id' => Project::inRandomOrder()->first()->id
-            ]);
+        $projects = Project::all();
+
+        foreach ($projects as $project) {
+            foreach ($categories as $category) {
+                Category::create([
+                    'category_name' => $category,
+                    'project_id' => $project->id
+                ]);
+            }
         }
     }
 }

@@ -43,7 +43,6 @@ Route::middleware('auth')->group(function () {
         return view('/toDo/main');
     });
 
-    //todo ボード
     Route::get('/toDo/board', [TaskBoardController::class, 'get']);
     Route::get('/toDo/board/act', [TaskBoardController::class, 'act'])->name('board.form');
 

@@ -20,8 +20,13 @@ class TaskFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    //todo プロジェクトidの制限によるバグ修正
+    //* AプロジェクトのタスクにBプロジェクトのカテゴリが混入するのを防ぐ
+
     public function definition(): array
     {
+        $project = Project::inRandomOrder()->first();
+
         return [
             'task_name' => fake()->randomElement([
                 'ログイン修正',
@@ -38,10 +43,11 @@ class TaskFactory extends Factory
             'status' => fake()->randomElement(
                 array_map(fn($case) => $case->value, TaskStatus::cases())
             ),
-            'project_id' => Project::inRandomOrder()->first()->id,
-            'category_id' => Category::inRandomOrder()->first()->id,
-            'type_id' => Type::inRandomOrder()->first()->id,
-            'milestone_id' => Milestone::inRandomOrder()->first()->id
+            'status_color' => 'red',
+            'project_id' => $project,
+            'category_id' => Category::where('project_id', $project->id)->inRandomOrder()->first()->id,
+            'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,
+            'milestone_id' => Milestone::where('project_id', $project->id)->inRandomOrder()->first()->id
         ];
 
     }

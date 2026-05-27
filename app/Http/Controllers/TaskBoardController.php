@@ -24,14 +24,17 @@ class TaskBoardController extends Controller
 
         //* 条件が2重になったら絞り込めばいいだけだ
         //* ただしビューのほうでさらにステータス絞り込みをしている
+
+        //* リレーションの親子間違えが起きている
+        //* 親が先である
         $tasks = Task::where('project_id', 1)->get();
         $toDoCount = $tasks->where('status', '未対応')->count();
         $doingCount = $tasks->where('status', '処理中')->count();
         $doneCount = $tasks->where('status', '処理済み')->count();
         $completeCount = $tasks->where('status', '完了')->count();
-        $types = Type::all();
-        $categories = Category::all();
-        $milestones = Milestone::all();
+        $types = Type::where('projects_id', 1)->get();
+        $categories = Category::where('project_id', 1)->get();
+        $milestones = Milestone::where('project_id', 1)->get();
         return view('toDo.borad', 
         compact('tasks', 'toDoCount', 'doingCount', 'doneCount', 'completeCount', 'types', 'categories', 'milestones'));
     }

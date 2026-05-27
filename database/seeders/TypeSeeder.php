@@ -21,11 +21,15 @@ class TypeSeeder extends Seeder
             '要望'
         ];
 
-        foreach ($types as $type) {
-            Type::create([
-                'type_name' => $type,
-                'projects_id' => Project::inRandomOrder()->first()->id
-            ]);
+        $projects = Project::all();
+
+        foreach ($projects as $project) {
+            foreach ($types as $type) {
+                Type::create([
+                    'type_name' => $type,
+                    'projects_id' => $project->id
+                ]);
+            }
         }
     }
 }

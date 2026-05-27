@@ -38,7 +38,7 @@
                                 <img src={{ asset('img/plus16.png') }}>
                             </div>
                         </div>
-                        <x-board-box-content :tasks="$tasks->where('status', '未対応')" />
+                        <x-board-box-content :tasks="$tasks->where('status', '未対応')" :types="$types"/>
                     </div>
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">

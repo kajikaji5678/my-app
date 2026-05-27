@@ -14,17 +14,15 @@ class MilestoneSeeder extends Seeder
      */
     public function run(): void
     {
-        $names = [
-            'ベータバージョン',
-            'ローカル',
-            '本番'
-        ];
+        $projects = Project::all();
 
-        foreach ($names as $name) {
-            Milestone::create([
-                'milestone_name' => $name,
-                'project_id' => Project::inRandomOrder()->first()->id
-            ]);
+        foreach ($projects as $project) {
+            foreach(['ベータ', 'ローカル', '本番'] as $name) {
+                Milestone::create([
+                    'milestone_name' => $name,
+                    'project_id' => $project->id,
+                ]);
+            }
         }
     }
 }
