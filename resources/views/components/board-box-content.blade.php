@@ -9,6 +9,10 @@
         <p class="task_date">{{ $task->created_at }}</p>
     </div>
     <div id="modal" class="modal hidden">
-        <form method="POST", action="{{ route('board.post') }}"></form>
+        <form method="POST", action="{{ route('board.post') }}">
+            <select name="status">
+                <option value=""
+            </select>
+        </form>
     </div>
 @endforeach

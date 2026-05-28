@@ -10,6 +10,7 @@ use App\Models\Type;
 use App\Models\Milestone;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Status;
 
 class Task extends Model
 {
@@ -52,5 +53,9 @@ class Task extends Model
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function statuses() {
+        return $this->belongsTo(Status::class);
     }
 }

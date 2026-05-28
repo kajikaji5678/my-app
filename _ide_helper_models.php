@@ -125,8 +125,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property string $role_name
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $task
- * @property-read int|null $task_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $tasks
+ * @property-read int|null $tasks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereRoleName($value)
  */
 	class Role extends \Eloquent {}
@@ -223,22 +225,33 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @method static \Illuminate\Database\Eloquent\Builder|Status newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Status newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Status query()
+ */
+	class Status extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @property int $id
  * @property string $task_name
  * @property int $project_id
  * @property int $category_id
  * @property int $type_id
  * @property int $milestone_id
+ * @property string $status
+ * @property string $status_color
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Category $category
  * @property-read \App\Models\Milestone $milestone
  * @property-read \App\Models\Project $project
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $role
- * @property-read int|null $role_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
+ * @property-read int|null $roles_count
  * @property-read \App\Models\Type $type
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user
- * @property-read int|null $user_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
@@ -248,6 +261,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereMilestoneId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereStatusColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
