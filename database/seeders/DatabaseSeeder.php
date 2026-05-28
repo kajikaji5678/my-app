@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Status;
 use App\Models\Type;
 use Illuminate\Database\Seeder;
 
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             TypeSeeder::class,
             MilestoneSeeder::class,
             RoleSeeder::class,
+            Status::class,
             TaskSeeder::class,
         ]);
     }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Project;
 use App\Models\Type;
 use App\Enums\TaskStatus;
+use App\Models\Status;
 
 /**
  * @extends Factory<Task>
@@ -40,14 +41,13 @@ class TaskFactory extends Factory
                 '権限修正',
                 'レイアウト調整',
             ]),
-            'status' => fake()->randomElement(
-                array_map(fn($case) => $case->value, TaskStatus::cases())
-            ),
+            'status' => 'null',
             'status_color' => 'red',
             'project_id' => $project,
             'category_id' => Category::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,
-            'milestone_id' => Milestone::where('project_id', $project->id)->inRandomOrder()->first()->id
+            'milestone_id' => Milestone::where('project_id', $project->id)->inRandomOrder()->first()->id,
+            'status_id' => Status::where('project_id', $project->id)->inRandomOrder()->first()->id
         ];
 
     }

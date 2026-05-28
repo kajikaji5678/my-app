@@ -129,8 +129,21 @@ p a {
 .dynamic_box_content {
     transition: 0.3s;
     cursor: pointer;
+    position: relative;
 }
 
 .dynamic_box_content:hover {
     box-shadow: 0px 0px 5px 2px #4f4f4f;
+}
+
+.modal2.hidden {
+    display: none;
+}
+
+.modal2 {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    padding: 16px;
+    z-index: 1;
 }

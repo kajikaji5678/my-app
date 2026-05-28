@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/board.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
 </head>
 
 <body>
@@ -25,62 +26,70 @@
                     課題
                 <p>
                 <div class="search">
-                    <x-board-search :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0"/>
+                    <x-board-search :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" />
                 </div>
                 <div class="dynamic">
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
                                 <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $toDoCount ?? 0}}</p>
+                                <p class="dynamic_box_top_text2">{{ $toDoCount ?? 0 }}</p>
                             </div>
-                            <div class="dynamic_box_top2">
+                            <div class="dynamic_box_top2" id="openModal">
                                 <img src={{ asset('img/plus16.png') }}>
                             </div>
+                            <x-modal1 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" />
                         </div>
-                        <x-board-box-content :tasks="$tasks->where('status', '未対応')"/>
+                        <x-board-box-content :tasks="$tasks->where('status_id', 1)" :statuses="$statuses"/>
                     </div>
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
-                                <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $doingCount ?? 0}}</p>
+                                <p class="dynamic_box_top_text1">処理中</p>
+                                <p class="dynamic_box_top_text2">{{ $doingCount ?? 0 }}</p>
                             </div>
                             <div class="dynamic_box_top2">
                                 <img src={{ asset('img/plus16.png') }}>
                             </div>
                         </div>
-                        <x-board-box-content :tasks="$tasks->where('status', '処理中')" />
+                        <x-board-box-content :tasks="$tasks->where('status_id', 2)" />
                     </div>
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
-                                <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $doneCount ?? 0}}</p>
+                                <p class="dynamic_box_top_text1">処理済み</p>
+                                <p class="dynamic_box_top_text2">{{ $doneCount ?? 0 }}</p>
                             </div>
                             <div class="dynamic_box_top2">
                                 <img src={{ asset('img/plus16.png') }}>
                             </div>
                         </div>
-                        <x-board-box-content :tasks="$tasks->where('status', '処理済み')" />
+                        <x-board-box-content :tasks="$tasks->where('status_id', 3)" />
                     </div>
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
-                                <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $completeCount ?? 0}}</p>
+                                <p class="dynamic_box_top_text1">完了</p>
+                                <p class="dynamic_box_top_text2">{{ $completeCount ?? 0 }}</p>
                             </div>
                             <div class="dynamic_box_top2">
                                 <img src={{ asset('img/plus16.png') }}>
                             </div>
                         </div>
-                        <x-board-box-content :tasks="$tasks->where('status', '完了')" />
+                        <x-board-box-content :tasks="$tasks->where('status_id', 4)" />
                     </div>
                 </div>
             </div>
         </main>
     </div>
     <script src="{{ asset('js/main2.js') }}"></script>
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('modal').classList.remove('hidden');
+            });
+        </script>
+    @endif
 </body>
 
 </html>

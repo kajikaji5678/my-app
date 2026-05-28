@@ -4,13 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Task;
 
 class Status extends Model
 {
     use HasFactory;
 
-    public function tasks() {
-        $this->hasMany(Task::class);
+    protected $fillable = [
+        'status_name',
+        'project_id'
+    ];
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\Status;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,5 +22,14 @@ class StatusSeeder extends Seeder
         ];
 
         $projects = Project::all();
+
+        foreach($projects as $project) {
+            foreach($statuses as $status) {
+                Status::create([
+                    'status_name' => $status,
+                    'project_id' => $project->id,
+                ]);
+            }
+        }
     }
 }

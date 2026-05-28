@@ -16,13 +16,17 @@ class Task extends Model
 {
     use HasFactory;
 
+    //* CRUDでテーブル名あるのにエラー出てきたなら$fillableが抜けてる可能性
     protected $fillable = [
         'id',
         'task_name',
         'project_id',
         'category_id',
         'type_id',
-        'milestone_id'
+        'milestone_id',
+        'status',
+        'status_color',
+        'status_id'
     ];
 
     public function project()
