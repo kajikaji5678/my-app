@@ -1,6 +1,6 @@
 @props(['tasks', 'statuses'])
 @foreach ($tasks as $task)
-    <div class="dynamic_box_content openModal2">
+    <div class="dynamic_box_content">
         <p class="type">
             {{ $task->type->type_name }}
         </p>

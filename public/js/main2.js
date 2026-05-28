@@ -7,7 +7,7 @@ document.getElementById('openModal').onclick = () => {
     modal.classList.remove('hidden');
 }
 
-document.querySelectorAll('.openModal2').forEach(el => {
+document.querySelectorAll('.dynamic_box_content').forEach(el => {
     el.addEventListener('click', () => {
         document.getElementById('modal2').classList.remove('hidden');
     });
@@ -16,5 +16,7 @@ document.querySelectorAll('.openModal2').forEach(el => {
 menu.addEventListener('click', () => {
     aside.classList.toggle('active');
 });
+
+console.log(document.getElementById('modal2'));
 
 
