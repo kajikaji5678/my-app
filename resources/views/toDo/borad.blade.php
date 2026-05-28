@@ -25,26 +25,26 @@
                     課題
                 <p>
                 <div class="search">
-                    <x-board-search :types="$types" :milestones="$milestones" :categories="$categories"/>
+                    <x-board-search :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0"/>
                 </div>
                 <div class="dynamic">
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
                                 <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $toDoCount }}</p>
+                                <p class="dynamic_box_top_text2">{{ $toDoCount ?? 0}}</p>
                             </div>
                             <div class="dynamic_box_top2">
                                 <img src={{ asset('img/plus16.png') }}>
                             </div>
                         </div>
-                        <x-board-box-content :tasks="$tasks->where('status', '未対応')" :types="$types"/>
+                        <x-board-box-content :tasks="$tasks->where('status', '未対応')"/>
                     </div>
                     <div class="dynamic_box">
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
                                 <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $doingCount }}</p>
+                                <p class="dynamic_box_top_text2">{{ $doingCount ?? 0}}</p>
                             </div>
                             <div class="dynamic_box_top2">
                                 <img src={{ asset('img/plus16.png') }}>
@@ -56,7 +56,7 @@
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
                                 <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $doneCount }}</p>
+                                <p class="dynamic_box_top_text2">{{ $doneCount ?? 0}}</p>
                             </div>
                             <div class="dynamic_box_top2">
                                 <img src={{ asset('img/plus16.png') }}>
@@ -68,7 +68,7 @@
                         <div class="dynamic_box_top">
                             <div class="dynamic_box_top1">
                                 <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $completeCount }}</p>
+                                <p class="dynamic_box_top_text2">{{ $completeCount ?? 0}}</p>
                             </div>
                             <div class="dynamic_box_top2">
                                 <img src={{ asset('img/plus16.png') }}>

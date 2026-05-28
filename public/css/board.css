@@ -31,11 +31,11 @@ body {
 }
 
 p a {
-    font-family: 'Open Sans', Meiryo, メイリオ,  sans-serif;
+    font-family: 'Open Sans', Meiryo, メイリオ, sans-serif;
     ;
 }
 
-.search {
+.search_form {
     gap: 32px;
     display: flex;
 }
@@ -126,3 +126,11 @@ p a {
     transform: scale(1.25);
 }
 
+.dynamic_box_content {
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.dynamic_box_content:hover {
+    box-shadow: 0px 0px 5px 2px #4f4f4f;
+}
