@@ -8,9 +8,4 @@
         <p class="task_date">{{ $task->created_at }}</p>
     </div>
 @endforeach
-<div class="modal2 hidden" id="modal2">
-    <div class="overlay"></div>
-    <form method="POST" action="{{ route('board.status') }}">
-        <button type="submit">ステータス変更</button>
-    </form>
-</div>
+

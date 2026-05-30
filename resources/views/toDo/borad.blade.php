@@ -29,67 +29,34 @@
                     <x-board-search :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" />
                 </div>
                 <div class="dynamic">
-                    <div class="dynamic_box">
-                        <div class="dynamic_box_top">
-                            <div class="dynamic_box_top1">
-                                <p class="dynamic_box_top_text1">未対応</p>
-                                <p class="dynamic_box_top_text2">{{ $toDoCount ?? 0 }}</p>
+                    @foreach ($statuses as $status)
+                        <div class="dynamic_box">
+                            <div class="dynamic_box_top">
+                                <div class="dynamic_box_top1">
+                                    <p class="dynamic_box_top_text1">
+                                        {{ $status->status_name }}
+                                    </p>
+                                    <p class="dynamic_box_top_text2">
+                                        {{ $tasks->where('status_id', $status->id)->count() }}
+                                    </p>
+                                </div>
+                                {{-- todo ステータスidを持たせてモーダル作成 --}}
+                                <div class="dynamic_box_top2" data-status-id="{{ $status->id }}">
+                                    <img src={{ asset('img/plus16.png') }}>
+                                </div>
+
                             </div>
-                            <div class="dynamic_box_top2" id="openModal">
-                                <img src={{ asset('img/plus16.png') }}>
-                            </div>
-                            <x-modal1 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" />
+                            <x-board-box-content :tasks="$tasks->where('status_id', $status->id)" :statuses="$statuses" />
                         </div>
-                        <x-board-box-content :tasks="$tasks->where('status_id', 1)" :statuses="$statuses"/>
-                    </div>
-                    <div class="dynamic_box">
-                        <div class="dynamic_box_top">
-                            <div class="dynamic_box_top1">
-                                <p class="dynamic_box_top_text1">処理中</p>
-                                <p class="dynamic_box_top_text2">{{ $doingCount ?? 0 }}</p>
-                            </div>
-                            <div class="dynamic_box_top2">
-                                <img src={{ asset('img/plus16.png') }}>
-                            </div>
-                        </div>
-                        <x-board-box-content :tasks="$tasks->where('status_id', 2)" />
-                    </div>
-                    <div class="dynamic_box">
-                        <div class="dynamic_box_top">
-                            <div class="dynamic_box_top1">
-                                <p class="dynamic_box_top_text1">処理済み</p>
-                                <p class="dynamic_box_top_text2">{{ $doneCount ?? 0 }}</p>
-                            </div>
-                            <div class="dynamic_box_top2">
-                                <img src={{ asset('img/plus16.png') }}>
-                            </div>
-                        </div>
-                        <x-board-box-content :tasks="$tasks->where('status_id', 3)" />
-                    </div>
-                    <div class="dynamic_box">
-                        <div class="dynamic_box_top">
-                            <div class="dynamic_box_top1">
-                                <p class="dynamic_box_top_text1">完了</p>
-                                <p class="dynamic_box_top_text2">{{ $completeCount ?? 0 }}</p>
-                            </div>
-                            <div class="dynamic_box_top2">
-                                <img src={{ asset('img/plus16.png') }}>
-                            </div>
-                        </div>
-                        <x-board-box-content :tasks="$tasks->where('status_id', 4)" />
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </main>
     </div>
     <script src="{{ asset('js/main2.js') }}"></script>
-    @if ($errors->any())
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                document.getElementById('modal').classList.remove('hidden');
-            });
-        </script>
-    @endif
+    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories"/>
 </body>
 
 </html>
+
+

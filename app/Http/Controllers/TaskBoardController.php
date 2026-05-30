@@ -12,14 +12,11 @@ use Illuminate\Http\Request;
 class TaskBoardController extends Controller
 {
     // todo 共通部分をprivateにする
+    // * 5/30 カウント部分を削除してBladeでforeachにする
     private function getBoardDate($tasks)
     {
         return [
             'tasks' => $tasks,
-            'toDoCount' => $tasks->where('status_id', 1)->count(),
-            'doingCount' => $tasks->where('status_id', 2)->count(),
-            'doneCount' => $tasks->where('status_id', 3)->count(),
-            'completeCount' => $tasks->where('status_id', 4)->count(),
             'types' => Type::where('projects_id', 1)->get(),
             'categories' => Category::where('project_id', 1)->get(),
             'milestones' => Milestone::where('project_id', 1)->get(),
