@@ -9,6 +9,7 @@ menu.addEventListener('click', () => {
 const taskModal = document.getElementById('taskModal');
 const status_id = document.getElementById('status_id');
 const openButtons = document.querySelectorAll('.dynamic_box_top2');
+const modalClose = document.getElementById('modal_close');
 
 document.addEventListener('DOMContentLoaded', () => {
     openButtons.forEach(button => {
@@ -17,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
             status_id.value = statuId;
             taskModal.classList.add('show');
         });
-    })
+    });
+    modalClose.addEventListener('click', () => {
+        taskModal.classList.remove('show');
+    });
 });
 
