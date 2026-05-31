@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User; // Userモデルと接続
 
 /**
- * @mixin IdeHelperStartAndEndTime
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $start_time
  * @property \Illuminate\Support\Carbon|null $end_time

@@ -15,22 +15,5 @@ class TaskSeeder extends Seeder
     public function run(): void
     {
         Task::factory(100)->create();
-
-        $roles = Role::all();
-
-        foreach (Task::all() as $task) {
-            $randomRoles = $roles->random(rand(1, 5));
-
-            foreach($randomRoles as $role) {
-                $task->roles()->attach($role->id, [
-                    'role_level' => fake()->randomElement([
-                        '見習い',
-                        'ジュニア',
-                        'ミドル',
-                        'シニア'
-                    ])
-                ]);
-            }
-        }
     }
 }

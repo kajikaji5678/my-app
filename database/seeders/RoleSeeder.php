@@ -26,24 +26,7 @@ class RoleSeeder extends Seeder
             Role::create([
                 'role_name' => $role,
             ]);
-        }
-
-        $users = User::all();
-
-        foreach (Role::all() as $role) {
-            // ロール1つにつき1~5名を選出している
-            $randomUsers = $users->random(rand(1, 5));
-            foreach ($randomUsers as $user) {
-                // 中間テーブルにインサート
-                $role->tasks()->attach($user->id, [
-                    'role_level' => fake()->randomElement([
-                        '見習い',
-                        'ジュニア',
-                        'ミドル',
-                        'シニア'
-                    ])
-                ]);
-            }
+        
         }
     }
 }

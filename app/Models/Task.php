@@ -12,6 +12,44 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Status;
 
+/**
+ * @property int $id
+ * @property string $task_name
+ * @property int $project_id
+ * @property int $category_id
+ * @property int $type_id
+ * @property int $milestone_id
+ * @property string $status
+ * @property string $status_color
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $status_id
+ * @property-read Category $category
+ * @property-read Milestone $milestone
+ * @property-read Project $project
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
+ * @property-read int|null $roles_count
+ * @property-read Status|null $statuses
+ * @property-read Type $type
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereMilestoneId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereStatusColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Task extends Model
 {
     use HasFactory;

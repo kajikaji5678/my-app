@@ -65,23 +65,33 @@ class TaskBoardController extends Controller
     public function add(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'task_name' => 'required',
             'type_id' => 'required',
             'milestone_id' => 'required',
             'category_id' => 'required',
         ], [
-            'title.required' => 'タスク名が入力されていません。'
+            'task_name.required' => 'タスク名が入力されていません。'
         ]);
 
+
         Task::create([
-            'task_name' => $request->title,
+            'task_name' => $request->task_name,
             'project_id' => 1,
             'type_id' => $request->type_id,
             'milestone_id' => $request->milestone_id,
             'category_id' => $request->category_id,
-            'status_id' => 1,
+            'status_id' => $request->status_id,
             'status_color' => 'red',
             'status' => 'aaa'
+        ]);
+
+        return redirect()->route('board.form');
+    }
+
+    public function update(Request $request) {
+        $task = Task::findOrFail($request->task_id);
+        $task->update([
+            'status_id' => $request->status_id,
         ]);
 
         return redirect()->route('board.form');

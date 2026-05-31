@@ -53,7 +53,7 @@
             </div>
         </main>
     </div>
-    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" />
+    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" />
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
