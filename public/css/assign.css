@@ -1,0 +1,37 @@
+.assign {
+    padding: 16px 24px;
+    height: 100%;
+}
+
+.condition_box {
+    width: 50%;
+    height: 50%;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0px 5px 10px 5px rgb(45, 92, 89);
+    display: flex;
+    gap: 24px;
+    padding: 16px;
+}
+
+.condition_box_left {
+    width: 30%;
+    height: 100%;
+}
+
+.condition_box_right {
+    width: 70%;
+    height: 100%;
+}
+
+.assign_button {
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid rgb(90, 182, 177);
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 12px 28px;
+    font-weight: 700;
+    background-color: rgb(90, 182, 177);
+}

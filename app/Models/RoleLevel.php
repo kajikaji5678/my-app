@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereRoleLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaksRole> $taskRoles
+ * @property-read int|null $task_roles_count
  * @mixin \Eloquent
  */
 class RoleLevel extends Model
