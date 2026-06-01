@@ -1,3 +1,7 @@
+/* -------------------------------------------------
+モーダルの背景
+----------------------------------------------------- */
+
 .modal {
     display: none;
     position: fixed;
@@ -8,9 +12,14 @@
     z-index: 10;
 }
 
-.modal.show {
+.modal[data-mode="1"],
+.modal[data-mode="2"] {
     display: flex;
 }
+
+/* -------------------------------------------------
+モーダルの中身
+----------------------------------------------------- */
 
 .modal_content {
     width: 80%;
@@ -31,13 +40,24 @@
     align-items: center;
 }
 
+.modal_text_top_1,
+.modal_text_top_2,
 .modal_content_bottom_1,
 .modal_content_bottom_2 {
     display: none;
 }
 
-.modal_content_bottom_1.show,
-.modal_content_bottom_2.show {
+.modal[data-mode="1"] .modal_text_top_1,
+.modal[data-mode="2"] .modal_text_top_2 {
+    display: inline-block;
+    color: white;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.modal[data-mode="1"] .modal_content_bottom_1,
+.modal[data-mode="2"] .modal_content_bottom_2 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,6 +71,18 @@
 .modal_form {
     width: 150px;
     height: 24px;
+}
+
+/* ---------------------------------------------------
+バツボタン＆エラー
+------------------------------------------------------- */
+
+.modal_close_bar {
+    transform: rotate(45deg);
+}
+
+.modal_close_bar2 {
+    transform: rotate(-45deg);
 }
 
 .modal_close {
@@ -71,30 +103,8 @@
     background-color: white;
 }
 
-.modal_close_bar {
-    transform: rotate(45deg);
-}
-
-.modal_close_bar2 {
-    transform: rotate(-45deg);
-}
-
 .error {
     text-align: center;
     color: red;
     font-size: 18px;
-}
-
-.modal_text_top_1,
-.modal_text_top_2 {
-    display: none;
-}
-
-.modal_text_top_1.show,
-.modal_text_top_2.show {
-    display: inline-block;
-    color: white;
-    font-size: 24px;
-    line-height: 1;
-    font-weight: 600;
 }

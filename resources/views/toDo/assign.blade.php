@@ -37,6 +37,7 @@
             </div>
         </main>
     </div>
+    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0"/>
 </body>
 
 </html>

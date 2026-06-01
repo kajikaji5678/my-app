@@ -38,3 +38,12 @@ echo kaji("hello", function ($z) {
 /// 例: User::where("id", 1)->get()->name は使用できない
 
 // pluckはJSON、valueはそのまま
+
+//todo 6月1日
+// クラス内の変数 = プロパティ
+
+class Human {
+    private $name;
+    private $age;
+    private $form;
+}

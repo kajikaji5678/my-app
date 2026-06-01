@@ -1,14 +1,15 @@
 @props(['types', 'milestones', 'categories', 'statuses'])
 
-<div id="taskModal" class="modal">
+<div id="modal" class="modal" data-mode="0">
     <div class="modal_content">
         <div id="modal_close" class="modal_close">
             <div class="modal_close_bar"></div>
             <div class="modal_close_bar2"></div>
         </div>
         <div class="modal_content_top">
-            <p class="modal_text_top_1" id="modal_text_top_1">タスク作成</p>
-            <p class="modal_text_top_2" id="modal_text_top_2">ステータス変更</p>
+            <p class="modal_text_top_1">タスク作成</p>
+            <p class="modal_text_top_2">ステータス変更</p>
+            <p class="modal_text_top_3">アサイン作成</p>
         </div>
         <div class="modal_content_bottom_1" id="modal_content_bottom_1">
             <form action="{{ route('board.add') }}" method="POST">
