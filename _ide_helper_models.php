@@ -128,20 +128,34 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereRoleName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RoleUser> $roleUsers
  * @property-read int|null $role_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $user
+ * @property-read int|null $user_count
+ * @mixin \Eloquent
  */
 	class Role extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
+ * @property int $id
+ * @property string $role_level
+ * @property int $project_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RoleUser> $roleUsers
  * @property-read int|null $role_users_count
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel query()
+ * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereRoleLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @property-read RoleLevel|null $requiredLevel
  */
 	class RoleLevel extends \Eloquent {}
 }
@@ -151,11 +165,11 @@ namespace App\Models{
  * @property int $id
  * @property int $user_id
  * @property int $role_id
- * @property string $role_level
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $role_level_id
  * @property-read \App\Models\Role $role
- * @property-read \App\Models\RoleLevel|null $roleLevel
+ * @property-read \App\Models\RoleLevel $roleLevel
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|RoleUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RoleUser newQuery()
@@ -163,9 +177,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|RoleUser whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleUser whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleUser whereRoleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RoleUser whereRoleLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|RoleUser whereRoleLevelId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleUser whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleUser whereUserId($value)
+ * @mixin \Eloquent
  */
 	class RoleUser extends \Eloquent {}
 }
@@ -282,6 +297,15 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @method static \Illuminate\Database\Eloquent\Builder|TaksRole newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TaksRole newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TaksRole query()
+ */
+	class TaksRole extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @property int $id
  * @property string $task_name
  * @property int $project_id
@@ -384,9 +408,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSalarySum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RoleUser> $roleUsers
  * @property-read int|null $role_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
+ * @property-read int|null $roles_count
+ * @mixin \Eloquent
  */
 	class User extends \Eloquent {}
 }

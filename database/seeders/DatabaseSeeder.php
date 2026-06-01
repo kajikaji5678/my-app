@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             StatusSeeder::class,
             TaskSeeder::class,
+            RoleLevelSeeder::class,
+            RoleUserSeeder::class,
         ]);
     }
 }

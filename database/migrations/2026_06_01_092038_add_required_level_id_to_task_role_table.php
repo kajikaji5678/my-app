@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_task', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('task_id')->constrained();
-            $table->foreignId('role_id')->constrained();
-            $table->timestamps();
+        Schema::table('role_task', function (Blueprint $table) {
+            $table->foreignId('required_level_id')->constrained('role_levels');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('task_role');
+        Schema::table('task_role', function (Blueprint $table) {
+            //
+        });
     }
 };

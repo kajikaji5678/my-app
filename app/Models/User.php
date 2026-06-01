@@ -57,6 +57,10 @@ use App\Models\Task;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSalarySum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RoleUser> $roleUsers
+ * @property-read int|null $role_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
+ * @property-read int|null $roles_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -96,27 +100,38 @@ class User extends Authenticatable
     ];
 
     // 従業員はいくつもの出退勤を行うリレーション
-    public function works() {
+    public function works()
+    {
         return $this->hasMany(StartAndEndTime::class);
     }
 
-    public function schedules() {
+    public function schedules()
+    {
         return $this->hasMany(Schedules::class);
     }
 
-    public function salaryRequest() {
+    public function salaryRequest()
+    {
         return $this->hasMany(SalaryRequest::class);
     }
 
-    public function ptoRequest() {
+    public function ptoRequest()
+    {
         return $this->hasMany(PtoRequest::class);
     }
 
-    public function roleUsers() {
+    public function roleUsers()
+    {
         return $this->hasMany(RoleUser::class);
     }
 
-    public function task() {
+    public function task()
+    {
         return $this->belongsToMany(Task::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withPivot('role_level_id');
     }
 }
