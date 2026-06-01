@@ -23,10 +23,6 @@ use App\Models\Task;
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereRoleName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RoleUser> $roleUsers
- * @property-read int|null $role_users_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $user
- * @property-read int|null $user_count
  * @mixin \Eloquent
  */
 class Role extends Model

@@ -8,6 +8,7 @@ use App\Http\Controllers\TaskBoardController;
 use App\Http\Controllers\UpdateSalary;
 use App\Http\Controllers\WorkTimeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AsssignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/toDo/board/act', [TaskBoardController::class, 'act'])->name('board.form');
     Route::post('/toDo/board/add', [TaskBoardController::class, 'add'])->name('board.add');
     Route::post('/toDo/board/status', [TaskBoardController::class, 'update'])->name('board.status');
+
+    // todo アサインボード
+    Route::get('/toDo/assign', [AsssignController::class, 'index']);
 
     Route::get('/salary', function () {
         return view('salary');
