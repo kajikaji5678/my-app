@@ -13,7 +13,8 @@
 }
 
 .modal[data-mode="1"],
-.modal[data-mode="2"] {
+.modal[data-mode="2"],
+.modal[data-mode="3"] {
     display: flex;
 }
 
@@ -51,6 +52,14 @@
 .modal[data-mode="2"] .modal_text_top_2 {
     display: inline-block;
     color: white;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.modal[data-mode="3"] .modal_text_top_3 {
+    display: inline-block;
+    color: rgb(90, 182, 177);
     font-size: 24px;
     line-height: 1;
     font-weight: 600;
