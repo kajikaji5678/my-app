@@ -24,3 +24,6 @@ class AsssignController extends Controller
         return view('toDo.assign', $data);
     }
 }
+
+// * メモ
+// コンストラクタは誕生直後に実行される処理
