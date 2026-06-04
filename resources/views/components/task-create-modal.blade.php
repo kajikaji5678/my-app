@@ -17,7 +17,9 @@
             <x-modal-content-2 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
             <x-modal-content-3 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
         @endif
-        <x-modal-content-4 :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" :mo_de="$mo_de"/>
+        @if (!is_numeric($roles))
+            <x-modal-content-4 :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" />
+        @endif
     </div>
 </div>
 

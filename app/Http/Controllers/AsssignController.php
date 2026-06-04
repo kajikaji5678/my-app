@@ -60,13 +60,20 @@ class AsssignController extends Controller
             'start_time.required' => '開始時刻が設定されていません。',
             'end_time.required' => '終了時刻が設定されていません。'
         ]);
-        dd($data);
+        
+        session([
+            'assign_data_2' => $validated,
+        ]);
+
+        $test = session()->get('assign_data_2');
+        dd($test['role_id']);
     }
 }
 
 // * メモ
 // コンストラクタは誕生直後に実行される処理
 
-// test
-// test2
-// test3
+// * メモ
+/// session() が返すのは Store オブジェクトなので、
+/// data というプロパティを直接参照している扱いになる。
+/// 連想配列
