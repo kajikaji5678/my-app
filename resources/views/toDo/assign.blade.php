@@ -24,7 +24,7 @@
             <div class="assign">
                 <div class="condition_box">
                     <div class="condition_box_left">
-                        <a href="" class="assign_button">
+                        <a class="assign_button">
                             <div>
                                 アサイン作成
                             </div>
@@ -37,7 +37,7 @@
             </div>
         </main>
     </div>
-    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0"/>
+    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :roles="$roles ?? 0" :role_levels="$role_levels ?? 0"/>
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 

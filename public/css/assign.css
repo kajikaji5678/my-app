@@ -12,15 +12,16 @@
     display: flex;
     gap: 24px;
     padding: 16px;
+    box-sizing: border-box;
 }
 
 .condition_box_left {
-    width: 30%;
+    width: 50%;
     height: 100%;
 }
 
 .condition_box_right {
-    width: 70%;
+    width: 50%;
     height: 100%;
 }
 
@@ -33,5 +34,12 @@
     font-size: 20px;
     padding: 12px 28px;
     font-weight: 700;
-    background-color: rgb(90, 182, 177);
+    background-color: rgb(89, 202, 234);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.assign_button:hover {
+    background-color: white;
+    color: rgb(89, 202, 234);
 }

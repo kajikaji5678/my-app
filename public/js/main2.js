@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalClose = document.getElementById('modal_close');
     const tasks = document.querySelectorAll('.dynamic_box_content');
     const task_id = document.getElementById('task_id');
+    const assignButton = document.querySelector('.assign_button');
+    modalClose.addEventListener('click', () => {
+        modal.dataset.mode = '0';
+    });
     openButtons.forEach(button => {
         button.addEventListener('click', () => {
             const statusId = button.dataset.statusId;
@@ -23,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.dataset.mode = '2';
         });
     });
+    assignButton.addEventListener('click', () => {
+        modal.dataset.mode = '3';
+    });
     menu.addEventListener('click', () => {
         aside.classList.toggle('active');
-    });
-    modalClose.addEventListener('click', () => {
-        modal.dataset.mode = '0';
     });
 });
 
