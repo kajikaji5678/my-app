@@ -68,3 +68,4 @@ class AsssignController extends Controller
 // コンストラクタは誕生直後に実行される処理
 
 // test
+// test2
