@@ -40,5 +40,6 @@
                 </option>
             @endforeach
         </select>
+        <button type="submit">送信</button>
     </form>
 </div>

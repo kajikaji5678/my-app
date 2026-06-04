@@ -6,7 +6,7 @@ use App\Models\Role;
 use App\Models\RoleLevel;
 use App\Models\Task;
 use App\Services\BoardService;
-use Request;
+use Illuminate\Http\Request;
 
 class AsssignController extends Controller
 {
@@ -40,13 +40,27 @@ class AsssignController extends Controller
         ]);
 
         session([
-            'assign_draft' => $validated,
+            'assign_data_1' => $validated,
         ]);
 
+        $mode = 4;
         $roles = Role::all();
-        $role_levels = RoleLevel::where('project_id', 1)->get();
+        $rolelevels = RoleLevel::where('project_id', 1)->get();
 
-        return view('toDo.assign', compact('roles', 'role_levels'));
+        return view('toDo.assign', compact('roles', 'rolelevels', 'mode'));
+    }
+
+    public function step2(Request $request) {
+        $validated = $request->validate([
+            'start_time' => ['required'],
+            'end_time' => ['required'],
+            'role_id' => ['required'],
+            'role_level_id' => ['required'] 
+        ], [
+            'start_time.required' => '開始時刻が設定されていません。',
+            'end_time.required' => '終了時刻が設定されていません。'
+        ]);
+        dd($data);
     }
 }
 

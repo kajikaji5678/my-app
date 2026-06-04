@@ -31,13 +31,13 @@
                         </a>
                     </div>
                     <div class="condition_box_right">
-
                     </div>
                 </div>
             </div>
         </main>
     </div>
-    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :roles="$roles ?? 0" :role_levels="$role_levels ?? 0"/>
+    <x-task-create-modal 
+    :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" :mode="$mode" :mo_de="$mo_de"/>
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
