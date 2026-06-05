@@ -52,6 +52,7 @@ class AssignNews extends Notification
     {
         return [
             'task_id' => $this->task->id,
+            'message' => 'アサインに招待されました！/n確認してください！'
         ];
     }
 }

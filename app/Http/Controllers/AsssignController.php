@@ -10,6 +10,7 @@ use App\Models\TaskAssign;
 use App\Models\User;
 use App\Services\BoardService;
 use Illuminate\Http\Request;
+use App\Notifications\AssignNews;
 
 class AsssignController extends Controller
 {
@@ -113,7 +114,8 @@ class AsssignController extends Controller
             'end_time' => $session2['end_time'],
             'task_id' => $task->id,
         ]);
-        dd($session1);
+
+        return view('toDo.assign');
     }
 }
 
@@ -125,4 +127,4 @@ class AsssignController extends Controller
 // / data というプロパティを直接参照している扱いになる。
 // / 連想配列
 
-// 初回コミット
+
