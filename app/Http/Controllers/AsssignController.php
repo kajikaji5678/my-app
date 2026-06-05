@@ -124,3 +124,5 @@ class AsssignController extends Controller
 // / session() が返すのは Store オブジェクトなので、
 // / data というプロパティを直接参照している扱いになる。
 // / 連想配列
+
+// 初回コミット
