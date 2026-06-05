@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task_assigins', function (Blueprint $table) {
+        Schema::create('task_assigns', function (Blueprint $table) {
             $table->id();
             $table->string('assign_name');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('task_id')->constrained();
+            $table->text('assign_content');
+            $table->date('start_time');
+            $table->date('end_time');
             $table->timestamps();
         });
     }
