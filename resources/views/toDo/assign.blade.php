@@ -36,9 +36,11 @@
             </div>
         </main>
     </div>
-    <x-task-create-modal 
+    <x-task-create-modal
     :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" :mode="$mode ?? 0" :users="$users ?? 0"/>
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
 </html>
+
+{{-- 初回コミット --}}
