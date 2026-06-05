@@ -79,12 +79,13 @@ class AsssignController extends Controller
         ->pluck('user_id');
 
         $users = [];
+        $mode = 5;
 
         foreach($ApplicableMembers as $ApplicableMember) {
-            array_push($users, User::where('id', $ApplicableMember)->get());
+            array_push($users, User::where('id', $ApplicableMember)->first());
         }
         
-        return view('toDo.assign', compact('users'));
+        return view('toDo.assign', compact('users', 'mode'));
     }
 }
 
