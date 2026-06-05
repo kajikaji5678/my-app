@@ -12,12 +12,12 @@
             <p class="modal_text_top_3">アサイン作成</p>
             <p class="modal_text_top_4">アサイン作成</p>
         </div>
-        @if (!is_numeric($types))
+        @if (isset($types) && !is_numeric($types))
             <x-modal-content-1 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
             <x-modal-content-2 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
             <x-modal-content-3 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
         @endif
-        @if (!is_numeric($roles))
+        @if (isset($roles) && !is_numeric($roles))
             <x-modal-content-4 :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" />
         @endif
     </div>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\RoleLevel;
+use App\Models\RoleUser;
 use App\Models\Task;
+use App\Models\User;
 use App\Services\BoardService;
 use Illuminate\Http\Request;
 
@@ -66,7 +68,23 @@ class AsssignController extends Controller
         ]);
 
         $test = session()->get('assign_data_2');
-        dd($test['role_id']);
+        $role_id = $test['role_id'];
+        $role_level_id = $test['role_level_id'];
+        
+
+        $ApplicableMembers = 
+        RoleUser::where('role_id', $role_id)
+        ->where('role_level_id', '>=' , $role_level_id)
+        ->where('role_level_id', '<=' , 4)
+        ->pluck('user_id');
+
+        $users = [];
+
+        foreach($ApplicableMembers as $ApplicableMember) {
+            array_push($users, User::where('id', $ApplicableMember)->get());
+        }
+        
+        return view('toDo.assign', compact('users'));
     }
 }
 

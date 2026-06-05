@@ -9,7 +9,7 @@
         <p class="modal_type">役職選択</p>
         <select name="role_id" class="modal_form">
             @foreach ($roles as $role)
-                <option>
+                <option value="{{ $role->id }}">
                     {{ $role->role_name }}
                 </option>
             @endforeach
@@ -17,7 +17,7 @@
         <p class="modal_type">役職レベル選択</p>
         <select name="role_level_id" class="modal_form">
             @foreach ($rolelevels as $role_level)
-                <option>
+                <option value="{{ $role_level->id }}">
                     {{ $role_level->role_level }}
                 </option>
             @endforeach
