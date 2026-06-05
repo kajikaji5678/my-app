@@ -115,6 +115,9 @@ class AsssignController extends Controller
             'task_id' => $task->id,
         ]);
 
+        $user = User::find($request->user_id);
+        $user->notify(new AssignNews($task));
+
         return view('toDo.assign');
     }
 }
