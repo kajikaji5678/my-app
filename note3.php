@@ -39,3 +39,5 @@ class User2
 $greet = new Greet;
 $user = new User2(new EnglishGreet());
 $user->greet();
+
+// 連想配列
