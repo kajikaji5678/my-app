@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/toDo/assign', [AsssignController::class, 'index']);
     Route::post('/toDo/assign/step1', [AsssignController::class, 'step1'])->name('assign.step1');
     Route::post('/toDo/assign/step2', [AsssignController::class, 'step2'])->name('assign.step2');
+    Route::post('/toDo/assigin/step3', [AsssignController::class, 'step3'])->name('assign.step3');
 
     
     Route::get('/salary', function () {
