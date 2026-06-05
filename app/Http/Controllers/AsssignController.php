@@ -87,6 +87,10 @@ class AsssignController extends Controller
         
         return view('toDo.assign', compact('users', 'mode'));
     }
+
+    public function step3(Request $request) {
+
+    }
 }
 
 // * メモ
