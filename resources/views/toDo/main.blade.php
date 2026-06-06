@@ -36,3 +36,5 @@
 </body>
 
 </html>
+
+// notification/front 初回コミット
