@@ -9,6 +9,7 @@ use App\Http\Controllers\UpdateSalary;
 use App\Http\Controllers\WorkTimeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AsssignController;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/main/list', [WorkTimeController::class, 'get']);
 
     // メインページその2
-    Route::get('/main2', function () {
-        return view('/toDo/main');
-    });
+    Route::get('/toDo/main', [MainController::class, 'get']);
 
     //* タスクボード
     Route::get('/toDo/board', [TaskBoardController::class, 'get']);
@@ -56,7 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/toDo/assign/step2', [AsssignController::class, 'step2'])->name('assign.step2');
     Route::post('/toDo/assigin/step3', [AsssignController::class, 'step3'])->name('assign.step3');
 
-    
+
     Route::get('/salary', function () {
         return view('salary');
     });
