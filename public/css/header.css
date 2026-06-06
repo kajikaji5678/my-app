@@ -94,17 +94,20 @@ header a {
 #notification:hover .notification-modal {
     width: 200px;
     height: 200px;
-    background-color: #a4a3a3;
+    background-color: #6a6969;
     position: absolute;
     top: 100%;
     left: 0;
     padding: 8px;
+    display: block;
+}
+
+#notification:hover .notification-modal ul{
     display: flex;
     flex-direction: column;
 }
 
 .notification-li {
     padding: 4px;
+    border-bottom: 3px dotted #a4a3a3;
 }
-
-.notification-li:not(:first-child) {}

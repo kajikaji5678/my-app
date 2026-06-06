@@ -11,12 +11,13 @@
             <a href="">お知らせ</a>
             <div class="notification-modal">
                 <ul>
-                    <li class="notification-li">
-                        という件名にてアサインされています！
-                    </li>
-                    <li class="notification-li">
-                        という件名にてアサインされています！
-                    </li>
+                    @if (isset($notifications)){{-- ifがないとnullの時に表示がバグる --}}
+                        @foreach ($notifications as $notification)
+                            <li class="notification-li">
+                                {{ $notification->data['message'] }}
+                            </li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
         </li>
