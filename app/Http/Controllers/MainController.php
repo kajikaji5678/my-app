@@ -9,6 +9,6 @@ class MainController extends Controller
 {
     public function get() {
         $notification = auth()->user()->notifications;
-        return view('toDo.main', $notification);
+        return view('toDo.main', compact('notification'));
     }
 }
