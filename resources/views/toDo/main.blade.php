@@ -7,16 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/main2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/board.css') }}">
 </head>
 
 <body>
     <x-header />
-
-    <main>
+    <div class="layout">
         <x-sidebar />
-
-            
-    </main>
+        <main class="content">
+            <x-projectbar />
+        </main>
+    </div>
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
