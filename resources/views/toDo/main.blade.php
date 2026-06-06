@@ -13,7 +13,6 @@
     <x-header />
 
     <main>
-        <x-sidebar />
 
             
     </main>
