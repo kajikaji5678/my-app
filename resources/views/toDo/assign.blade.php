@@ -22,22 +22,16 @@
         <main class="content">
             <x-projectbar />
             <div class="assign">
-                <div class="condition_box">
-                    <div class="condition_box_left">
-                        <a class="assign_button">
-                            <div>
-                                アサイン作成
-                            </div>
-                        </a>
+                <a class="assign_button">
+                    <div>
+                        アサイン作成
                     </div>
-                    <div class="condition_box_right">
-                    </div>
-                </div>
+                </a>
             </div>
         </main>
     </div>
-    <x-task-create-modal
-    :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" :mode="$mode ?? 0" :users="$users ?? 0"/>
+    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :roles="$roles ?? 0"
+        :rolelevels="$rolelevels ?? 0" :mode="$mode ?? 0" :users="$users ?? 0" />
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
