@@ -7,32 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/main2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aside.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/board.css') }}">
 </head>
 
 <body>
-    <header>
-        <ul>
-            <li>
-                <a href="">ダッシュボード</a>
-            </li>
-            <li>
-                <a href="">プロジェクト</a>
-            </li>
-            <li>
-                <a href="">お知らせ</a>
-            </li>
-            <li>
-                <a href="">メンバー招待</a>
-            </li>
-        </ul>
-    </header>
-
-    <main>
+    <x-header :notifications="$notifications"/>
+    <div class="layout">
         <x-sidebar />
-
-            
-    </main>
+        <main class="content">
+            <x-projectbar />
+            {{-- dd($notifications) 6/6 送信受け取り済み --}}
+        </main>
+    </div>
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
 </html>
+{{--  notification/front 初回コミット --}}

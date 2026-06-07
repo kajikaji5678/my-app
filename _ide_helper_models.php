@@ -154,8 +154,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereRoleLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|RoleLevel whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaksRole> $taskRoles
+ * @property-read int|null $task_roles_count
  * @mixin \Eloquent
- * @property-read RoleLevel|null $requiredLevel
  */
 	class RoleLevel extends \Eloquent {}
 }
@@ -297,9 +298,11 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property-read \App\Models\RoleLevel|null $requiredLevel
  * @method static \Illuminate\Database\Eloquent\Builder|TaksRole newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TaksRole newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TaksRole query()
+ * @mixin \Eloquent
  */
 	class TaksRole extends \Eloquent {}
 }
@@ -344,6 +347,34 @@ namespace App\Models{
  * @mixin \Eloquent
  */
 	class Task extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign query()
+ * @property int $id
+ * @property string $assign_name
+ * @property int $user_id
+ * @property int $task_id
+ * @property string $assign_content
+ * @property string $start_time
+ * @property string $end_time
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereAssignContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereAssignName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereTaskId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUserId($value)
+ * @mixin \Eloquent
+ */
+	class TaskAssign extends \Eloquent {}
 }
 
 namespace App\Models{
