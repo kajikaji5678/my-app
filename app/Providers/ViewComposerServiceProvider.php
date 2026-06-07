@@ -13,7 +13,9 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function register(): void
     {
         View::composer('*', function($view) {
-            $notificationCout = auth()->user()->unreadNotifications()->count();
+            $notifications = auth()->user()->unreadNotifications;
+            $notificationCout = $notifications->count();
+            $view->with('notifications', $notifications);
             $view->with('notificationCount', $notificationCout);
         });
     }
