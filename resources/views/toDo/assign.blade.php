@@ -27,6 +27,30 @@
                         アサイン作成
                     </div>
                 </a>
+                <div class="assign-main">
+                    <div class="assign-content">
+                        <div class="assign-content-block">
+                            <p class="assign-content-title">アサイン名</p>
+                            <p class="assign-content-p">テスト</p>
+                        </div>
+                        <div class="assign-content-block">
+                            <p class="assign-content-title">内容</p>
+                            <p class="assign-content-p">あああああああ</p>
+                        </div>
+                        <div class="assign-content-block">
+                            <p class="assign-content-title">募集開始時刻</p>
+                            <p class="assign-content-p">2000/01/01</p>
+                        </div>
+                        <div class="assign-content-block">
+                            <p class="assign-content-title">募集終了時刻</p>
+                            <p class="assign-content-p">2009/01/01</p>
+                        </div>
+                        <div class="assign-content-block">
+                            <p class="assign-content-title">対象者</p>
+                            <p class="assign-content-p">福田舵斗</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
