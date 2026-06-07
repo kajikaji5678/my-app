@@ -14,7 +14,7 @@
                     @if (isset($notifications)){{-- ifがないとnullの時に表示がバグる --}}
                         @foreach ($notifications as $notification)
                             <li class="notification-li">
-                                <a href="{{ route('notification.open') }}">
+                                <a href="{{ route('notification.open', $notification->id) }}">
                                     {{ $notification->data['message'] }}
                                 </a>
                             </li>

@@ -121,9 +121,6 @@ class AsssignController extends Controller
         return view('toDo.assign');
     }
 
-    public function notification() {
-        return view('toDo.assign');
-    }
 }
 
 // * メモ
