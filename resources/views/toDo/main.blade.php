@@ -9,18 +9,22 @@
     <link rel="stylesheet" href="{{ asset('css/main2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aside.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board.css') }}">
 </head>
 
 <body>
-    <x-header />
+    <x-header :notifications="$notifications"/>
     <div class="layout">
         <x-sidebar />
         <main class="content">
             <x-projectbar />
+            {{-- dd($notifications) 6/6 送信受け取り済み --}}
         </main>
     </div>
     <script src="{{ asset('js/main2.js') }}"></script>
 </body>
 
 </html>
+
+// notification/front 初回コミット
