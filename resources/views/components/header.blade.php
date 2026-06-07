@@ -19,6 +19,10 @@
                                 </a>
                             </li>
                         @endforeach
+                        @else
+                            <li class="notification-li">
+                                <a>お知らせは何もありません</a>
+                            </li>
                     @endif
                 </ul>
             </div>
