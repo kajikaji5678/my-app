@@ -1,4 +1,5 @@
 // todo モーダル
+// todo 6/8 React始動‼
 
 document.addEventListener('DOMContentLoaded', () => {
     const menu = document.querySelector('.aside_menu_bar_box');
