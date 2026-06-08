@@ -29,6 +29,7 @@ class AsssignController extends Controller
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
         $assigns = TaskAssign::with('user')->get();
+        //* 6/8 リレーション取得はwithで行う
 
         return view('toDo.assign', $data , compact('assigns'));
     }
