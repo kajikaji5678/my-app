@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ asset('css/aside.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('css/assign.css') }}">
 </head>

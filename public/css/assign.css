@@ -52,15 +52,20 @@
     box-shadow: none;
 }
 
+/* ---------------------------------------------------
+アサイン中身
+---------------------------------------------------- */
+
 .assign-main {
     overflow-x: scroll;
     overflow-y: hidden;
     display: flex;
     flex: 1;
+    gap: 32px;
 }
 
 .assign-content {
-    max-width: 300px;
+    min-width: 300px;
     flex: 1;
     border: 2px solid rgb(89, 202, 234);
     border-radius: 8px;
