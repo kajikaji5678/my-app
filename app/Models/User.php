@@ -134,4 +134,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class)->withPivot('role_level_id');
     }
+
+    public function TaskAssign()
+    {
+        return $this->hasMany(TaskAssign::class);
+    }
 }
