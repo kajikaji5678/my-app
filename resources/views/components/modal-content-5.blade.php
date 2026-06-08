@@ -3,7 +3,7 @@
     <form action="{{ route('assign.step3') }}" method="POST">
         @csrf
         <p class="modal_type">対象者選択</p>
-        <select name="user_id" class="modal_form">
+        <select name="user_ids[]" class="modal_form" multiple>
             @foreach ($users as $user)
                 <option value="{{ $user->id }}">
                     {{ $user->name }}
