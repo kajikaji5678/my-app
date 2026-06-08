@@ -373,7 +373,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUserId($value)
  * @mixin \Eloquent
- * @property-read \App\Models\User $user
  */
 	class TaskAssign extends \Eloquent {}
 }

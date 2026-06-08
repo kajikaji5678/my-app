@@ -137,7 +137,7 @@ class User extends Authenticatable
 
     public function TaskAssign()
     {
-        return $this->hasMany(TaskAssign::class);
+        return $this->belongsToMany(TaskAssign::class);
     }
 }
 
