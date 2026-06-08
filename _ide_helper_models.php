@@ -373,6 +373,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\User $user
  */
 	class TaskAssign extends \Eloquent {}
 }
@@ -444,6 +445,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
  * @property-read int|null $roles_count
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $TaskAssign
+ * @property-read int|null $task_assign_count
  */
 	class User extends \Eloquent {}
 }

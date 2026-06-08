@@ -28,7 +28,9 @@ class AsssignController extends Controller
         $tasks = Task::where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
-        return view('toDo.assign', $data);
+        $assigns = TaskAssign::with('user')->get();
+
+        return view('toDo.assign', $data , compact('assigns'));
     }
 
     public function step1(Request $request)
