@@ -28,9 +28,9 @@ class AsssignController extends Controller
         $tasks = Task::where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
-        $assigns = TaskAssign::with('user')->get();
+        $assigns = TaskAssign::with('user')->get()->groupBy('assign_name');
         // * 6/8 リレーション取得はwithで行う
-
+        // * 同日 本来はテーブル設計を見直すべきだが応急処置でメゾット使用
         return view('toDo.assign', $data, compact('assigns'));
     }
 
@@ -119,10 +119,9 @@ class AsssignController extends Controller
                 'end_time' => $session2['end_time'],
                 'task_id' => $task->id,
             ]);
+            $user = User::find($id);
+            $user->notify(new AssignNews($task));
         }
-
-        $user = User::find($request->user_id);
-        $user->notify(new AssignNews($task));
 
         return view('toDo.assign');
     }
