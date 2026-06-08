@@ -16,11 +16,11 @@
         </div>
         <div class="assign-content-block">
             <p class="assign-content-title">募集終了時刻</p>
-            <p class="assign-content-p">2009/01/01</p>
+            <p class="assign-content-p">{{ $assign->end_time }}</p>
         </div>
         <div class="assign-content-block">
             <p class="assign-content-title">対象者</p>
-            <p class="assign-content-p">福田舵斗</p>
+            <p class="assign-content-p">{{ $assign->user->name }}</p>
         </div>
     </div>
 @endforeach
