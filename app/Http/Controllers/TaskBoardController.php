@@ -87,4 +87,8 @@ class TaskBoardController extends Controller
 
         return redirect()->route('board.form');
     }
+
+    public function api(Task $id) {
+        return response()->json($id);
+    }
 }

@@ -8,9 +8,9 @@ use App\Models\RoleUser;
 use App\Models\Task;
 use App\Models\TaskAssign;
 use App\Models\User;
+use App\Notifications\AssignNews;
 use App\Services\BoardService;
 use Illuminate\Http\Request;
-use App\Notifications\AssignNews;
 
 class AsssignController extends Controller
 {
@@ -28,9 +28,10 @@ class AsssignController extends Controller
         $tasks = Task::where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
-        $assigns = TaskAssign::with('user')->get();
-
-        return view('toDo.assign', $data , compact('assigns'));
+        $assigns = TaskAssign::with('user')->get()->groupBy('assign_name');
+        // * 6/8 リレーション取得はwithで行う
+        // * 同日 本来はテーブル設計を見直すべきだが応急処置でメゾット使用
+        return view('toDo.assign', $data, compact('assigns'));
     }
 
     public function step1(Request $request)
@@ -108,21 +109,22 @@ class AsssignController extends Controller
             'status_id' => 1,
             'task_name' => 'テスト',
         ]);
-        TaskAssign::create([
-            'user_id' => $request->user_id,
-            'assign_name' => $session1['assign_name'],
-            'assign_content' => $session1['assign_content'],
-            'start_time' => $session2['start_time'],
-            'end_time' => $session2['end_time'],
-            'task_id' => $task->id,
-        ]);
 
-        $user = User::find($request->user_id);
-        $user->notify(new AssignNews($task));
+        foreach ($request->user_ids as $id) {
+            TaskAssign::create([
+                'user_id' => $id,
+                'assign_name' => $session1['assign_name'],
+                'assign_content' => $session1['assign_content'],
+                'start_time' => $session2['start_time'],
+                'end_time' => $session2['end_time'],
+                'task_id' => $task->id,
+            ]);
+            $user = User::find($id);
+            $user->notify(new AssignNews($task));
+        }
 
         return view('toDo.assign');
     }
-
 }
 
 // * メモ
@@ -133,4 +135,4 @@ class AsssignController extends Controller
 // / data というプロパティを直接参照している扱いになる。
 // / 連想配列
 
-
+//
