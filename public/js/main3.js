@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // まず状態だけ考える
     let mode = '0';
     let taskId = null;
     let statusId = null;
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tasks = document.querySelectorAll('.dynamic_box_content')
     const assignButton = document.querySelector('.assign_button');
 
+    // DOM更新をここで集約している
     function render() {
         modal.dataset.mode = mode;
         document.getElementById('task_id').value = taskId;
