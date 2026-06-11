@@ -12,9 +12,6 @@ class MainController extends Controller
     }
 }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 8c7c162 (初回コミット)
-//
+
