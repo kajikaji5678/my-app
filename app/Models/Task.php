@@ -100,4 +100,8 @@ class Task extends Model
     public function statuses() {
         return $this->belongsTo(Status::class);
     }
+
+    public function taskAssigns() {
+        return $this->hasMany(TaskAssign::class);
+    }
 }

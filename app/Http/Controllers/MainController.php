@@ -14,4 +14,8 @@ class MainController extends Controller
 
 
 
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> assign/comment
