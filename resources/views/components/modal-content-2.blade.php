@@ -14,6 +14,6 @@
         <button type="submit">送信</button>
     </form>
     <div class="modal-comment">
-
+        <p class="comment-title">コメント一覧</p>
     </div>
 </div>

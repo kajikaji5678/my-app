@@ -87,9 +87,10 @@
 .modal[data-mode="5"] .modal_content_bottom_5 {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     align-items: center;
     padding: 16px;
-    height: 100%;
+    height: calc(100% - 66px);
     box-sizing: border-box;
 }
 
@@ -160,4 +161,9 @@
     background-color: #F0F0F0;
     width: 50%;
     height: calc(100% - 32px);
+}
+
+.comment-title {
+    font-size: 18px;
+    font-weight: 600;
 }
