@@ -42,7 +42,6 @@ class TaskFactory extends Factory
                 'レイアウト調整',
             ]),
             'status' => 'null',
-            'status_color' => 'red',
             'project_id' => $project,
             'category_id' => Category::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,

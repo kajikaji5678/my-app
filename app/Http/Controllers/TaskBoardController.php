@@ -72,7 +72,6 @@ class TaskBoardController extends Controller
             'milestone_id' => $request->milestone_id,
             'category_id' => $request->category_id,
             'status_id' => $request->status_id,
-            'status_color' => 'red',
             'status' => 'aaa'
         ]);
 

@@ -63,7 +63,6 @@ class Task extends Model
         'type_id',
         'milestone_id',
         'status',
-        'status_color',
         'status_id'
     ];
 
