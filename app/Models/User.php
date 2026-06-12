@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +16,6 @@ use App\Models\PtoRequest;
 use App\Models\Role;
 use App\Models\Projects;
 use App\Models\Task;
-
 
 /**
  * @property int $id
@@ -153,6 +154,10 @@ class User extends Authenticatable
 
     public function getIconUrlAttribute() {
         return $this->icon ? asset('storage/' . $this->icon) : asset('img/human.png');
+    }
+
+    public function comment() {
+        return $this->hasMany(Comment::class);
     }
 }
 

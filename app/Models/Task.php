@@ -111,4 +111,8 @@ class Task extends Model
     public function taskAssigns() {
         return $this->hasMany(TaskAssign::class);
     }
+
+    public function comment() {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
