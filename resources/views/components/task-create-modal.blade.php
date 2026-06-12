@@ -11,6 +11,7 @@
             <p class="modal_text_top_2">ステータス変更</p>
             <p class="modal_text_top_3">アサイン作成</p>
             <p class="modal_text_top_4">アサイン作成</p>
+            <p class="modal_text_top_5">アサイン作成</p>
         </div>
         @if (isset($types) && !is_numeric($types))
             <x-modal-content-1 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />

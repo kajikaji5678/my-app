@@ -24,6 +24,19 @@
 モーダルの中身
 ----------------------------------------------------- */
 
+.modal_text_top_1,
+.modal_text_top_2,
+.modal_text_top_3,
+.modal_text_top_4,
+.modal_text_top_5,
+.modal_content_bottom_1,
+.modal_content_bottom_2,
+.modal_content_bottom_3,
+.modal_content_bottom_4
+.modal_content_bottom_5 {
+    display: none;
+}
+
 .modal_content {
     width: 80%;
     height: 80%;
@@ -55,17 +68,6 @@
     align-items: center;
 }
 
-.modal_text_top_1,
-.modal_text_top_2,
-.modal_text_top_3,
-.modal_text_top_4,
-.modal_content_bottom_1,
-.modal_content_bottom_2,
-.modal_content_bottom_3,
-.modal_content_bottom_5 {
-    display: none;
-}
-
 .modal[data-mode="1"] .modal_text_top_1,
 .modal[data-mode="2"] .modal_text_top_2,
 .modal[data-mode="3"] .modal_text_top_3,
@@ -87,6 +89,8 @@
     justify-content: center;
     align-items: center;
     padding: 16px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .modal_type {
@@ -142,4 +146,18 @@
     text-align: center;
     color: red;
     font-size: 18px;
+}
+
+/* -----------------------------------------------------
+コメント機能
+---------------------------------------------------- */
+.modal[data-mode="2"] .modal_content_bottom_2 {
+    gap: 64px;
+}
+
+.modal-comment {
+    padding: 32px;
+    background-color: #F0F0F0;
+    width: 50%;
+    height: calc(100% - 32px);
 }
