@@ -44,7 +44,7 @@ class TaskAssign extends Model
 
     public function user()
     {
-        $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function task() {

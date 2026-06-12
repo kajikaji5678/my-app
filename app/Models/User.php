@@ -137,7 +137,11 @@ class User extends Authenticatable
 
     public function TaskAssign()
     {
-        return $this->belongsToMany(TaskAssign::class);
+        return $this->hasMany(TaskAssign::class);
+    }
+
+    public function getIconUrlAttribute() {
+        return $this->icon ? asset('storage/' . $this->icon) : asset('img/human.png');
     }
 }
 
