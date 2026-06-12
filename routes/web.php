@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AsssignController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/toDo/assign/step2', [AsssignController::class, 'step2'])->name('assign.step2');
     Route::post('/toDo/assigin/step3', [AsssignController::class, 'step3'])->name('assign.step3');
 
+    // * 設定
+    Route::get('/toDo/setting', [SettingController::class, 'index']);
+    Route::post('/toDo/icon', [SettingController::class, 'icon'])->name('setting.icon');
 
     Route::get('/salary', function () {
         return view('salary');

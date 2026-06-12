@@ -48,6 +48,10 @@ use App\Models\Status;
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $taskAssigns
+ * @property-read int|null $task_assigns_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
+ * @property-read int|null $user_task_count
  * @mixin \Eloquent
  */
 class Task extends Model
@@ -63,7 +67,6 @@ class Task extends Model
         'type_id',
         'milestone_id',
         'status',
-        'status_color',
         'status_id'
     ];
 
@@ -87,9 +90,13 @@ class Task extends Model
         return $this->belongsTo(Milestone::class);
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class);
+    // }
+
+    public function userTask() {
+        return $this->hasMany(UserTask::class);
     }
 
     public function roles()

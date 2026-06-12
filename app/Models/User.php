@@ -61,6 +61,13 @@ use App\Models\Task;
  * @property-read int|null $role_users_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
  * @property-read int|null $roles_count
+ * @property string|null $icon
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $TaskAssign
+ * @property-read int|null $task_assign_count
+ * @property-read mixed $icon_url
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
+ * @property-read int|null $user_task_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIcon($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -125,9 +132,13 @@ class User extends Authenticatable
         return $this->hasMany(RoleUser::class);
     }
 
-    public function task()
-    {
-        return $this->belongsToMany(Task::class);
+    // public function task()
+    // {
+    //     return $this->belongsToMany(Task::class);
+    // }
+
+    public function userTask() {
+        return $this->hasMany(UserTask::class);
     }
 
     public function roles()
@@ -138,6 +149,10 @@ class User extends Authenticatable
     public function TaskAssign()
     {
         return $this->hasMany(TaskAssign::class);
+    }
+
+    public function getIconUrlAttribute() {
+        return $this->icon ? asset('storage/' . $this->icon) : asset('img/human.png');
     }
 }
 

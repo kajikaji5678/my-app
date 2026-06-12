@@ -49,8 +49,9 @@ class TaskBoardController extends Controller
             $query->where('milestone_id', $request->milestone_id);
         }
         $tasks = $query->get();
+        $data = $this->boardService->getBoardData(1, $tasks);
 
-        return view('toDo.borad', $this->getBoardDate($tasks));
+        return view('toDo.borad', $data);
     }
 
     public function add(Request $request)
@@ -72,7 +73,6 @@ class TaskBoardController extends Controller
             'milestone_id' => $request->milestone_id,
             'category_id' => $request->category_id,
             'status_id' => $request->status_id,
-            'status_color' => 'red',
             'status' => 'aaa'
         ]);
 

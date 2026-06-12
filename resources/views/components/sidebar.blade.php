@@ -6,7 +6,7 @@
         <div class="aside_menu_img">
             <img src="{{ asset('img/home.png') }}">
         </div>
-        <a href="">ホーム</a>
+        <a href="{{ url('toDo/main') }}">ホーム</a>
     </div>
     <div class="aside_menu_box">
         <div class="aside_menu_img">
@@ -24,7 +24,7 @@
         <div class="aside_menu_img">
             <img src="{{ asset('img/setting.png') }}">
         </div>
-        <a href="">設定</a>
+        <a href="{{ url('toDo/setting') }}">設定</a>
     </div>
     <div class="aside_menu_box">
         <div class="aside_menu_img">
