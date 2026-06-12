@@ -15,18 +15,19 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
-            '未対応',
-            '処理中',
-            '処理済み',
-            '完了'
+            '未対応' => '#ff7f50',
+            '処理中' => '#ffa500',
+            '処理済み' => '#adff2f',
+            '完了' => '#7fffd4'
         ];
 
         $projects = Project::all();
 
         foreach($projects as $project) {
-            foreach($statuses as $status) {
+            foreach($statuses as $statusName => $statusColor) {
                 Status::create([
-                    'status_name' => $status,
+                    'status_name' => $statusName,
+                    'status_color' => $statusColor,
                     'project_id' => $project->id,
                 ]);
             }

@@ -33,7 +33,8 @@
                         <div class="dynamic_box">
                             <div class="dynamic_box_top">
                                 <div class="dynamic_box_top1">
-                                    <p class="dynamic_box_top_text1">
+                                    <p class="dynamic_box_top_text1"
+                                    style="--status-color: {{ $status->status_color }}">
                                         {{ $status->status_name }}
                                     </p>
                                     <p class="dynamic_box_top_text2">
@@ -54,7 +55,8 @@
         </main>
     </div>
     <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" />
-    <script src="{{ asset('js/main2.js') }}"></script>
+    <script src="{{ asset('js/aside.js') }}"></script>
+    <script src="{{ asset('js/main3.js') }}"></script>
 </body>
 
 </html>

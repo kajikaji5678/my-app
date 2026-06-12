@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('status_name');
             $table->foreignId('project_id')->constrained();
+            $table->string('status_color');
             $table->timestamps();
         });
     }

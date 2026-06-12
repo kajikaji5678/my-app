@@ -29,7 +29,8 @@ class Status extends Model
 
     protected $fillable = [
         'status_name',
-        'project_id'
+        'project_id',
+        'status_color'
     ];
 
     public function tasks()

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained();
             $table->foreignId('type_id')->constrained();
             $table->foreignId('milestone_id')->constrained();
+            // * 6/12 ステータスカラーを持たせることを廃止
             $table->string('status');
-            $table->string('status_color');
             $table->timestamps();
         });
     }

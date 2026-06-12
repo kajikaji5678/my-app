@@ -22,7 +22,9 @@
             {{-- dd($notifications) 6/6 送信受け取り済み --}}
         </main>
     </div>
-    <script src="{{ asset('js/main2.js') }}"></script>
+    <script src="{{ asset('js/aside.js') }}"></script>
+    <script src="{{ asset('js/main3.js') }}"></script>
+
 </body>
 
 </html>

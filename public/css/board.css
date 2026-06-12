@@ -99,7 +99,7 @@ p a {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: red;
+    background-color: var(--status-color);
 }
 
 .dynamic_box_top_text2 {

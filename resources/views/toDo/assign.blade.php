@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ asset('css/aside.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('css/assign.css') }}">
 </head>
@@ -29,7 +28,7 @@
                 </a>
                 @if (isset($assigns))
                     <div class="assign-main">
-                        <x-assign-content :assigns="$assigns"/>
+                        <x-assign-content :assigns="$assigns" />
                     </div>
                 @endif
             </div>
@@ -37,7 +36,8 @@
     </div>
     <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :roles="$roles ?? 0"
         :rolelevels="$rolelevels ?? 0" :mode="$mode ?? 0" :users="$users ?? 0" />
-    <script src="{{ asset('js/main2.js') }}"></script>
+    <script src="{{ asset('js/aside.js') }}"></script>
+    <script src="{{ asset('js/main3.js') }}"></script>
 </body>
 
 </html>

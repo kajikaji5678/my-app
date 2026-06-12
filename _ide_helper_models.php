@@ -292,6 +292,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereStatusName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $status_color
+ * @method static \Illuminate\Database\Eloquent\Builder|Status whereStatusColor($value)
  */
 	class Status extends \Eloquent {}
 }
@@ -345,6 +347,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $taskAssigns
+ * @property-read int|null $task_assigns_count
  */
 	class Task extends \Eloquent {}
 }
@@ -373,7 +377,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUserId($value)
  * @mixin \Eloquent
- * @property-read \App\Models\User $user
+ * @property-read \App\Models\Task $task
  */
 	class TaskAssign extends \Eloquent {}
 }

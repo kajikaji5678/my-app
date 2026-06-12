@@ -63,7 +63,6 @@ class Task extends Model
         'type_id',
         'milestone_id',
         'status',
-        'status_color',
         'status_id'
     ];
 
@@ -99,5 +98,9 @@ class Task extends Model
 
     public function statuses() {
         return $this->belongsTo(Status::class);
+    }
+
+    public function taskAssigns() {
+        return $this->hasMany(TaskAssign::class);
     }
 }
