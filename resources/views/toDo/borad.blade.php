@@ -33,7 +33,8 @@
                         <div class="dynamic_box">
                             <div class="dynamic_box_top">
                                 <div class="dynamic_box_top1">
-                                    <p class="dynamic_box_top_text1">
+                                    <p class="dynamic_box_top_text1"
+                                    style="--status-color: {{ $status->status_color }}">
                                         {{ $status->status_name }}
                                     </p>
                                     <p class="dynamic_box_top_text2">
