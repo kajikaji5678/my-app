@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\Enums\TaskStatus;
 use App\Models\Status;
+use App\Models\User;
 
 /**
  * @extends Factory<Task>
@@ -46,7 +47,7 @@ class TaskFactory extends Factory
             'category_id' => Category::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,
             'milestone_id' => Milestone::where('project_id', $project->id)->inRandomOrder()->first()->id,
-            'status_id' => Status::where('project_id', $project->id)->inRandomOrder()->first()->id
+            'status_id' => Status::where('project_id', $project->id)->inRandomOrder()->first()->id,
         ];
 
     }

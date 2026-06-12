@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereTaskId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUserId($value)
+ * @property-read \App\Models\Task $task
+ * @property-read \App\Models\User $user
  * @mixin \Eloquent
  */
 class TaskAssign extends Model

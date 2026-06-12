@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereStatusName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereUpdatedAt($value)
+ * @property string $status_color
+ * @method static \Illuminate\Database\Eloquent\Builder|Status whereStatusColor($value)
  * @mixin \Eloquent
  */
 class Status extends Model

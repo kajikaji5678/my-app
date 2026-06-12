@@ -5,6 +5,9 @@
             {{ $task->type->type_name }}
         </p>
         <p class="task_name">{{ $task->task_name }}</p>
-        <p class="task_date">{{ $task->created_at }}</p>
+        <div class="task-and-manager">
+            <p class="task_date">{{ $task->created_at }}</p>
+            <p class="task-manager"></p>
+        </div>
     </div>
 @endforeach
