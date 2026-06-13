@@ -14,6 +14,7 @@ use App\Models\PtoRequest;
 use App\Models\Role;
 use App\Models\Projects;
 use App\Models\Task;
+use Illuminate\Support\Facades\Cache;
 
 
 /**
@@ -153,6 +154,10 @@ class User extends Authenticatable
 
     public function getIconUrlAttribute() {
         return $this->icon ? asset('storage/' . $this->icon) : asset('img/human.png');
+    }
+
+    public function getIsOnlineAttribute() {
+        return Cache::has('user-online-' . $this->id);
     }
 }
 
