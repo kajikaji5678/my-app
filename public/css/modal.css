@@ -210,3 +210,37 @@
     margin-top: 8px;
     width: 80%;
 }
+
+/* -----------------------------------------------------
+モーダル情報その他
+---------------------------------------------------- */
+
+.modal-left {
+    width: 50%;
+}
+
+.modal-info {
+    border-top: 1px solid #BDBDBD;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+}
+
+.modal-info:last-of-type {
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.modal-info-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #7a7a7a;
+}
+
+.modal-info-p {
+    color: #7a7a7a;
+}
+
+.modal-info p {
+    display: inline-block;
+}
+
