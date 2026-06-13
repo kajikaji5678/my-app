@@ -166,4 +166,24 @@
 .comment-title {
     font-size: 18px;
     font-weight: 600;
+    margin: 0 16px;
+}
+
+.comment-box {
+    gap: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.comment-box-img {
+    width: 32px;
+    height: 32px;
+}
+
+.comment-content {
+    background-color: white;
+    width: 60%;
+    padding: 16px;
+    margin: 12px;
+    border-radius: 8px;
 }

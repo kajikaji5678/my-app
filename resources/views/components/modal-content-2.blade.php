@@ -15,5 +15,19 @@
     </form>
     <div class="modal-comment">
         <p class="comment-title">コメント一覧</p>
+        <div class="comment-box">
+            <div class="content-box-img">
+                <img src="{{ auth()->user()->icon_url }}">
+            </div>
+            <div class="comment-content">
+            </div>
+        </div>
+        <form method="POST" action="{{ asset() }}">
+            @csrf
+            <input type="hidden" name="commentable_type" id="commentable_type">
+            <input type="hidden" name="commentable_id" id="commentable_id">
+            <textarea name="body" required></textarea>
+            <button type="submit">コメントを送信</button>
+        </form>
     </div>
 </div>
