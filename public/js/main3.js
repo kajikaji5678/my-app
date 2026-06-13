@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     tasks.forEach(task => {
         task.addEventListener('click', async () => {
             taskId = task.dataset.taskId;
+            const response = await fetch(`/tasks/${taskId}`);
+            const data = await response.json();
+            console.log(data);
             mode = '2';
             render();
         });

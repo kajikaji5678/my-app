@@ -12,6 +12,7 @@ use App\Http\Controllers\AsssignController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SettingController;
+use App\Models\Task;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/toDo/main', [MainController::class, 'get']);
 
     // todo API
-    Route::get('/api/tasks/{id}', [TaskBoardController::class, 'api']);
+    Route::get('/tasks/{id}', [TaskBoardController::class, 'api']);
 
     // * お知らせ
     Route::get('/toDo/notification/{id}', [NotificationController::class, 'get'])->name('notification.open');

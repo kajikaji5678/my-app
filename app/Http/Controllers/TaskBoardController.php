@@ -88,7 +88,8 @@ class TaskBoardController extends Controller
         return redirect()->route('board.form');
     }
 
-    public function api(Task $id) {
-        return response()->json($id);
+    public function api($id) {
+        $response = Task::with(['category', 'milestone', 'type'])->find($id);
+        return response()->json($response);
     }
 }
