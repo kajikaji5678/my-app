@@ -154,6 +154,14 @@ class User extends Authenticatable
     public function getIconUrlAttribute() {
         return $this->icon ? asset('storage/' . $this->icon) : asset('img/human.png');
     }
+
+    public function TaskUser1() {
+        return $this->hasMany(TaskUser::class, 'user_id');
+    }
+
+    public function TaskUser2() {
+        return $this->hasMany(TaskUser::class, 'assigned_by');
+    }
 }
 
 //
