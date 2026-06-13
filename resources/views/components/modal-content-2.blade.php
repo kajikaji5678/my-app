@@ -3,7 +3,7 @@
     <div class="modal-left">
         <div class="modal-info">
             <p class="modal-info-title">タスク名</p>
-            <p>あああ</p>
+            <p class="modal-info-name">あああ</p>
         </div>
         <div class="modal-info">
             <p class="modal-info-p">カテゴリー</p>
@@ -31,12 +31,14 @@
         </div>
     </div>
     <div class="modal-comment">
-        <p class="comment-title">コメント一覧</p>
-        <div class="comment-box">
-            <div class="comment-box-img">
-                <img src="{{ auth()->user()->icon_url }}">
-            </div>
-            <div class="comment-content">
+        <div class="modal-comment-1">
+            <p class="comment-title">コメント一覧</p>
+            <div class="comment-box">
+                <div class="comment-box-img">
+                    <img src="{{ auth()->user()->icon_url }}">
+                </div>
+                <div class="comment-content">
+                </div>
             </div>
         </div>
         <form method="POST" class="comment-out">

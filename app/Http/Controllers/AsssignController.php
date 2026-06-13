@@ -81,7 +81,8 @@ class AsssignController extends Controller
         $ApplicableMembers =
         RoleUser::where('role_id', $role_id)
             ->where('role_level_id', '>=', $role_level_id)
-            ->where('role_level_id', '<=', 4)
+            //! 明らかなバグの根ではあるが一旦数値4->12に変更
+            ->where('role_level_id', '<=', 12)
             ->pluck('user_id');
 
         $users = [];

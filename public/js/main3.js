@@ -33,18 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     tasks.forEach(task => {
         task.addEventListener('click', async () => {
             taskId = task.dataset.taskId;
-            const response = await fetch(`/api/tasks/${taskId}`);
-
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status}`);
-            }
-            const taskData = await response.json();
-            console.log(taskData);
             mode = '2';
             render();
         });
     });
     assignButton.addEventListener('click', () => {
-        modal.dataset.mode = '3';
+        mode = '3';
+        render();
     });
 });

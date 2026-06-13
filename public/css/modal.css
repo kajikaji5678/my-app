@@ -160,6 +160,9 @@
     background-color: #F0F0F0;
     width: 50%;
     height: calc(100% - 32px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .comment-title {
@@ -240,7 +243,10 @@
     color: #7a7a7a;
 }
 
-.modal-info p {
-    display: inline-block;
+.modal-info-name {
+    background-color: #EFF7F5;
+    color: #00836B;
+    padding: 0 4px;
 }
+
 
