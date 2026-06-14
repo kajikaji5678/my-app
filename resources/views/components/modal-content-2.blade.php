@@ -3,16 +3,19 @@
     <div class="modal-left">
         <div class="modal-info">
             <p class="modal-info-title">タスク名</p>
-            <p class="modal-info-name">あああ</p>
+            <p id="task_name" class="modal-info-name-large"></p>
         </div>
         <div class="modal-info">
             <p class="modal-info-p">カテゴリー</p>
+            <p id="category_name" class="modal-info-name"></p>
         </div>
         <div class="modal-info">
             <p class="modal-info-p">タイプ</p>
+            <p id="type_name" class="modal-info-name"></p>
         </div>
         <div class="modal-info">
             <p class="modal-info-p">マイルストーン</p>
+            <p id="milestone_name" class="modal-info-name"></p>
         </div>
         <div class="modal-info">
             <p class="modal_type">ステータス更新</p>
