@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\BoardService;
 
@@ -32,8 +33,9 @@ class TaskBoardController extends Controller
         $projectId = 1;
         $tasks = Task::where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
+        $users2 = User::pluck('name', 'id');
 
-        return view('toDo.borad', $data);
+        return view('toDo.borad', array_merge($data, compact('users2')));
     }
 
     public function act(Request $request)

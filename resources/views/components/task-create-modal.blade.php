@@ -1,5 +1,4 @@
-@props(['types', 'milestones', 'categories', 'statuses', 'roles', 'rolelevels' , 'mode', 'users'])
-
+@props(['types', 'milestones', 'categories', 'statuses', 'roles', 'rolelevels' , 'mode', 'users', 'users2'])
 <div id="modal" class="modal" data-mode="{{ $mode ?? 0 }}">
     <div class="modal_content">
         <div id="modal_close" class="modal_close">
@@ -14,7 +13,7 @@
             <p class="modal_text_top_5">アサイン作成</p>
         </div>
         @if (isset($types) && !is_numeric($types))
-            <x-modal-content-1 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
+            <x-modal-content-1 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" :users2="$users2"/>
             <x-modal-content-2 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
             <x-modal-content-3 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
         @endif

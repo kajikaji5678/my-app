@@ -1,4 +1,4 @@
-@props(['types', 'milestones', 'categories', 'statuses'])
+@props(['types', 'milestones', 'categories', 'statuses', 'users2'])
 <div class="modal_content_bottom_1" id="modal_content_bottom_1">
     <form action="{{ route('board.add') }}" method="POST">
         @csrf
@@ -32,6 +32,14 @@
             @foreach ($milestones as $milestone)
                 <option value="{{ $milestone->id }}">
                     {{ $milestone->milestone_name }}
+                </option>
+            @endforeach
+        </select>
+        <p class="modal_type">対象ユーザー</p>
+        <select name="users_ids[]" multiple>
+            @foreach ($users2 as $id => $name)
+                <option value="{{ $id }}">
+                    {{ $name }}
                 </option>
             @endforeach
         </select>
