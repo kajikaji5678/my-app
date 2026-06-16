@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/toDo/board/act', [TaskBoardController::class, 'act'])->name('board.form');
     Route::post('/toDo/board/add', [TaskBoardController::class, 'add'])->name('board.add');
     Route::post('/toDo/board/status', [TaskBoardController::class, 'update'])->name('board.status');
+    Route::post('/toDo/comments/{taskId}', [TaskBoardController::class, 'comment']);
 
     // todo アサインボード
     Route::get('/toDo/assign', [AsssignController::class, 'index']);

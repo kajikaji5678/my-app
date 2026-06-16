@@ -34,7 +34,7 @@
                             <div class="dynamic_box_top">
                                 <div class="dynamic_box_top1">
                                     <p class="dynamic_box_top_text1"
-                                    style="--status-color: {{ $status->status_color }}">
+                                        style="--status-color: {{ $status->status_color }}">
                                         {{ $status->status_name }}
                                     </p>
                                     <p class="dynamic_box_top_text2">
@@ -54,7 +54,10 @@
             </div>
         </main>
     </div>
-    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" :users2="$users2 ?? 0"/>
+    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" :users2="$users2 ?? 0" />
+    <script>
+        const csrfToken = "{{ csrf_token() }}"
+    </script>
     <script src="{{ asset('js/aside.js') }}"></script>
     <script src="{{ asset('js/main3.js') }}"></script>
 </body>

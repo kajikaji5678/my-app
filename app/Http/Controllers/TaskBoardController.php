@@ -107,4 +107,19 @@ class TaskBoardController extends Controller
 
         return response()->json($response);
     }
+
+    public function comment(Request $request, Task $taskId) {
+        $request->validate([
+            'body' => 'required',
+        ],[
+            'body.required' => 'コメントの内容が入力されていません'
+        ]);
+
+        $taskId->comments()->create([
+            'user_id' => auth()->id(),
+            'text' => $request->body,
+        ]);
+
+        return back();
+    }
 }

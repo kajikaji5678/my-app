@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryName = document.getElementById('category_name');
     const typeName = document.getElementById('type_name');
     const milestoneName = document.getElementById('milestone_name');
+    const comment_button = document.querySelector('.comment-button');
 
     // DOM更新をここで集約している
     function render() {
@@ -50,6 +51,20 @@ document.addEventListener('DOMContentLoaded', () => {
             mode = '2';
             render();
         });
+    });
+    comment_button.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        fetch(`/toDo/comments/${taskId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify({
+                body: document.querySelector('[name="body"]').value
+            })
+        })
     });
     assignButton.addEventListener('click', () => {
         mode = '3';

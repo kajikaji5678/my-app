@@ -49,12 +49,12 @@
                 </div>
             </div>
         </div>
-        <form method="POST" class="comment-out">
+        <form method="POST" class="comment-out" action="">
             @csrf
             <input type="hidden" name="commentable_type" id="commentable_type">
             <input type="hidden" name="commentable_id" id="commentable_id">
             <textarea name="body" class="textarea" required></textarea>
-            <button type="submit" class="comment-button">コメントを送信</button>
+            <button type="button" class="comment-button">コメントを送信</button>
         </form>
     </div>
 </div>
