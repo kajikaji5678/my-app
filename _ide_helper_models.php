@@ -13,6 +13,17 @@
 
 namespace App\Models{
 /**
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comment
+ * @property-read int|null $comment_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Assign newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Assign newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Assign query()
+ */
+	class Assign extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @property int $id
  * @property string $category_name
  * @property int $project_id
@@ -29,6 +40,31 @@ namespace App\Models{
  * @mixin \Eloquent
  */
 	class Category extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string $text
+ * @property string $commentable_type
+ * @property int $commentable_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
+ */
+	class Comment extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -291,9 +327,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereStatusName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property string $status_color
  * @method static \Illuminate\Database\Eloquent\Builder|Status whereStatusColor($value)
+ * @mixin \Eloquent
  */
 	class Status extends \Eloquent {}
 }
@@ -346,9 +382,13 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $taskAssigns
  * @property-read int|null $task_assigns_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
+ * @property-read int|null $user_task_count
+ * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comment
+ * @property-read int|null $comment_count
  */
 	class Task extends \Eloquent {}
 }
@@ -376,8 +416,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereTaskId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskAssign whereUserId($value)
- * @mixin \Eloquent
  * @property-read \App\Models\Task $task
+ * @property-read \App\Models\User $user
+ * @mixin \Eloquent
  */
 	class TaskAssign extends \Eloquent {}
 }
@@ -448,10 +489,29 @@ namespace App\Models{
  * @property-read int|null $role_users_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
  * @property-read int|null $roles_count
- * @mixin \Eloquent
+ * @property string|null $icon
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $TaskAssign
  * @property-read int|null $task_assign_count
+ * @property-read mixed $icon_url
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
+ * @property-read int|null $user_task_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIcon($value)
+ * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comment
+ * @property-read int|null $comment_count
  */
 	class User extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property-read \App\Models\Task|null $task
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|UserTask newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserTask newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserTask query()
+ * @mixin \Eloquent
+ */
+	class UserTask extends \Eloquent {}
 }
 
