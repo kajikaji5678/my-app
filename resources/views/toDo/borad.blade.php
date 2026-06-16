@@ -54,7 +54,7 @@
             </div>
         </main>
     </div>
-    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" :users2="$users2"/>
+    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" :users2="$users2 ?? 0"/>
     <script src="{{ asset('js/aside.js') }}"></script>
     <script src="{{ asset('js/main3.js') }}"></script>
 </body>

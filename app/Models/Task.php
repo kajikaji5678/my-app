@@ -52,6 +52,8 @@ use App\Models\Status;
  * @property-read int|null $task_assigns_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
  * @property-read int|null $user_task_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comment
+ * @property-read int|null $comment_count
  * @mixin \Eloquent
  */
 class Task extends Model

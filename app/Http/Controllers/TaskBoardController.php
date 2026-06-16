@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\BoardService;
+use Illuminate\Http\Request;
 
 class TaskBoardController extends Controller
 {
@@ -63,25 +63,31 @@ class TaskBoardController extends Controller
             'type_id' => 'required',
             'milestone_id' => 'required',
             'category_id' => 'required',
+            'users_ids' => 'required',
         ], [
-            'task_name.required' => 'タスク名が入力されていません。'
+            'task_name.required' => 'タスク名が入力されていません。',
         ]);
 
-
-        Task::create([
+        $task = Task::create([
             'task_name' => $request->task_name,
             'project_id' => 1,
             'type_id' => $request->type_id,
             'milestone_id' => $request->milestone_id,
             'category_id' => $request->category_id,
             'status_id' => $request->status_id,
-            'status' => 'aaa'
+            'status' => 'aaa',
         ]);
+
+
+        $task->users()->attach($request->users_ids);
+
+        // * 6/16 クリエイトは登録されたレコードをモデル化して返します
 
         return redirect()->route('board.form');
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $task = Task::findOrFail($request->task_id);
         $task->update([
             'status_id' => $request->status_id,
@@ -90,8 +96,10 @@ class TaskBoardController extends Controller
         return redirect()->route('board.form');
     }
 
-    public function api($id) {
+    public function api($id)
+    {
         $response = Task::with(['category', 'milestone', 'type'])->find($id);
+
         return response()->json($response);
     }
 }

@@ -37,11 +37,13 @@
         </select>
         <p class="modal_type">対象ユーザー</p>
         <select name="users_ids[]" multiple>
-            @foreach ($users2 as $id => $name)
-                <option value="{{ $id }}">
-                    {{ $name }}
-                </option>
-            @endforeach
+            @if (isset($users2) && !is_numeric($users2))
+                @foreach ($users2 as $id => $name)
+                    <option value="{{ $id }}">
+                        {{ $name }}
+                    </option>
+                @endforeach
+            @endif
         </select>
         <button type="submit">送信</button>
     </form>

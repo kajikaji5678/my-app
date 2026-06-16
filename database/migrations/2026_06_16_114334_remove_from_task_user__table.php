@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('task_user', function (Blueprint $table) {
-            $table->dropColumn(['start_time', 'end_time']);
+            $table->dropColumn(['start_time', 'end_time', 'text']);
         });
     }
 
