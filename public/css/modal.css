@@ -247,6 +247,12 @@
     background-color: #EFF7F5;
     color: #00836B;
     padding: 0 4px;
+    font-size: 16px;
 }
 
-
+.modal-info-name-large {
+    background-color: #EFF7F5;
+    color: #00836B;
+    padding: 0 4px;
+    font-size: 18px;
+}

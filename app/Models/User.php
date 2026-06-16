@@ -133,10 +133,10 @@ class User extends Authenticatable
         return $this->hasMany(RoleUser::class);
     }
 
-    // public function task()
-    // {
-    //     return $this->belongsToMany(Task::class);
-    // }
+    public function task()
+    {
+        return $this->belongsToMany(Task::class);
+    }
 
     public function userTask() {
         return $this->hasMany(UserTask::class);
