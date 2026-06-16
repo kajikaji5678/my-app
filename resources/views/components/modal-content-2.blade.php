@@ -19,6 +19,11 @@
         </div>
         <div class="modal-info">
             <p class="modal_type">ステータス更新</p>
+            @if (session('error'))
+                <p class="error">
+                    {{ session('error') }}
+                </p>
+            @endif
             <form action="{{ route('board.status') }}" method="POST" class="modal-form-2">
                 @csrf
                 <input type="hidden" id="task_id" name="task_id">

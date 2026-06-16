@@ -89,6 +89,11 @@ class TaskBoardController extends Controller
     public function update(Request $request)
     {
         $task = Task::findOrFail($request->task_id);
+        $check = $task->users()->where('users.id', auth()->id())->exists();
+
+        if (! $check) {
+            return redirect()->back()->with('error', '担当者以外は編集できません');
+        }
         $task->update([
             'status_id' => $request->status_id,
         ]);
