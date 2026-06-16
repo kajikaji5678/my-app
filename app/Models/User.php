@@ -158,7 +158,7 @@ class User extends Authenticatable
         return $this->icon ? asset('storage/' . $this->icon) : asset('img/human.png');
     }
 
-    public function comment() {
+    public function comments() {
         return $this->hasMany(Comment::class);
     }
 }

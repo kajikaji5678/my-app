@@ -104,8 +104,12 @@ class TaskBoardController extends Controller
     public function api($id)
     {
         $response = Task::with(['category', 'milestone', 'type'])->find($id);
-
-        return response()->json($response);
+        $task = Task::with('comments')->find($id);
+        $comments = $task->comments()->with('users')->get();
+        return response()->json([
+            'response' => $response,
+            'comments' => $comments
+        ]);
     }
 
     public function comment(Request $request, Task $taskId) {
