@@ -58,6 +58,8 @@ use App\Models\Status;
  * @property-read int|null $task_user_count
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereEstimatedTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereRealTime($value)
+ * @property string|null $priority
+ * @method static \Illuminate\Database\Eloquent\Builder|Task wherePriority($value)
  * @mixin \Eloquent
  */
 class Task extends Model
@@ -75,7 +77,8 @@ class Task extends Model
         'status',
         'status_id',
         'estimated_time',
-        'real_time'
+        'real_time',
+        'priority'
     ];
 
     public function project()

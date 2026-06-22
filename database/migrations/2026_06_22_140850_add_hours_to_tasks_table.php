@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('tasks', function (Blueprint $table) {
             $table->integer('estimated_time')->nullable();
             $table->integer('real_time')->nullable();
+            $table->string('priority')->nullable();
         });
     }
 

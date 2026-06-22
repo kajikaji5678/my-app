@@ -51,6 +51,9 @@ class TaskBoardController extends Controller
         if ($request->filled('over-time')) {
             $query->whereColumn('estimated_time', '<' , 'real_time');
         }
+        if ($request->filled('priority')) {
+            $query->where('priority', '高');
+        }
         $tasks = $query->get();
         $data = $this->boardService->getBoardData(1, $tasks);
 
