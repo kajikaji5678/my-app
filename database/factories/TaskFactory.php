@@ -30,6 +30,13 @@ class TaskFactory extends Factory
         $project = Project::inRandomOrder()->first();
 
         $number = rand(5, 20);
+        $number2 = rand(1, 100);
+
+        if ($number2 <= 10) {
+            $type = '高';
+        } else {
+            $type = '中';
+        }
 
         return [
             'task_name' => fake()->randomElement([
@@ -52,6 +59,7 @@ class TaskFactory extends Factory
             'status_id' => Status::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'estimated_time' => $number * 30,
             'real_time' => rand($number - 4, $number + 4) * 30,
+            'priority' => $type,
         ];
 
     }
