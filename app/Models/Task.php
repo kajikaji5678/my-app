@@ -67,7 +67,9 @@ class Task extends Model
         'type_id',
         'milestone_id',
         'status',
-        'status_id'
+        'status_id',
+        'estimated_time',
+        'real_time'
     ];
 
     public function project()
