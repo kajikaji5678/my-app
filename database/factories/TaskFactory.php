@@ -29,6 +29,8 @@ class TaskFactory extends Factory
     {
         $project = Project::inRandomOrder()->first();
 
+        $number = rand(5, 20);
+
         return [
             'task_name' => fake()->randomElement([
                 'ログイン修正',
@@ -48,6 +50,8 @@ class TaskFactory extends Factory
             'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,
             'milestone_id' => Milestone::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'status_id' => Status::where('project_id', $project->id)->inRandomOrder()->first()->id,
+            'estimated_time' => $number * 30,
+            'real_time' => rand($number - 4, $number + 4) * 30,
         ];
 
     }
