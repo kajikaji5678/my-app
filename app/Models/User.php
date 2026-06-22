@@ -68,6 +68,10 @@ use App\Models\Task;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
  * @property-read int|null $user_task_count
  * @method static \Illuminate\Database\Eloquent\Builder|User whereIcon($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUser> $TaskUser1
+ * @property-read int|null $task_user1_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUser> $TaskUser2
+ * @property-read int|null $task_user2_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable

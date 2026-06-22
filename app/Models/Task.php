@@ -52,6 +52,12 @@ use App\Models\Status;
  * @property-read int|null $task_assigns_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
  * @property-read int|null $user_task_count
+ * @property int|null $estimated_time
+ * @property int|null $real_time
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUser> $TaskUser
+ * @property-read int|null $task_user_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereEstimatedTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereRealTime($value)
  * @mixin \Eloquent
  */
 class Task extends Model
