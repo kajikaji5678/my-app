@@ -28,19 +28,15 @@ class TaskBoardController extends Controller
         $warningTask = collect();
         $normalTask = collect();
 
-        foreach($tasks as $task) {
-            if (($task->real_time - $task->estimated_time) >= 90 && $task->status_id <= 2) {
+        foreach ($tasks as $task) {
+            if (($task->real_time - $task->estimated_time) >= 30 && $task->status_id = 2) {
                 $warningTask->push($task);
             } else {
                 $normalTask->push($task);
             }
         }
 
-        return view('toDo.borad', [
-            'data' => $data,
-            'warningTasks' => $warningTask,
-            'normalTasks' => $normalTask
-        ]);
+        return view('toDo.borad', $data);
     }
 
     public function act(Request $request)
