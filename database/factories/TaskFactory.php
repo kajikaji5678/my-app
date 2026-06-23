@@ -32,6 +32,16 @@ class TaskFactory extends Factory
         $number = rand(5, 20);
         $number2 = rand(1, 100);
 
+        $statusId = Status::where('project_id', $project->id)->inRandomOrder()->first()->id;
+
+        if ($statusId !== 1) {
+            $realTime = rand($number - 4, $number + 4) * 30;
+            $estimatedTime = $number * 30;
+        } else {
+            $realTime = 0;
+            $estimatedTime = 0;
+        }
+
         if ($number2 <= 10) {
             $type = '高';
         } else {
@@ -56,9 +66,9 @@ class TaskFactory extends Factory
             'category_id' => Category::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,
             'milestone_id' => Milestone::where('project_id', $project->id)->inRandomOrder()->first()->id,
-            'status_id' => Status::where('project_id', $project->id)->inRandomOrder()->first()->id,
-            'estimated_time' => $number * 30,
-            'real_time' => rand($number - 4, $number + 4) * 30,
+            'status_id' => $statusId,
+            'real_time' => $realTime,
+            'estimated_time' => $estimatedTime,
             'priority' => $type,
         ];
 
