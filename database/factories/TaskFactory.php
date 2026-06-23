@@ -70,6 +70,7 @@ class TaskFactory extends Factory
             'real_time' => $realTime,
             'estimated_time' => $estimatedTime,
             'priority' => $type,
+            'responsible_user_id' => User::inRandomOrder()->first()->id,
         ];
 
     }

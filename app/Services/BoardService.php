@@ -17,7 +17,7 @@ class BoardService
 
         foreach ($tasks as $task) {
             $overTime = $task->real_time - $task->estimated_time;
-            if ($overTime >= 30 && $task->status_id == 2) {
+            if ($overTime >= 60 && $task->status_id == 2) {
                 $superWarningTasks->push($task);
             } elseif ($overTime >= 30) {
                 $warningTasks->push($task);
