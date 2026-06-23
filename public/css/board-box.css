@@ -1,9 +1,17 @@
-.dynamic_box_content {
+.dynamic_box_content,
+.dynamic_box_content_warning {
     height: 84px;
     border-radius: 4px;
     border: 1px solid #C5C5C5;
     margin-top: 12px;
     padding: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.dynamic_box_content_warning {
+    animation:glow 1.5s infinite;
 }
 
 .type {
@@ -22,4 +30,18 @@
 .task_date {
     font-size: 12px;
     color: #8d8b8b;
+}
+
+.dynamic_box_content:hover {
+    box-shadow: 0px 0px 5px 2px #4f4f4f;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: none;
+    } 50% {
+        box-shadow: 0px 0px 5px 2px #dde74c;
+    } 100% {
+        box-shadow: none;
+    }
 }

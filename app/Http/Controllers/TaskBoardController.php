@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\Request;
 use App\Services\BoardService;
+use Illuminate\Http\Request;
 
 class TaskBoardController extends Controller
 {
@@ -21,19 +21,26 @@ class TaskBoardController extends Controller
 
     public function get()
     {
-        // todo 5/26/15 $teamsはコレクション（複数件）foreachで配列にしてから指定して取り出す
-
-        // * 条件が2重になったら絞り込めばいいだけだ
-        // * ただしビューのほうでさらにステータス絞り込みをしている
-
-        // * リレーションの親子間違えが起きている
-        // * 親が先である
-
         $projectId = 1;
         $tasks = Task::where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
-        return view('toDo.borad', $data);
+        $warningTask = collect();
+        $normalTask = collect();
+
+        foreach($tasks as $task) {
+            if (($task->real_time - $task->estimated_time) >= 90 && $task->status_id <= 2) {
+                $warningTask->push($task);
+            } else {
+                $normalTask->push($task);
+            }
+        }
+
+        return view('toDo.borad', [
+            'data' => $data,
+            'warningTasks' => $warningTask,
+            'normalTasks' => $normalTask
+        ]);
     }
 
     public function act(Request $request)
@@ -49,7 +56,7 @@ class TaskBoardController extends Controller
             $query->where('milestone_id', $request->milestone_id);
         }
         if ($request->filled('over-time')) {
-            $query->whereColumn('estimated_time', '<' , 'real_time');
+            $query->whereColumn('estimated_time', '<', 'real_time');
         }
         if ($request->filled('priority')) {
             $query->where('priority', '高');
@@ -68,9 +75,8 @@ class TaskBoardController extends Controller
             'milestone_id' => 'required',
             'category_id' => 'required',
         ], [
-            'task_name.required' => 'タスク名が入力されていません。'
+            'task_name.required' => 'タスク名が入力されていません。',
         ]);
-
 
         Task::create([
             'task_name' => $request->task_name,
@@ -79,13 +85,14 @@ class TaskBoardController extends Controller
             'milestone_id' => $request->milestone_id,
             'category_id' => $request->category_id,
             'status_id' => $request->status_id,
-            'status' => 'aaa'
+            'status' => 'aaa',
         ]);
 
         return redirect()->route('board.form');
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $task = Task::findOrFail($request->task_id);
         $task->update([
             'status_id' => $request->status_id,
@@ -94,7 +101,8 @@ class TaskBoardController extends Controller
         return redirect()->route('board.form');
     }
 
-    public function api(Task $id) {
+    public function api(Task $id)
+    {
         return response()->json($id);
     }
 }
