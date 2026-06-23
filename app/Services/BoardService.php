@@ -11,11 +11,15 @@ class BoardService
 {
     public function getBoardData($projectId, $tasks)
     {
+        $superWarningTasks = collect();
         $warningTasks = collect();
         $normalTasks = collect();
 
         foreach ($tasks as $task) {
-            if (($task->real_time - $task->estimated_time) >= 30 && $task->status_id = 2) {
+            $overTime = $task->real_time - $task->estimated_time;
+            if ($overTime >= 30 && $task->status_id == 2) {
+                $superWarningTasks->push($task);
+            } elseif ($overTime >= 30) {
                 $warningTasks->push($task);
             } else {
                 $normalTasks->push($task);
@@ -26,6 +30,7 @@ class BoardService
             'tasks' => $tasks,
             'warningTasks' => $warningTasks,
             'normalTasks' => $normalTasks,
+            'superWarningTasks' => $superWarningTasks,
             'types' => Type::where('projects_id', $projectId)->get(),
             'categories' => Category::where('project_id', $projectId)->get(),
             'milestones' => Milestone::where('project_id', $projectId)->get(),
