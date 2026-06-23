@@ -1,5 +1,6 @@
 .dynamic_box_content,
-.dynamic_box_content_warning {
+.dynamic_box_content_warning,
+.dynamic_box_content_superWarning {
     height: 84px;
     border-radius: 4px;
     border: 1px solid #C5C5C5;
@@ -12,6 +13,10 @@
 
 .dynamic_box_content_warning {
     animation:glow 1.5s infinite;
+}
+
+.dynamic_box_content_superWarning {
+    animation:glow2 1.5s infinite;
 }
 
 .type {
@@ -41,6 +46,16 @@
         box-shadow: none;
     } 50% {
         box-shadow: 0px 0px 5px 2px #dde74c;
+    } 100% {
+        box-shadow: none;
+    }
+}
+
+@keyframes glow2 {
+    0% {
+        box-shadow: none;
+    } 50% {
+        box-shadow: 0px 0px 5px 2px #e74c4c;
     } 100% {
         box-shadow: none;
     }
