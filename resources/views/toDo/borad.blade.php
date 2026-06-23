@@ -26,10 +26,10 @@
                     課題
                 <p>
                 <div class="search">
-                    <x-board-search :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" />
+                    <x-board-search :types="$data['types'] ?? 0" :milestones="$data['milestones'] ?? 0" :categories="$data['categories']" />
                 </div>
                 <div class="dynamic">
-                    @foreach ($statuses as $status)
+                    @foreach ($data['statuses'] as $status)
                         <div class="dynamic_box">
                             <div class="dynamic_box_top">
                                 <div class="dynamic_box_top1">
@@ -38,23 +38,22 @@
                                         {{ $status->status_name }}
                                     </p>
                                     <p class="dynamic_box_top_text2">
-                                        {{ $tasks->where('status_id', $status->id)->count() }}
+                                        {{ $data['tasks']->where('status_id', $status->id)->count() }}
                                     </p>
                                 </div>
                                 {{-- todo ステータスidを持たせてモーダル作成 --}}
                                 <div class="dynamic_box_top2" data-status-id="{{ $status->id }}">
                                     <img src={{ asset('img/plus16.png') }}>
                                 </div>
-
                             </div>
-                            <x-board-box-content :tasks="$tasks->where('status_id', $status->id)" :statuses="$statuses" />
+                            <x-board-box-content :normalTasks="$normalTasks->where('status_id', $status->id)" :warningTasks="$warningTasks->where('status_id', $status->id)" :statuses="$data['statuses']" />
                         </div>
                     @endforeach
                 </div>
             </div>
         </main>
     </div>
-    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" />
+    <x-task-create-modal :types="$data['types'] ?? 0" :milestones="$data['milestones'] ?? 0" :categories="$data['categories']" :statuses="$data['statuses']" />
     <script src="{{ asset('js/aside.js') }}"></script>
     <script src="{{ asset('js/main3.js') }}"></script>
 </body>
