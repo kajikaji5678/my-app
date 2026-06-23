@@ -32,4 +32,10 @@
         </div>
         <a href="{{ url('/toDo/assign') }}">アサイン</a>
     </div>
+    <div class="aside_menu_box">
+        <div class="aside_menu_img">
+            <img src="{{ asset('img/admin.png') }}">
+        </div>
+        <a href="{{ url('/toDo/assign') }}">管理者</a>
+    </div>
 </aside>
