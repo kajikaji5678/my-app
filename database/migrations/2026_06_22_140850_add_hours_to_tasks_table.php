@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('estimated_time')->nullable();
             $table->integer('real_time')->nullable();
             $table->string('priority')->nullable();
+            $table->foreignId('responsible_user_id')->nullable()->constrained('users');
         });
     }
 
