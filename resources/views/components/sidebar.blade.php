@@ -36,6 +36,12 @@
         <div class="aside_menu_img">
             <img src="{{ asset('img/admin.png') }}">
         </div>
-        <a href="{{ url('/toDo/assign') }}">管理者</a>
+        <a href="{{ url('/toDo/admin') }}">管理者</a>
+    </div>
+    <div class="aside_menu_box">
+        <div class="aside_menu_img">
+            <img src="{{ asset('img/graph.png') }}">
+        </div>
+        <a href="{{ url('/toDo/graph') }}">データ</a>
     </div>
 </aside>

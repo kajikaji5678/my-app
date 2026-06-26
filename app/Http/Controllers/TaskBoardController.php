@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Services\BoardService;
 use Illuminate\Http\Request;
+use App\Services\UserTaskProcessing;
 
 class TaskBoardController extends Controller
 {
@@ -101,4 +102,15 @@ class TaskBoardController extends Controller
     {
         return response()->json($id);
     }
+
+
+    //~ 以下 算出コンテナの利用 6/26
+    public function showUserTime($id) {
+        $calculation = new UserTaskProcessing();
+        $estimated = $calculation->getTotalEstimatedTime($id);
+        $real = $calculation->getTotalRealTime($id);
+        return view('toDo.borad', compact('estimated', 'real'));
+    }
+
 }
+
