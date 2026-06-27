@@ -22,7 +22,12 @@
         <x-sidebar />
         <main class="content">
             <x-projectbar />
-           <div class="flex flex-col flex-1 p-[24px_32px] min-h-0 min-w-0"></div>
+            <div class="flex p-6 gap-5">
+                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
+                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
+                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
+                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
+            </div>
         </main>
     </div>
 
