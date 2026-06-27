@@ -4,6 +4,7 @@
 <img src="https://img.shields.io/badge/-php-777BB4.svg?logo=php&style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/-laravel-FF2D20.svg?logo=laravel&style=for-the-badge&logoColor=white">
 <img src="https://img.shields.io/badge/-JavaScript-F7DF1E.svg?logo=javascript&style=for-the-badge&logoColor=white">
 <img src="https://img.shields.io/badge/-mysql-4479A1.svg?logo=mysql&style=for-the-badge&logoColor=white">
+<img src="https://img.shields.io/badge/-tailwind-06B6D4.svg?logo=tailwindcss&style=for-the-badge&logoColor=white">
 
 ## 機能について
 ### 工夫したこと
