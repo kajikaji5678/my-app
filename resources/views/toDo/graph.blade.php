@@ -23,7 +23,24 @@
         <main class="content">
             <x-projectbar />
             <div class="flex p-6 gap-5">
-                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
+                <div class="flex-1 bg-white rounded-md shadow p-6">
+                    <form method="GET" action="{{ route('graph.test') }}">
+                        <label class="block text-sm text-slate-700 mb-2">担当者検索</label>
+                        <input type="text" name="user_id" placeholder="ユーザー名を入力"
+                            class="w-full border border-slate-300 rounded-md px-3 py-2">
+                        <button type="submit" class="mt-3 text-sm text-blue-600">
+                            検索
+                        </button>
+                    </form>
+                    <div class="mt-4">
+                        <p class="text-sm text-slate-500">予想時間</p>
+                        <p class="text-2xl font-bold">{{ $estimated ?? '-' }}</p>
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-sm text-slate-500">実際時間</p>
+                        <p class="text-2xl font-bold">{{ $real ?? '-' }}</p>
+                    </div>
+                </div>
                 <div class="flex-1 bg-white rounded-md shadow p-6"></div>
                 <div class="flex-1 bg-white rounded-md shadow p-6"></div>
                 <div class="flex-1 bg-white rounded-md shadow p-6"></div>
