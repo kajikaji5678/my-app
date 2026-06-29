@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
     // * グラフ
     Route::get('/toDo/graph', [TallyDataController::class, 'index']);
     Route::get('/toDo/graph/getusername', [TallyDataController::class, 'test'])->name('graph.test');
+    Route::get('/toDo/graph/getWeekRanking', [TallyDataController::class, 'week'])->name('graph.week');
 
 
     Route::get('/salary', function () {
