@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|TaskUser whereTaskId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskUser whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TaskUser whereUserId($value)
+ * @property int|null $real_time
+ * @method static \Illuminate\Database\Eloquent\Builder|TaskUser whereRealTime($value)
  * @mixin \Eloquent
  */
 class TaskUser extends Model
