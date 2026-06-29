@@ -42,8 +42,7 @@
                     </div>
                 </div>
                 <div class="flex-1 bg-white rounded-md shadow p-6"></div>
-                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
-                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
+                <div class="flex-[2] bg-white rounded-md shadow p-6"></div>
             </div>
         </main>
     </div>
