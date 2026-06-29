@@ -41,7 +41,29 @@
                         <p class="text-2xl font-bold">{{ $real ?? '-' }}</p>
                     </div>
                 </div>
-                <div class="flex-1 bg-white rounded-md shadow p-6"></div>
+                <div class="flex-1 bg-white rounded-md shadow p-6">
+                    <h2 class="text-lg font-bold mb-4">見積もり超過率</h2>
+                    <div class="overflow-y-auto max-h-96">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left py-2 w-12">順位</th>
+                                    <th class="text-left py-2">担当者</th>
+                                    <th class="text-right py-2">超過率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sortedRanking as $index => $user)
+                                    <tr class="border-b border-slate-100">
+                                        <td class="py-2">{{ $index + 1 }}</td>
+                                        <td class="py-2">{{ $user['name'] }}</td>
+                                        <td class="py-2 text-right">{{ $user['rate'] }}%</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <div class="flex-[2] bg-white rounded-md shadow p-6"></div>
             </div>
         </main>
