@@ -68,6 +68,12 @@ use App\Models\Status;
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereResponsibleUserId($value)
+ * @property string|null $added_at
+ * @property string|null $completed_at
+ * @property string|null $deadline_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereCompletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
  * @mixin \Eloquent
  */
 class Task extends Model
