@@ -43,6 +43,16 @@
                 </div>
                 <div class="flex-1 bg-white rounded-md shadow p-6">
                     <h2 class="text-lg font-bold mb-4">見積もり超過率</h2>
+                    <form method="GET" action="{{ route('graph.week') }}" class="mb-4">
+                        <select name="period" class="w-full border border-slate-300 rounded-md px-3 py-2">
+                            <option value="this_week">今週</option>
+                            <option value="last_week">先週</option>
+                            <option value="this_month">今月</option>
+                        </select>
+                        <button type="submit" class="mt-3 text-sm text-blue-600">
+                            検索
+                        </button>
+                    </form>
                     <div class="overflow-y-auto max-h-96">
                         <table class="w-full text-sm">
                             <thead>

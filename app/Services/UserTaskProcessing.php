@@ -23,12 +23,12 @@ class UserTaskProcessing {
     }
 
     //* 一週間ごとのユーザー一人分の数値を返す
-    public function getWeeklyUser($userId) {
+    public function getWeeklyUser($userId, $start, $end) {
         $start = now()->subWeek();
 
         $tasks = Task::where('responsible_user_id', $userId)
                     ->where('status_id', 4)
-                    ->where('completed_at', '>=', $start)
+                    ->whereBetween('completed_at', [$start, $end])
                     ->get();
         
         $estimated = $tasks->sum('estimated_time');
