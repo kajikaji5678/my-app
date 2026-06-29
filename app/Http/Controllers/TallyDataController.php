@@ -22,7 +22,7 @@ class TallyDataController extends Controller
             ];
         }
 
-        $sortedRanking = collect($ranking)->sortByDesc('rate');
+        $sortedRanking = collect($ranking)->sortByDesc('rate')->take(10)->values();
 
         return view('toDo.graph', compact('sortedRanking'));
     }
