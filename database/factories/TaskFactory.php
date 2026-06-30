@@ -11,6 +11,7 @@ use App\Models\Type;
 use App\Enums\TaskStatus;
 use App\Models\Status;
 use App\Models\User;
+use Carbon\Carbon;
 
 /**
  * @extends Factory<Task>
@@ -48,6 +49,14 @@ class TaskFactory extends Factory
             $type = '中';
         }
 
+        $createdAt = fake()->dateTimeBetween('-30 days', 'now');
+        $deadlineAt = Carbon::instance($createdAt)->addDays(rand(5, 14));
+        if ($statusId === 4) {
+            $completedAt = Carbon::instance($deadlineAt)->addDays(rand(-5, 2));
+        } else {
+            $completedAt = null;
+        }
+
         return [
             'task_name' => fake()->randomElement([
                 'ログイン修正',
@@ -71,6 +80,9 @@ class TaskFactory extends Factory
             'estimated_time' => $estimatedTime,
             'priority' => $type,
             'responsible_user_id' => User::inRandomOrder()->first()->id,
+            'added_at' => $createdAt,
+            'deadline_at' => $deadlineAt,
+            'completed_at' => $completedAt
         ];
 
     }
