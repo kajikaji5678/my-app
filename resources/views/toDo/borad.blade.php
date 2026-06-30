@@ -45,9 +45,12 @@
                                 <div class="dynamic_box_top2" data-status-id="{{ $status->id }}">
                                     <img src={{ asset('img/plus16.png') }}>
                                 </div>
-
                             </div>
-                            <x-board-box-content :tasks="$tasks->where('status_id', $status->id)" :statuses="$statuses" />
+                            <x-board-box-content
+                            :normalTasks="$normalTasks->where('status_id', $status->id)"
+                            :warningTasks="$warningTasks->where('status_id', $status->id)"
+                            :superWarningTasks="$superWarningTasks->where('status_id', $status->id)"
+                            :statuses="$statuses" />
                         </div>
                     @endforeach
                 </div>

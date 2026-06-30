@@ -1,5 +1,5 @@
 @props(['types', 'milestones', 'categories'])
-{{-- 
+{{--
 5/28 メモ
 * value=送るデータそのもの
 * action=送信先URL
@@ -24,7 +24,7 @@
         <select class="condition_box" name="category_id">
             <option value="">未選択</option>
             @foreach ($categories as $category)
-                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : ''}}>
+                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
                     {{ $category->category_name }}
                 </option>
             @endforeach
@@ -35,11 +35,22 @@
         <select class="condition_box" name="milestone_id">
             <option value="">未選択</option>
             @foreach ($milestones as $milestone)
-                <option value="{{ $milestone->id }}" {{ request('milestone_id') == $milestone->id ? 'selected' : ''}}>
+                <option value="{{ $milestone->id }}" {{ request('milestone_id') == $milestone->id ? 'selected' : '' }}>
                     {{ $milestone->milestone_name }}
                 </option>
             @endforeach
         </select>
+    </div>
+    <div class="condition">
+        <p class="condition_name">その他オプション</p>
+        <label>
+            <input type="checkbox" name="over-time" @checked(request()->boolean('over-time'))><span
+                class="checkbox-span">工数超過のみ</span>
+        </label>
+        <label>
+            <input type="checkbox" name="priority" @checked(request()->boolean('priority'))><span
+                class="checkbox-span">優先度高のみ</span>
+        </label>
     </div>
     <button type="submit">検索</button>
 </form>

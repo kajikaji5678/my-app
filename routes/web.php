@@ -12,6 +12,7 @@ use App\Http\Controllers\AsssignController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TallyDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,12 @@ Route::middleware('auth')->group(function () {
     // * 設定
     Route::get('/toDo/setting', [SettingController::class, 'index']);
     Route::post('/toDo/icon', [SettingController::class, 'icon'])->name('setting.icon');
+
+    // * グラフ
+    Route::get('/toDo/graph', [TallyDataController::class, 'index']);
+    Route::get('/toDo/graph/getusername', [TallyDataController::class, 'test'])->name('graph.test');
+    Route::get('/toDo/graph/getWeekRanking', [TallyDataController::class, 'week'])->name('graph.week');
+
 
     Route::get('/salary', function () {
         return view('salary');

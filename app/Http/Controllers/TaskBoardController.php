@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\Request;
 use App\Services\BoardService;
+use Illuminate\Http\Request;
+use App\Services\UserTaskProcessing;
 
 class TaskBoardController extends Controller
 {
@@ -21,17 +22,20 @@ class TaskBoardController extends Controller
 
     public function get()
     {
-        // todo 5/26/15 $teamsはコレクション（複数件）foreachで配列にしてから指定して取り出す
-
-        // * 条件が2重になったら絞り込めばいいだけだ
-        // * ただしビューのほうでさらにステータス絞り込みをしている
-
-        // * リレーションの親子間違えが起きている
-        // * 親が先である
-
         $projectId = 1;
         $tasks = Task::where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
+
+        $warningTask = collect();
+        $normalTask = collect();
+
+        foreach ($tasks as $task) {
+            if (($task->real_time - $task->estimated_time) >= 30 && $task->status_id = 2) {
+                $warningTask->push($task);
+            } else {
+                $normalTask->push($task);
+            }
+        }
 
         return view('toDo.borad', $data);
     }
@@ -48,6 +52,12 @@ class TaskBoardController extends Controller
         if ($request->filled('milestone_id')) {
             $query->where('milestone_id', $request->milestone_id);
         }
+        if ($request->filled('over-time')) {
+            $query->whereColumn('estimated_time', '<', 'real_time');
+        }
+        if ($request->filled('priority')) {
+            $query->where('priority', '高');
+        }
         $tasks = $query->get();
         $data = $this->boardService->getBoardData(1, $tasks);
 
@@ -62,9 +72,8 @@ class TaskBoardController extends Controller
             'milestone_id' => 'required',
             'category_id' => 'required',
         ], [
-            'task_name.required' => 'タスク名が入力されていません。'
+            'task_name.required' => 'タスク名が入力されていません。',
         ]);
-
 
         Task::create([
             'task_name' => $request->task_name,
@@ -73,13 +82,14 @@ class TaskBoardController extends Controller
             'milestone_id' => $request->milestone_id,
             'category_id' => $request->category_id,
             'status_id' => $request->status_id,
-            'status' => 'aaa'
+            'status' => 'aaa',
         ]);
 
         return redirect()->route('board.form');
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $task = Task::findOrFail($request->task_id);
         $task->update([
             'status_id' => $request->status_id,
@@ -88,7 +98,19 @@ class TaskBoardController extends Controller
         return redirect()->route('board.form');
     }
 
-    public function api(Task $id) {
+    public function api(Task $id)
+    {
         return response()->json($id);
     }
+
+
+    //~ 以下 算出コンテナの利用 6/26
+    public function showUserTime($id) {
+        $calculation = new UserTaskProcessing();
+        $estimated = $calculation->getTotalEstimatedTime($id);
+        $real = $calculation->getTotalRealTime($id);
+        return view('toDo.borad', compact('estimated', 'real'));
+    }
+
 }
+

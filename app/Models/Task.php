@@ -52,6 +52,28 @@ use App\Models\Status;
  * @property-read int|null $task_assigns_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
  * @property-read int|null $user_task_count
+ * @property int|null $estimated_time
+ * @property int|null $real_time
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUser> $TaskUser
+ * @property-read int|null $task_user_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereEstimatedTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereRealTime($value)
+ * @property string|null $priority
+ * @method static \Illuminate\Database\Eloquent\Builder|Task wherePriority($value)
+ * @property int|null $responsible_user_id
+ * @property string|null $added_date
+ * @property string|null $end_date
+ * @property string|null $dead_time
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereResponsibleUserId($value)
+ * @property string|null $added_at
+ * @property string|null $completed_at
+ * @property string|null $deadline_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereCompletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
  * @mixin \Eloquent
  */
 class Task extends Model
@@ -67,7 +89,10 @@ class Task extends Model
         'type_id',
         'milestone_id',
         'status',
-        'status_id'
+        'status_id',
+        'estimated_time',
+        'real_time',
+        'priority'
     ];
 
     public function project()
