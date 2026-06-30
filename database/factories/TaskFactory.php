@@ -51,7 +51,7 @@ class TaskFactory extends Factory
 
         $createdAt = fake()->dateTimeBetween('-30 days', 'now');
         $deadlineAt = Carbon::instance($createdAt)->addDays(rand(5, 14));
-        if ($statusId === 4) {
+        if (($statusId % 4) === 0) {
             $completedAt = Carbon::instance($deadlineAt)->addDays(rand(-5, 2));
         } else {
             $completedAt = null;

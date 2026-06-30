@@ -14,9 +14,9 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         $names = [
-            'プロジェクトA',
-            'プロジェクトB',
-            'プロジェクトC'
+            'ECサイト構築',
+            '社内業務管理システム',
+            '予約管理アプリ'
         ];
 
         foreach ($names as $name) {
