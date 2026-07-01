@@ -33,7 +33,6 @@ class BoardService
             'superWarningTasks' => $superWarningTasks,
             'types' => Type::where('projects_id', $projectId)->get(),
             'categories' => Category::where('project_id', $projectId)->get(),
-            'milestones' => Milestone::where('project_id', $projectId)->get(),
             'statuses' => Status::where('project_id', $projectId)->get(),
         ];
     }

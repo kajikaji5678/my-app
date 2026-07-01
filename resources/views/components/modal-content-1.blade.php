@@ -27,14 +27,6 @@
                 </option>
             @endforeach
         </select>
-        <p class="modal_type">マイルストーン</p>
-        <select name="milestone_id" class="modal_form">
-            @foreach ($milestones as $milestone)
-                <option value="{{ $milestone->id }}">
-                    {{ $milestone->milestone_name }}
-                </option>
-            @endforeach
-        </select>
         <button type="submit">送信</button>
     </form>
 </div>

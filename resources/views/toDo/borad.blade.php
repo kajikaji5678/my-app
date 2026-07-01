@@ -26,7 +26,7 @@
                     課題
                 <p>
                 <div class="search">
-                    <x-board-search :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" />
+                    <x-board-search :types="$types ?? 0" :categories="$categories" />
                 </div>
                 <div class="dynamic">
                     @foreach ($statuses as $status)
@@ -57,7 +57,7 @@
             </div>
         </main>
     </div>
-    <x-task-create-modal :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories" :statuses="$statuses" />
+    <x-task-create-modal :types="$types ?? 0" :categories="$categories" :statuses="$statuses" />
     <script src="{{ asset('js/aside.js') }}"></script>
     <script src="{{ asset('js/main3.js') }}"></script>
 </body>
