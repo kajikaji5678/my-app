@@ -18,7 +18,7 @@
     <div class="layout">
         <x-sidebar />
         <main class="content">
-            <x-projectbar />
+            <x-projectbar :project="$project"/>
             {{-- dd($notifications) 6/6 送信受け取り済み --}}
         </main>
     </div>

@@ -19,7 +19,7 @@
     <div class="layout">
         <x-sidebar />
         <main class="content">
-            <x-projectbar />
+            <x-projectbar :project="$project" />
             <div class="setting">
                 <div class="setting-bar">
                     <ul>

@@ -19,7 +19,7 @@
     <div class="layout">
         <x-sidebar />
         <main class="content">
-            <x-projectbar />
+            <x-projectbar :project="$project"/>
             <div class="assign">
                 <a class="assign_button">
                     <div>

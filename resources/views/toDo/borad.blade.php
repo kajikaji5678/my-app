@@ -20,7 +20,7 @@
     <div class="layout">
         <x-sidebar />
         <main class="content">
-            <x-projectbar />
+            <x-projectbar :project="$project"/>
             <div class="content_main">
                 <p class="task_top_text">
                     課題

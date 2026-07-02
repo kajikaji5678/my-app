@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Milestone;
+use App\Models\Project;
 use App\Models\Status;
 use App\Models\Type;
 
@@ -34,6 +35,7 @@ class BoardService
             'types' => Type::where('projects_id', $projectId)->get(),
             'categories' => Category::where('project_id', $projectId)->get(),
             'statuses' => Status::where('project_id', $projectId)->get(),
+            'project' => Project::where('id', $projectId)->first(),
         ];
     }
 }
