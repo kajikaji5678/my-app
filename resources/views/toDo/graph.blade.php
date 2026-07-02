@@ -22,6 +22,7 @@
         <x-sidebar />
         <main class="content">
             <x-projectbar :project="$data['project']" />
+
             <div class="flex p-6 gap-5 ">
                 <div class="flex-1 bg-white rounded-md shadow p-6">
                     <form method="GET" action="{{ route('graph.test') }}">
@@ -83,6 +84,9 @@
                     <div class="w-1/2">
                         <canvas id="workTimeChart"></canvas>
                     </div>
+                    <div class="w-1/2 h-1/2">
+                        <canvas id="workTimeChart2"></canvas>
+                    </div>
                 </div>
 
             </div>
@@ -97,6 +101,16 @@
             estimated: {{ $planeEstimatedSum }},
             actual: {{ $planeRealSum }}
         };
+        window.workTimeData2 = {
+            task1: {{ $timeByTask[1] }},
+            task2: {{ $timeByTask[1] }},
+            task3: {{ $timeByTask[2] }},
+            task4: {{ $timeByTask[3] }},
+            label1: "{{ $data['types']->pluck('type_name')[0] }}",
+            label2: "{{ $data['types']->pluck('type_name')[1] }}",
+            label3: "{{ $data['types']->pluck('type_name')[2] }}",
+            label4: "{{ $data['types']->pluck('type_name')[3] }}",
+        }
     </script>
 </body>
 

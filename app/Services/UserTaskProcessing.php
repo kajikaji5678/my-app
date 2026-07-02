@@ -4,32 +4,38 @@ namespace App\Services;
 
 use App\Models\Task;
 
-//~ 6/26 計算式クラス作成
+// ~ 6/26 計算式クラス作成
 
-class UserTaskProcessing {
-    public function getTotalEstimatedTime($userId) {
+class UserTaskProcessing
+{
+    public function getTotalEstimatedTime($userId)
+    {
         return Task::where('responsible_user_id', $userId)->sum('estimated_time');
     }
 
-    public function getTotalRealTime($userId) {
+    public function getTotalRealTime($userId)
+    {
         return Task::where('responsible_user_id', $userId)->sum('real_time');
     }
 
-    //* 差分を出すメゾット
-    public function getOverTime($userId) {
+    // * 差分を出すメゾット
+    public function getOverTime($userId)
+    {
         $realTime = $this->getTotalRealTime($userId);
         $estimatedTime = $this->getTotalEstimatedTime($userId);
+
         return $realTime - $estimatedTime;
     }
 
-    //* 一週間ごとのユーザー一人分の数値を返す
-    public function getWeeklyUser($userId, $start, $end) {
+    // * 一週間ごとのユーザー一人分の数値を返す
+    public function getWeeklyUser($userId, $start, $end)
+    {
         $start = now()->subWeek();
 
         $tasks = Task::where('responsible_user_id', $userId)
-                    ->where('status_id', 4)
-                    ->whereBetween('completed_at', [$start, $end])
-                    ->get();
+            ->where('status_id', 4)
+            ->whereBetween('completed_at', [$start, $end])
+            ->get();
 
         $estimated = $tasks->sum('estimated_time');
         $real = $tasks->sum('real_time');
@@ -41,11 +47,30 @@ class UserTaskProcessing {
         return round(($real / $estimated) * 100, 1);
     }
 
-    public function planeEsitimatedSum() {
+    public function planeEsitimatedSum()
+    {
         return Task::sum('estimated_time');
     }
 
-    public function planeRealSum() {
+    public function planeRealSum()
+    {
         return Task::sum('real_time');
+    }
+
+    public function planeWorkTime(): array
+    {
+        return [
+            'estimated' => Task::sum('estimated_time'),
+            'real' => Task::sum('real_time'),
+        ];
+    }
+
+    public function timeByTask($start, $end) {
+        $array = [];
+        for($i = $start; $i <= $end; $i++) {
+            $count = Task::where('type_id', $i)->sum('real_time');
+            array_push($array, $count);
+        }
+        return $array;
     }
 }
