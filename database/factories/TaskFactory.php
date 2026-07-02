@@ -74,7 +74,6 @@ class TaskFactory extends Factory
             'project_id' => $project,
             'category_id' => Category::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,
-            'milestone_id' => Milestone::where('project_id', $project->id)->inRandomOrder()->first()->id,
             'status_id' => $statusId,
             'real_time' => $realTime,
             'estimated_time' => $estimatedTime,

@@ -1,4 +1,4 @@
-@props(['types', 'milestones', 'categories', 'statuses', 'roles', 'rolelevels' , 'mode', 'users'])
+@props(['types', 'categories', 'statuses', 'roles', 'rolelevels' , 'mode', 'users'])
 
 <div id="modal" class="modal" data-mode="{{ $mode ?? 0 }}">
     <div class="modal_content">
@@ -13,9 +13,9 @@
             <p class="modal_text_top_4">アサイン作成</p>
         </div>
         @if (isset($types) && !is_numeric($types))
-            <x-modal-content-1 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
-            <x-modal-content-2 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
-            <x-modal-content-3 :types="$types ?? 0" :milestones="$milestones ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
+            <x-modal-content-1 :types="$types ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
+            <x-modal-content-2 :types="$types ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
+            <x-modal-content-3 :types="$types ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
         @endif
         @if (isset($roles) && !is_numeric($roles))
             <x-modal-content-4 :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" />

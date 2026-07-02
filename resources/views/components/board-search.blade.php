@@ -31,17 +31,6 @@
         </select>
     </div>
     <div class="condition">
-        <p class="condition_name">マイルストーン</p>
-        <select class="condition_box" name="milestone_id">
-            <option value="">未選択</option>
-            @foreach ($milestones as $milestone)
-                <option value="{{ $milestone->id }}" {{ request('milestone_id') == $milestone->id ? 'selected' : '' }}>
-                    {{ $milestone->milestone_name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-    <div class="condition">
         <p class="condition_name">その他オプション</p>
         <label>
             <input type="checkbox" name="over-time" @checked(request()->boolean('over-time'))><span

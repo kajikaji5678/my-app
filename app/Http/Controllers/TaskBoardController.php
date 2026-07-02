@@ -49,9 +49,6 @@ class TaskBoardController extends Controller
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-        if ($request->filled('milestone_id')) {
-            $query->where('milestone_id', $request->milestone_id);
-        }
         if ($request->filled('over-time')) {
             $query->whereColumn('estimated_time', '<', 'real_time');
         }
@@ -69,7 +66,6 @@ class TaskBoardController extends Controller
         $request->validate([
             'task_name' => 'required',
             'type_id' => 'required',
-            'milestone_id' => 'required',
             'category_id' => 'required',
         ], [
             'task_name.required' => 'タスク名が入力されていません。',
@@ -79,7 +75,6 @@ class TaskBoardController extends Controller
             'task_name' => $request->task_name,
             'project_id' => 1,
             'type_id' => $request->type_id,
-            'milestone_id' => $request->milestone_id,
             'category_id' => $request->category_id,
             'status_id' => $request->status_id,
             'status' => 'aaa',
