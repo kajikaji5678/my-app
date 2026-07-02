@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('type_name');
             $table->foreignId('projects_id')->constrained();
+            $table->string('type_color');
             $table->timestamps();
         });
     }

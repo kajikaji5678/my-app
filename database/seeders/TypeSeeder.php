@@ -15,18 +15,19 @@ class TypeSeeder extends Seeder
     public function run(): void
     {
         $types = [
-            '確認依頼',
-            'バグ修正',
-            'タスク',
-            '要望'
+            '確認依頼' => '#6A5ACD',
+            'バグ修正' => '#FF0000',
+            'タスク' => '#EE82EE',
+            '要望' => '#E6E6FA'
         ];
 
         $projects = Project::all();
 
         foreach ($projects as $project) {
-            foreach ($types as $type) {
+            foreach ($types as $typeName => $typeColor) {
                 Type::create([
-                    'type_name' => $type,
+                    'type_name' => $typeName,
+                    'type_color' => $typeColor,
                     'projects_id' => $project->id
                 ]);
             }

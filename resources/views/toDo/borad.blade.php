@@ -50,7 +50,7 @@
                             :normalTasks="$normalTasks->where('status_id', $status->id)"
                             :warningTasks="$warningTasks->where('status_id', $status->id)"
                             :superWarningTasks="$superWarningTasks->where('status_id', $status->id)"
-                            :statuses="$statuses" />
+                            :statuses="$statuses" :types="$types" />
                         </div>
                     @endforeach
                 </div>
