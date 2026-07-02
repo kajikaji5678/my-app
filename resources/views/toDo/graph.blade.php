@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js'])
 </head>
 
 <body>
@@ -21,8 +21,8 @@
     <div class="layout">
         <x-sidebar />
         <main class="content">
-            <x-projectbar :project="$data['project']"/>
-            <div class="flex p-6 gap-5">
+            <x-projectbar :project="$data['project']" />
+            <div class="flex p-6 gap-5 ">
                 <div class="flex-1 bg-white rounded-md shadow p-6">
                     <form method="GET" action="{{ route('graph.test') }}">
                         <label class="block text-sm text-slate-700 mb-2">担当者検索</label>
@@ -74,13 +74,30 @@
                         </table>
                     </div>
                 </div>
-                <div class="flex-[2] bg-white rounded-md shadow p-6"></div>
+                <div class="flex-[2] bg-white rounded-md shadow p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800">
+                            工数管理
+                        </h2>
+                    </div>
+                    <div class="w-1/2">
+                        <canvas id="workTimeChart"></canvas>
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>
 
     <script src="{{ asset('js/aside.js') }}"></script>
     <script src="{{ asset('js/main3.js') }}"></script>
+
+    <script>
+        window.workTimeData = {
+            estimated: {{ $planeEstimatedSum }},
+            actual: {{ $planeRealSum }}
+        };
+    </script>
 </body>
 
 </html>

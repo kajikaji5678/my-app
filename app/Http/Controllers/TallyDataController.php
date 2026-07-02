@@ -21,6 +21,7 @@ class TallyDataController extends Controller
 
         $data = $boardService->getBoardData($projectId, $tasks);
 
+
         $users = User::all();
         $calculation = new UserTaskProcessing();
         $start = now()->startOfWeek();
@@ -34,9 +35,12 @@ class TallyDataController extends Controller
             ];
         }
 
+        $planeEstimatedSum = $calculation->planeEsitimatedSum();
+        $planeRealSum = $calculation->planeRealSum();
+
         $sortedRanking = collect($ranking)->sortByDesc('rate')->take(10)->values();
 
-        return view('toDo.graph', compact('sortedRanking', 'data'));
+        return view('toDo.graph', compact('sortedRanking', 'data', 'planeEstimatedSum', 'planeRealSum'));
     }
 
     public function week()

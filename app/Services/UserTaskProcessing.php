@@ -30,7 +30,7 @@ class UserTaskProcessing {
                     ->where('status_id', 4)
                     ->whereBetween('completed_at', [$start, $end])
                     ->get();
-        
+
         $estimated = $tasks->sum('estimated_time');
         $real = $tasks->sum('real_time');
 
@@ -39,5 +39,13 @@ class UserTaskProcessing {
         }
 
         return round(($real / $estimated) * 100, 1);
+    }
+
+    public function planeEsitimatedSum() {
+        return Task::sum('estimated_time');
+    }
+
+    public function planeRealSum() {
+        return Task::sum('real_time');
     }
 }
