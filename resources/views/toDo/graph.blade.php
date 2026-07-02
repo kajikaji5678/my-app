@@ -21,7 +21,7 @@
     <div class="layout">
         <x-sidebar />
         <main class="content">
-            <x-projectbar :project="$project"/>
+            <x-projectbar :project="$data['project']"/>
             <div class="flex p-6 gap-5">
                 <div class="flex-1 bg-white rounded-md shadow p-6">
                     <form method="GET" action="{{ route('graph.test') }}">

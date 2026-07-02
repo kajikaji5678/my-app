@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\BoardService;
 use App\Services\UserTaskProcessing;
 use Illuminate\Http\Request as HttpRequest;
+use App\Models\Task;
 use Request;
 
 class TallyDataController extends Controller
@@ -12,6 +14,13 @@ class TallyDataController extends Controller
     // ~ 以下 算出コンテナの利用 6/26
     public function index()
     {
+        $boardService = new BoardService();
+
+        $projectId = 1;
+        $tasks = Task::where('project_id', $projectId)->get();
+
+        $data = $boardService->getBoardData($projectId, $tasks);
+
         $users = User::all();
         $calculation = new UserTaskProcessing();
         $start = now()->startOfWeek();
@@ -27,7 +36,7 @@ class TallyDataController extends Controller
 
         $sortedRanking = collect($ranking)->sortByDesc('rate')->take(10)->values();
 
-        return view('toDo.graph', compact('sortedRanking'));
+        return view('toDo.graph', compact('sortedRanking', 'data'));
     }
 
     public function week()
