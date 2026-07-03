@@ -38,11 +38,12 @@ class TallyDataController extends Controller
         $planeCalcuration = $calculation->planeWorkTime();
         $planeEstimatedSum = $planeCalcuration['estimated'];
         $planeRealSum = $planeCalcuration['real'];
+        $planeAddEstimatedSum = $planeCalcuration['add_estimated'];
 
         $sortedRanking = collect($ranking)->sortByDesc('rate')->take(10)->values();
         $timeByTask = $calculation->timeByTask(1, 4);
 
-        return view('toDo.graph', compact('sortedRanking', 'data', 'planeEstimatedSum', 'planeRealSum', 'timeByTask'));
+        return view('toDo.graph', compact('sortedRanking', 'data', 'planeEstimatedSum', 'planeRealSum', 'timeByTask', 'planeAddEstimatedSum'));
     }
 
     public function week()

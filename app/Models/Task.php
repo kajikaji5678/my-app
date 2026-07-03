@@ -74,6 +74,8 @@ use App\Models\Status;
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereCompletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
+ * @property string|null $schedule
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereSchedule($value)
  * @mixin \Eloquent
  */
 class Task extends Model

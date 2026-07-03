@@ -8,19 +8,38 @@ if (ctx) {
         type: 'bar',
         data: {
             labels: ['見積もり', '実績'],
-            datasets: [{
-                data: [
-                    window.workTimeData.estimated,
-                    window.workTimeData.actual
-                ],
-                borderRadius: 4
-            }]
+            datasets: [
+                {
+                    label: '当初',
+                    data: [
+                        window.workTimeData.estimated,
+                        0
+                    ],
+                    backgroundColor: '#60a5fa',
+                },
+                {
+                    label: '追加見積',
+                    data: [
+                        window.workTimeData.add_estimated,
+                        0
+                    ],
+                    backgroundColor: '#fbbf24'
+                },
+                {
+                    label: '実績',
+                    data: [
+                        0,
+                        window.workTimeData.actual
+                    ],
+                    backgroundColor: '#34d399'
+                }
+            ]
         },
         options: {
             responsive: true,
             plugins: {
                 legend: {
-                    display: false
+                    display: true
                 }
             },
             scales: {
@@ -28,7 +47,11 @@ if (ctx) {
                     beginAtZero: true,
                     ticks: {
                         callback: value => value + '分'
-                    }
+                    },
+                    stacked: true
+                },
+                x: {
+                    stacked: true,
                 }
             }
         }
@@ -57,7 +80,7 @@ if (ctx2) {
             responsive: true,
             plugins: {
                 datalabels: {
-                    formatter:(value, context) => {
+                    formatter: (value, context) => {
                         const data = context.chart.data.datasets[0].data;
                         const total = data.reduce((sum, current) => {
                             return sum + Number(current);

@@ -21,6 +21,8 @@ use App\Models\Task;
  * @method static \Illuminate\Database\Eloquent\Builder|Type whereProjectsId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Type whereTypeName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Type whereUpdatedAt($value)
+ * @property string $type_color
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereTypeColor($value)
  * @mixin \Eloquent
  */
 class Type extends Model

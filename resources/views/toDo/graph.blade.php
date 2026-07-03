@@ -99,7 +99,8 @@
     <script>
         window.workTimeData = {
             estimated: {{ $planeEstimatedSum }},
-            actual: {{ $planeRealSum }}
+            actual: {{ $planeRealSum }},
+            add_estimated: {{ $planeAddEstimatedSum }}
         };
         window.workTimeData2 = {
             task1: {{ $timeByTask[1] }},

@@ -47,20 +47,11 @@ class UserTaskProcessing
         return round(($real / $estimated) * 100, 1);
     }
 
-    public function planeEsitimatedSum()
-    {
-        return Task::sum('estimated_time');
-    }
-
-    public function planeRealSum()
-    {
-        return Task::sum('real_time');
-    }
-
     public function planeWorkTime(): array
     {
         return [
-            'estimated' => Task::sum('estimated_time'),
+            'estimated' => Task::where('schedule', '予定工数タスク')->sum('estimated_time'),
+            'add_estimated' => Task::where('schedule', '追加工数タスク')->sum('estimated_time'),
             'real' => Task::sum('real_time'),
         ];
     }
