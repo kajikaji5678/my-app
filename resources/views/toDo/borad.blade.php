@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js'])
 </head>
 
 <body>
