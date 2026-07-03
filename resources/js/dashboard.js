@@ -55,6 +55,19 @@ if (ctx2) {
         },
         options: {
             responsive: true,
+            plugins: {
+                datalabels: {
+                    formatter:(value, context) => {
+                        const data = context.chart.data.datasets[0].data;
+                        const total = data.reduce((sum, current) => {
+                            return sum + Number(current);
+                        }, 0);
+
+                        return ((value / total) * 100).toFixed(1) + "%";
+                    }
+                }
+            }
         }
     });
 }
+

@@ -8,18 +8,6 @@ body {
     position: relative;
 }
 
-
-
-header li a {
-    transition: 0.3s;
-}
-
-
-header a {
-    text-decoration: none;
-    color: #333333;
-}
-
 /* -----------------------------------------
 バッチ機能
 ------------------------------------------- */
