@@ -18,20 +18,20 @@
 <body>
     <x-header />
 
-    <div class="layout">
+    <div class="flex w-full h-full">
         <x-sidebar />
         <main class="content">
             <x-projectbar :project="$project"/>
-            <div class="content_main">
-                <p class="task_top_text">
+            <div class="py-6 px-8 flex flex-1 flex-col w-full overflow-hidden">
+                <p class="text-lg font-bold">
                     課題
                 <p>
                 <div class="search">
                     <x-board-search :types="$types ?? 0" :categories="$categories" />
                 </div>
-                <div class="dynamic">
+                <div class="mt-4 flex-1 flex gap-4 flex-nowrap overflow-y-hidden w-full">
                     @foreach ($statuses as $status)
-                        <div class="dynamic_box">
+                        <div class="py-3 px-4 h-auto w-80 bg-white rounded-lg gap-3 overflow-y-auto">
                             <div class="dynamic_box_top">
                                 <div class="dynamic_box_top1">
                                     <p class="dynamic_box_top_text1"

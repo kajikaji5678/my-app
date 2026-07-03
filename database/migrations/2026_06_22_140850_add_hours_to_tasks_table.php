@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('added_at')->nullable();
             $table->date('completed_at')->nullable();
             $table->date('deadline_at')->nullable();
+            $table->string('schedule')->nullable();
         });
     }
 

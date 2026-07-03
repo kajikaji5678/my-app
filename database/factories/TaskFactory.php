@@ -57,6 +57,13 @@ class TaskFactory extends Factory
             $completedAt = null;
         }
 
+        $number3 = rand(1, 50);
+        if ($number3 <= 44) {
+            $schedule = '予定工数タスク';
+        } else {
+            $schedule = '追加工数タスク';
+        }
+
         return [
             'task_name' => fake()->randomElement([
                 'ログイン修正',
@@ -81,7 +88,8 @@ class TaskFactory extends Factory
             'responsible_user_id' => User::inRandomOrder()->first()->id,
             'added_at' => $createdAt,
             'deadline_at' => $deadlineAt,
-            'completed_at' => $completedAt
+            'completed_at' => $completedAt,
+            'schedule' => $schedule,
         ];
 
     }

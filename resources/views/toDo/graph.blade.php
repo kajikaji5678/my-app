@@ -18,7 +18,7 @@
 <body>
     <x-header />
 
-    <div class="layout">
+    <div class="flex w-full h-full">
         <x-sidebar />
         <main class="content">
             <x-projectbar :project="$data['project']" />
