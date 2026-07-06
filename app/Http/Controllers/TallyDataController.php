@@ -11,6 +11,10 @@ use Request;
 
 class TallyDataController extends Controller
 {
+    public function __construct(
+        private UserTaskProcessing $calculation
+    ) {}
+
     // ~ 以下 算出コンテナの利用 6/26
     public function index()
     {
@@ -23,7 +27,6 @@ class TallyDataController extends Controller
 
 
         $users = User::all();
-        $calculation = new UserTaskProcessing();
         $start = now()->startOfWeek();
         $end = now()->endOfWeek();
 
@@ -31,17 +34,17 @@ class TallyDataController extends Controller
         foreach ($users as $user) {
             $ranking[] = [
                 'name' => $user->name,
-                'rate' => $calculation->getWeeklyUser($user->id, $start, $end),
+                'rate' => $this->calculation->getWeeklyUser($user->id, $start, $end),
             ];
         }
 
-        $planeCalcuration = $calculation->planeWorkTime();
+        $planeCalcuration = $this->calculation->planeWorkTime();
         $planeEstimatedSum = $planeCalcuration['estimated'];
         $planeRealSum = $planeCalcuration['real'];
         $planeAddEstimatedSum = $planeCalcuration['add_estimated'];
 
         $sortedRanking = collect($ranking)->sortByDesc('rate')->take(10)->values();
-        $timeByTask = $calculation->timeByTask(1, 4);
+        $timeByTask = $this->calculation->timeByTask(1, 4);
 
         return view('toDo.graph', compact('sortedRanking', 'data', 'planeEstimatedSum', 'planeRealSum', 'timeByTask', 'planeAddEstimatedSum'));
     }
@@ -49,7 +52,6 @@ class TallyDataController extends Controller
     public function week()
     {
         $users = User::all();
-        $calculation = new UserTaskProcessing();
         $period = request('period', 'this_week');
 
         switch ($period) {
@@ -72,7 +74,7 @@ class TallyDataController extends Controller
         foreach ($users as $user) {
             $ranking[] = [
                 'name' => $user->name,
-                'rate' => $calculation->getWeeklyUser($user->id, $start, $end),
+                'rate' => $this->calculation->getWeeklyUser($user->id, $start, $end),
             ];
         }
 
@@ -85,9 +87,8 @@ class TallyDataController extends Controller
     public function test(HttpRequest $request)
     {
         $id = $request->user_id;
-        $calculation = new UserTaskProcessing;
-        $estimated = $calculation->getTotalEstimatedTime($id);
-        $real = $calculation->getTotalRealTime($id);
+        $estimated = $this->calculation->getTotalEstimatedTime($id);
+        $real = $this->calculation->getTotalRealTime($id);
 
         return view('toDo.graph', compact('estimated', 'real'));
     }
