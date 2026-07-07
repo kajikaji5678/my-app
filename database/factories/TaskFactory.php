@@ -3,15 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Category;
-use App\Models\Milestone;
-use App\Models\Task;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Project;
-use App\Models\Type;
-use App\Enums\TaskStatus;
 use App\Models\Status;
+use App\Models\Task;
+use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Task>
@@ -23,12 +21,14 @@ class TaskFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    //todo プロジェクトidの制限によるバグ修正
-    //* AプロジェクトのタスクにBプロジェクトのカテゴリが混入するのを防ぐ
+    // todo プロジェクトidの制限によるバグ修正
+    // * AプロジェクトのタスクにBプロジェクトのカテゴリが混入するのを防ぐ
 
     public function definition(): array
     {
         $project = Project::inRandomOrder()->first();
+        $categoryId = Category::where('project_id', $project->id)->inRandomOrder()->first()->id;
+        $typeId = Type::where('projects_id', $project->id)->inRandomOrder()->first()->id;
 
         $number = rand(5, 20);
         $number2 = rand(1, 100);
@@ -65,22 +65,10 @@ class TaskFactory extends Factory
         }
 
         return [
-            'task_name' => fake()->randomElement([
-                'ログイン修正',
-                '通知機能追加',
-                'UI改善',
-                'API修正',
-                'バグ対応',
-                '認証実装',
-                '一覧画面作成',
-                '検索機能追加',
-                '権限修正',
-                'レイアウト調整',
-            ]),
             'status' => 'null',
             'project_id' => $project,
-            'category_id' => Category::where('project_id', $project->id)->inRandomOrder()->first()->id,
-            'type_id' => Type::where('projects_id', $project->id)->inRandomOrder()->first()->id,
+            'category_id' => $categoryId,
+            'type_id' => $typeId,
             'status_id' => $statusId,
             'real_time' => $realTime,
             'estimated_time' => $estimatedTime,
@@ -90,6 +78,47 @@ class TaskFactory extends Factory
             'deadline_at' => $deadlineAt,
             'completed_at' => $completedAt,
             'schedule' => $schedule,
+            'task_name' => function () use ($categoryId, $typeId) {
+                return match (true) {
+                    in_array($categoryId, [1, 4, 7])
+                    && in_array($typeId, [1, 5, 9]) => 'UI画面動作の確認',
+
+                    in_array($categoryId, [2, 5, 8])
+                    && in_array($typeId, [1, 5, 9]) => 'デザイン色合いの確認',
+
+                    in_array($categoryId, [3, 6, 9])
+                    && in_array($typeId, [1, 5, 9]) => 'コードレビュー',
+
+                    in_array($categoryId, [1, 4, 7])
+                    && in_array($typeId, [2, 6, 10]) => 'モーダルバグ修正',
+
+                    in_array($categoryId, [2, 5, 8])
+                    && in_array($typeId, [2, 6, 10]) => 'Figma色崩れバグ',
+
+                    in_array($categoryId, [3, 6, 9])
+                    && in_array($typeId, [2, 6, 10]) => 'リレーション崩れバグ',
+
+                    in_array($categoryId, [1, 4, 7])
+                    && in_array($typeId, [3, 7, 11]) => 'コンポーネント作成',
+
+                    in_array($categoryId, [2, 5, 8])
+                    && in_array($typeId, [3, 7, 11]) => 'PhotoShopレイアウト作成',
+
+                    in_array($categoryId, [3, 6, 9])
+                    && in_array($typeId, [3, 7, 11]) => 'API構築',
+
+                    in_array($categoryId, [1, 4, 7])
+                    && in_array($typeId, [4, 8, 12]) => 'ヘッダー修正要望',
+
+                    in_array($categoryId, [2, 5, 8])
+                    && in_array($typeId, [4, 8, 12]) => 'Figmaアカウント新規作成要望',
+
+                    in_array($categoryId, [3, 6, 9])
+                    && in_array($typeId, [4, 8, 12]) => 'プルリクエスト',
+
+                    default => 'その他タスク',
+                };
+            },
         ];
 
     }
