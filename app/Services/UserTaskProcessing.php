@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services;
-
 use App\Models\Task;
 
 // ~ 6/26 計算式クラス作成
