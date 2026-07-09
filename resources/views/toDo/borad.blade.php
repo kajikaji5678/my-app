@@ -43,7 +43,7 @@
                                     </p>
                                 </div>
                                 {{-- todo ステータスidを持たせてモーダル作成 --}}
-                                <div class="mt-1 w-6 h-6 cursor-pointer" data-status-id="{{ $status->id }}">
+                                <div class="dynamic_box_top2 mt-1 w-6 h-6 cursor-pointer" data-status-id="{{ $status->id }}">
                                     <img src={{ asset('img/plus16.png') }} class="scale-125">
                                 </div>
                             </div>
