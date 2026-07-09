@@ -20,6 +20,7 @@ return new class extends Migration
             // * 6/12 ステータスカラーを持たせることを廃止
             $table->string('status');
             $table->timestamps();
+            $table->text('description')->nullable();
         });
     }
 

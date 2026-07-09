@@ -40,7 +40,7 @@ namespace App\Models{
  * @property string $body
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
+ * @property-read Model|\Eloquent $commentable
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
@@ -52,6 +52,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
+ * @mixin \Eloquent
  */
 	class Comment extends \Eloquent {}
 }
@@ -61,32 +62,31 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Epic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Epic newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Epic query()
- */
-	class Epic extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
+ * @mixin \Eloquent
  * @property int $id
- * @property string $milestone_name
- * @property string|null $start_time
- * @property string|null $end_time
- * @property int $project_id
+ * @property string $epic_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone query()
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereEndTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereMilestoneName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereProjectId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereStartTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property int $project_id
+ * @property int $category_id
+ * @property int $type_id
+ * @property int|null $responsible_user_id
+ * @property string|null $priority
+ * @property string|null $description
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereEpicName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic wherePriority($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereResponsibleUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epic whereUpdatedAt($value)
  */
-	class Milestone extends \Eloquent {}
+	class Epic extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -408,9 +408,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
  * @property string|null $schedule
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereSchedule($value)
- * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
  * @property-read int|null $comments_count
+ * @mixin \Eloquent
+ * @property string|null $description
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereDescription($value)
  */
 	class Task extends \Eloquent {}
 }

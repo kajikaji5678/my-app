@@ -91,7 +91,6 @@ class Task extends Model
         'project_id',
         'category_id',
         'type_id',
-        'milestone_id',
         'status',
         'status_id',
         'estimated_time',
@@ -112,11 +111,6 @@ class Task extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
-    }
-
-    public function milestone()
-    {
-        return $this->belongsTo(Milestone::class);
     }
 
     // public function users()

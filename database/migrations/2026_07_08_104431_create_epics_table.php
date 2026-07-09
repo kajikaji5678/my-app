@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained();
             $table->foreignId('responsible_user_id')->nullable()->constrained('users');
             $table->string('priority')->nullable();
+            $table->text('description')->nullable();
         });
     }
 
