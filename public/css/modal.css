@@ -2,16 +2,6 @@
 モーダルの背景
 ----------------------------------------------------- */
 
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 1, 0, 0.558);
-    z-index: 10;
-}
-
 .modal[data-mode="1"],
 .modal[data-mode="2"],
 .modal[data-mode="3"],
@@ -89,24 +79,6 @@
     padding: 16px;
 }
 
-.modal_type {
-    margin: 8px 0;
-}
-
-.modal_form {
-    width: 150px;
-    height: 24px;
-}
-
-.modal_form_2 {
-    width: 300px;
-    height: 150px;
-}
-
-.modal_form_3 {
-    width: 400px;
-    height: 200px;
-}
 
 /* ---------------------------------------------------
 バツボタン＆エラー
@@ -138,8 +110,4 @@
     background-color: white;
 }
 
-.error {
-    text-align: center;
-    color: red;
-    font-size: 18px;
-}
+
