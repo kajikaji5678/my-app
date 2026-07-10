@@ -15,10 +15,10 @@ class TypeSeeder extends Seeder
     public function run(): void
     {
         $types = [
-            '確認依頼' => '#6A5ACD',
-            'バグ修正' => '#FF0000',
-            'タスク' => '#EE82EE',
-            '要望' => '#E6E6FA'
+            '確認依頼' => '#4169e1',
+            'バグ修正' => '#ff4500',
+            'タスク' => '#00ff7f',
+            '要望' => '#ffd700'
         ];
 
         $projects = Project::all();

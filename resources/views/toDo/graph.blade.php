@@ -29,7 +29,7 @@
                         <label class="block text-sm text-slate-700 mb-2">担当者検索</label>
                         <input type="text" name="user_id" placeholder="ユーザー名を入力"
                             class="w-full border border-slate-300 rounded-md px-3 py-2">
-                        <button type="submit" class="mt-3 text-sm text-blue-600">
+                        <button type="submit" class="">
                             検索
                         </button>
                     </form>
@@ -50,7 +50,9 @@
                             <option value="last_week">先週</option>
                             <option value="this_month">今月</option>
                         </select>
-                        <button type="submit" class="mt-3 text-sm text-blue-600">
+                        <button type="submit" 
+                        class="mt-3 rounded-lg bg-blue-300 py-2 px-4 text-sm font-semibold text-white shadow-sm transition-all duration-200 
+                        hover:bg-blue-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2">
                             検索
                         </button>
                     </form>

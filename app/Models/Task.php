@@ -76,6 +76,8 @@ use App\Models\Status;
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
  * @property string|null $schedule
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereSchedule($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
  * @mixin \Eloquent
  */
 class Task extends Model
@@ -89,7 +91,6 @@ class Task extends Model
         'project_id',
         'category_id',
         'type_id',
-        'milestone_id',
         'status',
         'status_id',
         'estimated_time',
@@ -112,17 +113,13 @@ class Task extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public function milestone()
-    {
-        return $this->belongsTo(Milestone::class);
-    }
-
     // public function users()
     // {
     //     return $this->belongsToMany(User::class);
     // }
 
-    public function userTask() {
+    public function userTask()
+    {
         return $this->hasMany(UserTask::class);
     }
 
@@ -131,15 +128,23 @@ class Task extends Model
         return $this->belongsToMany(Role::class);
     }
 
-    public function statuses() {
+    public function statuses()
+    {
         return $this->belongsTo(Status::class);
     }
 
-    public function taskAssigns() {
+    public function taskAssigns()
+    {
         return $this->hasMany(TaskAssign::class);
     }
 
-    public function TaskUser() {
+    public function TaskUser()
+    {
         return $this->hasMany(TaskUser::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

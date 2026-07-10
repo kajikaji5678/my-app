@@ -20,7 +20,7 @@
 
     <div class="flex w-full h-full">
         <x-sidebar />
-        <main class="content">
+        <main class="h-[calc(100vh-50px)] flex flex-1 flex-col min-w-0 bg-[#F0F0F0]">
             <x-projectbar :project="$project"/>
             <div class="py-6 px-8 flex flex-1 flex-col w-full overflow-hidden">
                 <p class="text-lg font-bold">
@@ -32,21 +32,22 @@
                 <div class="mt-4 flex-1 flex gap-4 flex-nowrap overflow-y-hidden w-full">
                     @foreach ($statuses as $status)
                         <div class="py-3 px-4 h-auto w-80 bg-white rounded-lg gap-3 overflow-y-auto">
-                            <div class="dynamic_box_top">
-                                <div class="dynamic_box_top1">
-                                    <p class="dynamic_box_top_text1"
-                                    style="--status-color: {{ $status->status_color }}">
+                            <div class="flex items-center justify-between">
+                                <div class="flex">
+                                    <p class="text-[15px] font-bold flex items-center gap-2" style="--status-color: {{ $status->status_color }}">
+                                        <span class="inline-block w-4 h-4 rounded-full" style="background-color: var(--status-color)"></span>
                                         {{ $status->status_name }}
                                     </p>
-                                    <p class="dynamic_box_top_text2">
+                                    <p class="bg-[#D9D9D9] py-1 px-4 rounded-2xl text-xs font-semibold ml-3">
                                         {{ $tasks->where('status_id', $status->id)->count() }}
                                     </p>
                                 </div>
                                 {{-- todo ステータスidを持たせてモーダル作成 --}}
-                                <div class="dynamic_box_top2" data-status-id="{{ $status->id }}">
-                                    <img src={{ asset('img/plus16.png') }}>
+                                <div class="dynamic_box_top2 mt-1 w-6 h-6 cursor-pointer" data-status-id="{{ $status->id }}">
+                                    <img src={{ asset('img/plus16.png') }} class="scale-125">
                                 </div>
                             </div>
+                            {{-- ~ ここら辺ちょっとリファクタしたい気持ちがある --}}
                             <x-board-box-content
                             :normalTasks="$normalTasks->where('status_id', $status->id)"
                             :warningTasks="$warningTasks->where('status_id', $status->id)"

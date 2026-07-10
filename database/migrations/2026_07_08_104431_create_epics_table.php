@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('epics', function (Blueprint $table) {
             $table->id();
-            $table->string('task_name');
+            $table->string('epic_name');
+            $table->timestamps();
             $table->foreignId('project_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('type_id')->constrained();
-            // * 6/12 ステータスカラーを持たせることを廃止
-            $table->string('status');
-            $table->timestamps();
+            $table->foreignId('responsible_user_id')->nullable()->constrained('users');
+            $table->string('priority')->nullable();
             $table->text('description')->nullable();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('epics');
     }
 };
