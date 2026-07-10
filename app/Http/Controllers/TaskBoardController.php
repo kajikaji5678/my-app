@@ -76,8 +76,9 @@ class TaskBoardController extends Controller
             'project_id' => 1,
             'type_id' => $request->type_id,
             'category_id' => $request->category_id,
-            'status_id' => $request->status_id,
+            'status_id' => 1, //! マジックナンバーあり注意
             'status' => 'aaa',
+            'description' => $request->description,
         ]);
 
         return redirect()->route('board.form');

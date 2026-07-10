@@ -5,6 +5,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import Alpine from 'alpinejs';
 
+import './tiptap'
+
 window.Alpine = Alpine;
 
 Alpine.start();
