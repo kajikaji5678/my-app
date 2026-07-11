@@ -1,26 +1,14 @@
-@props(['types', 'categories', 'statuses', 'roles', 'rolelevels', 'mode', 'users'])
-
 <div id="modal" class="hidden fixed inset-0 justify-center items-center z-10
 bg-gray-600 opacity-50">
-    <div class="modal_content">
-        <div id="modal_close" class="modal_close">
-            <div class="modal_close_bar"></div>
-            <div class="modal_close_bar2"></div>
+    <div class="w-4/5 h-4/5 bg-white z-20 rounded-2xl overflow-hidden relative">
+        <div class="absolute top-0 right-6 w-12 h-12 cursor-pointer">
+            <div class="absolute top-1/2 w-8 h-1 bg-white transform rotate-45"></div>
+            <div class="absolute top-1/2 w-8 h-1 bg-white transform -rotate-45"></div>
         </div>
-        <div class="modal_content_top">
-            <p class="modal_text_top_1">タスク作成</p>
+        <div class="w-full h-12 bg-green-400 py-2 px-6 flex items-center">
+            <p class="font-semibold">タスク作成</p>
         </div>
-        @if (isset($types) && !is_numeric($types))
-            <x-modal-content-1 :types="$types ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
-            <x-modal-content-2 :types="$types ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
-            <x-modal-content-3 :types="$types ?? 0" :categories="$categories ?? 0" :statuses="$statuses ?? 0" />
-        @endif
-        @if (isset($roles) && !is_numeric($roles))
-            <x-modal-content-4 :roles="$roles ?? 0" :rolelevels="$rolelevels ?? 0" />
-        @endif
-        @if (isset($users) && !is_numeric($users))
-            <x-modal-content-5 :users="$users" />
-        @endif
+        <div id="react-root"></div>
     </div>
 </div>
 
