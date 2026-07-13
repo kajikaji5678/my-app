@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
 import { useState } from "react";
-import TaskCreateModal from "./components/TaskCreateModal";
-import Board from "./components/Board";
+import TaskCreateModal from "./components/TaskCreateModal.js";
+import Board from "./components/Board.js";
 
 function App() {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,5 +19,5 @@ function App() {
 }
 
 ReactDOM.createRoot(
-    document.getElementById('react-root')
+    document.getElementById('react-root')!
 ).render(<App />);

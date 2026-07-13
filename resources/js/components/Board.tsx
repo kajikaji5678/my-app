@@ -1,5 +1,5 @@
 import React from "react";
-import BoardBoxContent from "./BoardBoxContent";
+import BoardBoxContent from "./BoardBoxContent.js";
 
 function Board({ onOpenModal }) {
     const root = document.getElementById('react-root');
