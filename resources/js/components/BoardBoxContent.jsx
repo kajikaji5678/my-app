@@ -25,7 +25,7 @@ function BoardBoxContent({ normalTasks, warningTasks, superWarningTasks }) {
                     {task.task_name}
                 </p>
                 <div className="flex justify-between">
-                    <p className="text-xs text-[#8d8b8b]">
+                    <p className="text-xs text-[#ca0000]">
                         {task.created_at}
                     </p>
                 </div>
