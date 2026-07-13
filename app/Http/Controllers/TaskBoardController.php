@@ -26,17 +26,6 @@ class TaskBoardController extends Controller
         $tasks = Task::where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
-        $warningTask = collect();
-        $normalTask = collect();
-
-        foreach ($tasks as $task) {
-            if (($task->real_time - $task->estimated_time) >= 30 && $task->status_id = 2) {
-                $warningTask->push($task);
-            } else {
-                $normalTask->push($task);
-            }
-        }
-
         return view('toDo.borad', $data);
     }
 
