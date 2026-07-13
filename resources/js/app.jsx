@@ -12,7 +12,7 @@ function App() {
             <Board onOpenModal={() => setIsOpen(true)} />
 
             {isOpen && (
-                <TaskCreateModal onClose={() => setIsOpen(false)} />
+                <TaskCreateModal onCloseModal={() => setIsOpen(false)} />
             )}
         </>
     );
@@ -21,3 +21,7 @@ function App() {
 ReactDOM.createRoot(
     document.getElementById('react-root')
 ).render(<App />);
+
+// const isOpne = 状態の現在地
+// const setIsOpen = 状態変更関数
+

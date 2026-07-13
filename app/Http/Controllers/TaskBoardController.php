@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Services\BoardService;
-use Illuminate\Http\Request;
 use App\Services\UserTaskProcessing;
+use Illuminate\Http\Request;
 
 class TaskBoardController extends Controller
 {
@@ -65,7 +65,7 @@ class TaskBoardController extends Controller
             'project_id' => 1,
             'type_id' => $request->type_id,
             'category_id' => $request->category_id,
-            'status_id' => 1, //! マジックナンバーあり注意
+            'status_id' => 1, // ! マジックナンバーあり注意
             'status' => 'aaa',
             'description' => $request->description,
         ]);
@@ -88,14 +88,13 @@ class TaskBoardController extends Controller
         return response()->json($id);
     }
 
-
-    //~ 以下 算出コンテナの利用 6/26
-    public function showUserTime($id) {
-        $calculation = new UserTaskProcessing();
+    // ~ 以下 算出コンテナの利用 6/26
+    public function showUserTime($id)
+    {
+        $calculation = new UserTaskProcessing;
         $estimated = $calculation->getTotalEstimatedTime($id);
         $real = $calculation->getTotalRealTime($id);
+
         return view('toDo.borad', compact('estimated', 'real'));
     }
-
 }
-

@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{{ asset('css/board.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
     @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app.jsx', 'resources/js/dashboard.js'])
 </head>
@@ -23,8 +22,7 @@
         <main class="h-[calc(100vh-50px)] flex flex-1 flex-col min-w-0 bg-[#F0F0F0]">
             <x-projectbar :project="$project" />
             <div class="py-6 px-8 flex flex-1 flex-col w-full overflow-hidden">
-                <p class="text-lg font-bold">課題
-                <p>
+                <p class="text-lg font-bold">課題<p>
                 <div class="search">
                     <x-board-search :types="$types ?? 0" :categories="$categories" />
                 </div>

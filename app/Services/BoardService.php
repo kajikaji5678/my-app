@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Category;
-use App\Models\Milestone;
 use App\Models\Project;
 use App\Models\Status;
 use App\Models\Type;
@@ -27,11 +26,14 @@ class BoardService
             }
         }
 
+        $superWarningByStatus = $superWarningTasks->groupBy('status_id');
+        $WarningByStatus = $superWarningTasks->groupBy('status_id');
+        $normalByStatus = $superWarningTasks->groupBy('status_id');
+
         return [
-            'tasks' => $tasks,
-            'warningTasks' => $warningTasks,
-            'normalTasks' => $normalTasks,
-            'superWarningTasks' => $superWarningTasks,
+            'warningTasks' => $WarningByStatus,
+            'normalTasks' => $normalByStatus,
+            'superWarningTasks' => $superWarningByStatus,
             'types' => Type::where('projects_id', $projectId)->get(),
             'categories' => Category::where('project_id', $projectId)->get(),
             'statuses' => Status::where('project_id', $projectId)->get(),
