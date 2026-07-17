@@ -1,14 +1,11 @@
 <?php
 
-namespace note\User;
-
-use note\Role\RoleDTO;
+namespace note;
 
 class UserDTO
 {
     public function __construct(
-        public int $id,
         public string $name,
-        public RoleDTO $role
+        public int $age
     ) {}
 }

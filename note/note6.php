@@ -1,10 +1,12 @@
 <?php
 
-use note\example\RoleDTO;
+require __DIR__ . '/../vendor/autoload.php';
 
-$roles = [
-    1 => new RoleDTO(
-        name: '管理者',
-        level: 'あああ'
-    )
-];
+use App\DTO\UserDTO;
+
+$user = new UserDTO(
+    name: 123,
+    age: 124,
+);
+
+echo $user->name;
