@@ -26,9 +26,7 @@ class BoardService
             }
         }
 
-        $superWarningByStatus = $superWarningTasks->groupBy('status_id');
-        $WarningByStatus = $superWarningTasks->groupBy('status_id');
-        $normalByStatus = $superWarningTasks->groupBy('status_id');
+
 
         return [
             'warningTasks' => $WarningByStatus,

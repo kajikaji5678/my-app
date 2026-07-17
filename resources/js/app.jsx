@@ -5,21 +5,21 @@ import TaskCreateModal from "./components/TaskCreateModal.jsx";
 import Board from "./components/Board.jsx";
 
 function App() {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <>
-            <Board onOpenModal={() => setIsOpen(true)} />
+  return (
+    <>
+      <Board onOpenModal={() => setIsOpen(true)} />
 
-            {isOpen && (
-                <TaskCreateModal onCloseModal={() => setIsOpen(false)} />
-            )}
-        </>
-    );
+      {isOpen && (
+        <TaskCreateModal onCloseModal={() => setIsOpen(false)} />
+      )}
+    </>
+  );
 }
 
 ReactDOM.createRoot(
-    document.getElementById('react-root')
+  document.getElementById('react-root')
 ).render(<App />);
 
 // const isOpne = 状態の現在地
