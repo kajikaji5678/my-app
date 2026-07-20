@@ -1,8 +1,8 @@
 import React from "react";
 import BoardBoxContent from "./BoardBoxContent.jsx";
 
-function Board({ onOpenModal }) {
-  const root = document.getElementById('react-root');
+function BoardCard({ onOpenModal }) {
+  const root = document.getElementById('board');
   const statuses = JSON.parse(root.dataset.statuses);
   const tasks = JSON.parse(root.dataset.tasks);
 
@@ -64,4 +64,4 @@ function Board({ onOpenModal }) {
   );
 }
 
-export default Board;
+export default BoardCard;
