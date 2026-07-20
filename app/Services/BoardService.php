@@ -11,27 +11,29 @@ class BoardService
 {
     public function getBoardData($projectId, $tasks)
     {
-        $superWarningTasks = collect();
-        $warningTasks = collect();
-        $normalTasks = collect();
+        $edidedtasks = [
+            'super' => [],
+            'warning' => [],
+            'normal' => [],
+        ];
 
         foreach ($tasks as $task) {
             $overTime = $task->real_time - $task->estimated_time;
             if ($overTime >= 60 && $task->status_id == 2) {
-                $superWarningTasks->push($task);
+                $level = 'super';
             } elseif ($overTime >= 30) {
-                $warningTasks->push($task);
+                $level = 'warning';
             } else {
-                $normalTasks->push($task);
+                $level = 'normal';
             }
+
+            $edidedtasks[$level][$task->status_id][] = $task;
         }
 
 
-
         return [
-            'warningTasks' => $WarningByStatus,
-            'normalTasks' => $normalByStatus,
-            'superWarningTasks' => $superWarningByStatus,
+            'tasks' => $tasks,
+            'edidedtasks' => $edidedtasks,
             'types' => Type::where('projects_id', $projectId)->get(),
             'categories' => Category::where('project_id', $projectId)->get(),
             'statuses' => Status::where('project_id', $projectId)->get(),
