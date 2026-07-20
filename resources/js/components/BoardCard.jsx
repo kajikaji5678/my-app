@@ -1,11 +1,11 @@
 import React from "react";
-import BoardBoxContent from "./BoardBoxContent.jsx";
+import BoardCardContet from "./BoardCardContent";
 
 function BoardCard({ onOpenModal }) {
   const root = document.getElementById('board');
   const statuses = JSON.parse(root.dataset.statuses);
   const tasks = JSON.parse(root.dataset.tasks);
-  const editedTasks = JSON.parse(root.dataset.editedTasks)
+  const editedTasks = JSON.parse(root.dataset.editedTasks);
 
   const statusCount = {};
 
@@ -30,6 +30,7 @@ function BoardCard({ onOpenModal }) {
             </div>
             <button onClick={onOpenModal} className="mt-1 w-6 h-6 cursor-pointer">+</button>
           </div>
+          <BoardCardContet />
         </div>
       ))}
     </div>
@@ -60,8 +61,8 @@ export default BoardCard;
     />
 </div> */}
 
-// <BoardBoxContent
-//   normalTasks={statusNormalTasks}
-//   warningTasks={statusWarningTasks}
-//   superWarningTasks={statusSuperWarningTasks}
-// />
+{/* <BoardBoxContent
+  normalTasks={statusNormalTasks}
+  warningTasks={statusWarningTasks}
+  superWarningTasks={statusSuperWarningTasks}
+/> */}
