@@ -11,7 +11,7 @@ class BoardService
 {
     public function getBoardData($projectId, $tasks)
     {
-        $edidedTasks = [
+        $editedTasks = [
             'super' => [],
             'warning' => [],
             'normal' => [],
@@ -27,13 +27,12 @@ class BoardService
                 $level = 'normal';
             }
 
-            $edidedTasks[$level][$task->status_id][] = $task;
+            $editedTasks[$level][$task->status_id][] = $task;
         }
-
 
         return [
             'tasks' => $tasks,
-            'edidedTasks' => $edidedTasks,
+            'editedTasks' => $editedTasks,
             'types' => Type::where('projects_id', $projectId)->get(),
             'categories' => Category::where('project_id', $projectId)->get(),
             'statuses' => Status::where('project_id', $projectId)->get(),

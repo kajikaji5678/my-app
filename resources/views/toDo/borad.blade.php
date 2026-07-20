@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
   <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
   @viteReactRefresh
-  @vite(['resources/css/app.css', 'resources/js/app.jsx', 'resources/js/dashboard.js'])
+  @vite(['resources/css/app.css', 'resources/js/entries/board.jsx', 'resources/js/dashboard.js'])
 </head>
 
 <body>
@@ -29,7 +29,7 @@
         </div>
         <div class="mt-4 flex-1 flex gap-4 flex-nowrap overflow-y-hidden w-full">
           <div id="board" class="flex gap-4 w-full" data-tasks='@json($tasks)'
-            data-statuses='@json($statuses)' data-edidedTask='@json($edidedTasks)'>
+            data-statuses='@json($statuses)' data-edited-tasks='@json($editedTasks)'>
           </div>
         </div>
       </div>
