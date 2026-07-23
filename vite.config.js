@@ -15,4 +15,9 @@ export default defineConfig({
         }),
         react(),
     ],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      }
+    }
 });
