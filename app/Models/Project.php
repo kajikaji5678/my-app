@@ -56,8 +56,4 @@ class Project extends Model
     public function type() {
         return $this->hasMany(Type::class);
     }
-
-    public function Milestone() {
-        return $this->hasMany(Milestone::class);
-    }
 }

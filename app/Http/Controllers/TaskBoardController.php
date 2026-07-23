@@ -23,9 +23,8 @@ class TaskBoardController extends Controller
     public function get()
     {
         $projectId = 1;
-        $tasks = Task::where('project_id', $projectId)->get();
+        $tasks = Task::with('type')->where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
-
 
         return view('toDo.borad', $data);
     }
