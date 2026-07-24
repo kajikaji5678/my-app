@@ -61,17 +61,23 @@ export default function TaskSheet({
               <p className="text-2xl font-bold mt-4">
                 {task?.task_name}
               </p>
-              <div className="mt-4 grid grid-cols-[120px_1fr] gap-y-4">
-                {rows.map((row: Row) => (
-                  <>
-                    <p className="text-gray-600">
-                      {row.label}
-                    </p>
-                    <p className="font-semibold">
-                      {row.value}
-                    </p>
-                  </>
-                ))}
+              <div className="mt-6 border rounded-lg overflow-hidden bg-white">
+                <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-200">
+                  <h2 className="font-semibold">詳細</h2>
+                  <button className="text-blue-600 text-sm hover:underline cursor-pointer">編集</button>
+                </div>
+                <div className="grid grid-cols-[120px_1fr]">
+                  {rows.map((row: Row) => (
+                    <>
+                      <p className="text-gray-600 px-4 py-3">
+                        {row.label}
+                      </p>
+                      <p className="font-semibold px-4 py-3">
+                        {row.value}
+                      </p>
+                    </>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
