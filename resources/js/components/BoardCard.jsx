@@ -1,14 +1,18 @@
 import React from "react";
 import BoardCardContet from "./BoardCardContent";
+import { useState } from "react";
+import TaskSheet from "./TaskSheet";
 
 function BoardCard({ onOpenModal }) {
   const root = document.getElementById('board');
   const statuses = JSON.parse(root.dataset.statuses);
   const tasks = JSON.parse(root.dataset.tasks);
   const editedTasks = JSON.parse(root.dataset.editedTasks);
-  console.log(editedTasks);
 
   const statusCount = {};
+
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [open, setOpen] = useState(false);
 
   tasks.forEach(task => {
     statusCount[task.status_id] = (statusCount[task.status_id] || 0) + 1;
@@ -34,9 +38,18 @@ function BoardCard({ onOpenModal }) {
           <BoardCardContet key={status.id} status={status}
             superTasks={editedTasks.super[status.id] ?? []}
             warningTasks={editedTasks.warning[status.id] ?? []}
-            normalTasks={editedTasks.normal[status.id] ?? []} />
+            normalTasks={editedTasks.normal[status.id] ?? []}
+            tasks={tasks}
+            onTaskClick={(task) => { setSelectedTask(task); setOpen(true); }}
+          />
         </div>
       ))}
+
+      <TaskSheet
+        open={open}
+        task={selectedTask}
+        onClose={() => setOpen(false)}
+      />
     </div>
   );
 }
