@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('status');
             $table->timestamps();
             $table->text('description')->nullable();
+            //* 7/24 親タスクidを追加
+            $table->foreignId('parent_task_id')->nullable();
         });
     }
 

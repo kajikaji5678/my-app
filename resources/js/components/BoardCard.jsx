@@ -4,16 +4,21 @@ import { useState } from "react";
 import TaskSheet from "./TaskSheet";
 
 function BoardCard({ onOpenModal }) {
+
+  //* レンダー場所指定
   const root = document.getElementById('board');
+
+  //* JSONの書き換え
   const statuses = JSON.parse(root.dataset.statuses);
   const tasks = JSON.parse(root.dataset.tasks);
   const editedTasks = JSON.parse(root.dataset.editedTasks);
 
-  const statusCount = {};
-
+  //* 状態管理セット
   const [selectedTask, setSelectedTask] = useState(null);
   const [open, setOpen] = useState(false);
 
+  //* タスク個数計算
+  const statusCount = {};
   tasks.forEach(task => {
     statusCount[task.status_id] = (statusCount[task.status_id] || 0) + 1;
   });
@@ -56,9 +61,3 @@ function BoardCard({ onOpenModal }) {
 
 export default BoardCard;
 
-
-{/* <BoardBoxContent
-  normalTasks={statusNormalTasks}
-  warningTasks={statusWarningTasks}
-  superWarningTasks={statusSuperWarningTasks}
-/> */}

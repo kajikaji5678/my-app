@@ -2,15 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Project;
-use App\Models\Category;
-use App\Models\Type;
-use App\Models\Milestone;
-use App\Models\User;
-use App\Models\Role;
-use App\Models\Status;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -21,18 +16,19 @@ use App\Models\Status;
  * @property int $milestone_id
  * @property string $status
  * @property string $status_color
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $status_id
  * @property-read Category $category
  * @property-read Milestone $milestone
  * @property-read Project $project
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
+ * @property-read Collection<int, Role> $roles
  * @property-read int|null $roles_count
  * @property-read Status|null $statuses
  * @property-read Type $type
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
+ *
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
@@ -48,43 +44,55 @@ use App\Models\Status;
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $taskAssigns
+ *
+ * @property-read Collection<int, TaskAssign> $taskAssigns
  * @property-read int|null $task_assigns_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
+ * @property-read Collection<int, UserTask> $userTask
  * @property-read int|null $user_task_count
  * @property int|null $estimated_time
  * @property int|null $real_time
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUser> $TaskUser
+ * @property-read Collection<int, TaskUser> $TaskUser
  * @property-read int|null $task_user_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereEstimatedTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereRealTime($value)
+ *
  * @property string|null $priority
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Task wherePriority($value)
+ *
  * @property int|null $responsible_user_id
  * @property string|null $added_date
  * @property string|null $end_date
  * @property string|null $dead_time
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereResponsibleUserId($value)
+ *
  * @property string|null $added_at
  * @property string|null $completed_at
  * @property string|null $deadline_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereCompletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
+ *
  * @property string|null $schedule
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereSchedule($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ *
+ * @property-read Collection<int, Comment> $comments
  * @property-read int|null $comments_count
+ *
  * @mixin \Eloquent
  */
 class Task extends Model
 {
     use HasFactory;
 
-    //* CRUDでテーブル名あるのにエラー出てきたなら$fillableが抜けてる可能性
+    // * CRUDでテーブル名あるのにエラー出てきたなら$fillableが抜けてる可能性
     protected $fillable = [
         'id',
         'task_name',
@@ -95,7 +103,8 @@ class Task extends Model
         'status_id',
         'estimated_time',
         'real_time',
-        'priority'
+        'priority',
+        'parent_task_id',
     ];
 
     public function project()
@@ -146,5 +155,15 @@ class Task extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Task::class, 'parent_task_id');
+    }
+
+    public function childlen()
+    {
+        return $this->hasMany(Task::class, 'parent_task_id');
     }
 }

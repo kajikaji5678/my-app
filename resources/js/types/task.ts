@@ -2,6 +2,8 @@ export type Task = {
   id: number;
   task_name: number;
   created_at: string;
+  deadline_at: string;
+  priority: string;
 
   type: {
     id: number;
@@ -12,5 +14,10 @@ export type Task = {
   status: {
     id: number;
     status_name: string;
+  }
+
+  category: {
+    id: number;
+    category_name: string;
   }
 }

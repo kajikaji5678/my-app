@@ -16,10 +16,13 @@ export default function BoardCardContet({
   onTaskClick,
 }: Props) {
 
+  console.log(superTasks);
+
   const renderTasks = (tasks: Task[]) =>
     tasks.map((task) => (
       <div
         key={task.id}
+        //! 子でカードを指定したら親に通知する
         onClick={() => onTaskClick(task)}
         className="h-20 rounded border border-[#C5C5C5] mt-3 p-2 cursor-pointer relative"
       >
