@@ -1,4 +1,5 @@
 import type { Task } from "../types/task";
+import { AnimatePresence, motion } from "motion/react"
 
 type Props = {
   open: boolean;
@@ -37,13 +38,24 @@ export default function TaskSheet({
   ]
 
   return (
-    <>
+    <AnimatePresence>
       {open && (
-        <div
+        <motion.div
           className="fixed inset-0 z-40 bg-black/40"
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          exit={{opacity: 0}}
+          transition={{duration: 0.3}}
           onClick={onClose}>
-          <div
-            className="fixed top-0 right-0 h-full w-[500px] bg-white z-50 shadow-xl"
+          <motion.div
+            className="task-sheet fixed top-0 right-0 h-full w-[500px] bg-white z-50 shadow-xl"
+            initial={{x: "100%"}}
+            animate={{x: 0}}
+            exit={{x: "100%"}}
+            transition={{
+              duration: 0.3,
+              ease: "easeOut"
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6">
@@ -80,9 +92,9 @@ export default function TaskSheet({
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   )
 }
