@@ -1,5 +1,8 @@
 import type { Task } from "../types/task";
 import { AnimatePresence, motion } from "motion/react"
+import TaskLabel from "./TaskSheet/TaskLabel";
+import TaskDescription from "./TaskSheet/TaskDescription";
+import TaskCommnets from "./TaskSheet/TaskComments";
 
 type Props = {
   open: boolean;
@@ -42,16 +45,16 @@ export default function TaskSheet({
       {open && (
         <motion.div
           className="fixed inset-0 z-40 bg-black/40"
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-          transition={{duration: 0.3}}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
           onClick={onClose}>
           <motion.div
-            className="task-sheet fixed top-0 right-0 h-full w-[500px] bg-white z-50 shadow-xl"
-            initial={{x: "100%"}}
-            animate={{x: 0}}
-            exit={{x: "100%"}}
+            className="task-sheet fixed top-0 right-0 h-full w-[800px] bg-white z-50 shadow-xl"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
             transition={{
               duration: 0.3,
               ease: "easeOut"
@@ -73,22 +76,19 @@ export default function TaskSheet({
               <p className="text-2xl font-bold mt-4">
                 {task?.task_name}
               </p>
-              <div className="mt-6 border rounded-lg overflow-hidden bg-white">
-                <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-200">
-                  <h2 className="font-semibold">詳細</h2>
-                  <button className="text-blue-600 text-sm hover:underline cursor-pointer">編集</button>
-                </div>
-                <div className="grid grid-cols-[120px_1fr]">
-                  {rows.map((row: Row) => (
-                    <>
-                      <p className="text-gray-600 px-4 py-3">
-                        {row.label}
-                      </p>
-                      <p className="font-semibold px-4 py-3">
-                        {row.value}
-                      </p>
-                    </>
-                  ))}
+              <div className="mt-6 overflow-hidden bg-white">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="rounded-lg border-2 border-gray-200 overflow-hidden">
+                      <TaskLabel rows={rows} />
+                    </div>
+                    <div className="rounded border-2 mt-6 border-gray-200 overflow-hidden">
+                      <TaskDescription />
+                    </div>
+                  </div>
+                  <div>
+                    <TaskCommnets />
+                  </div>
                 </div>
               </div>
             </div>
@@ -98,3 +98,5 @@ export default function TaskSheet({
     </AnimatePresence>
   )
 }
+
+
