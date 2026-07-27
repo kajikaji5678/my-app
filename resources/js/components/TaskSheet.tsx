@@ -1,5 +1,6 @@
 import type { Task } from "../types/task";
 import { AnimatePresence, motion } from "motion/react"
+import { updateTask } from "../api/Task";
 import TaskLabel from "./TaskSheet/TaskLabel";
 import TaskDescription from "./TaskSheet/TaskDescription";
 import TaskCommnets from "./TaskSheet/TaskComments";
@@ -13,13 +14,22 @@ type Props = {
 type Row = {
   label: string;
   value: string | undefined;
-}
+};
 
 export default function TaskSheet({
   open,
   task,
   onClose
 }: Props) {
+
+  const saveTask = async () => {
+    try {
+      await updateTask({
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const rows: Row[] = [
     {
@@ -37,6 +47,10 @@ export default function TaskSheet({
     {
       label: "優先度",
       value: task?.priority
+    },
+    {
+      label: "ステータス",
+      value: task?.status.status_name
     }
   ]
 

@@ -29,10 +29,11 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    public $fillable = [
         'status_name',
         'project_id',
-        'status_color'
+        'status_color',
+        'status'
     ];
 
     public function tasks()

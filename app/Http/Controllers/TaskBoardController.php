@@ -23,7 +23,7 @@ class TaskBoardController extends Controller
     public function get()
     {
         $projectId = 1;
-        $tasks = Task::with('type')->with('category')->where('project_id', $projectId)->get();
+        $tasks = Task::with('type')->with('category')->with('statuses')->where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
         return view('toDo.borad', $data);
@@ -83,6 +83,7 @@ class TaskBoardController extends Controller
         return redirect()->route('board.form');
     }
 
+    // ~ 以下　内容編集API叩き
     public function api(Task $id)
     {
         return response()->json($id);
