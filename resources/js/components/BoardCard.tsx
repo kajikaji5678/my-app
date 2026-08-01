@@ -29,7 +29,7 @@ function BoardCard({ onOpenModal }: Props) {
   //* タスク個数計算
   const statusCount: {[statusId: number]: number} = {};
   tasks.forEach(task => {
-    statusCount[task.status.id] = (statusCount[task.status.id] || 0) + 1;
+    statusCount[task.status_id] = (statusCount[task.status_id] || 0) + 1;
   });
 
   return (
