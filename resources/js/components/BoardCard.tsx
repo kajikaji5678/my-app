@@ -4,6 +4,7 @@ import { useState } from "react";
 import TaskSheet from "./TaskSheet";
 import type { Task } from "../types/task";
 import type { Status } from "../types/statuses";
+import type { EditedTasks } from "../types/EditedTasks";
 
 type Props = {
   // 引数無し戻り値無し
@@ -19,7 +20,7 @@ function BoardCard({ onOpenModal }: Props) {
   //* JSONの書き換え
   const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
   const tasks = JSON.parse(root.dataset.tasks ?? "[]") as Task[];
-  const editedTasks = JSON.parse(root.dataset.editedTasks);
+  const editedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
 
   //* 状態管理セット
   const [selectedTask, setSelectedTask] = useState(null);
