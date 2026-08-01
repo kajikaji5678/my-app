@@ -1,5 +1,5 @@
 import type { Task } from "resources/js/types/task";
-import { useState } from "react";
+import React, { useState } from "react";
 
 type Props = {
   task: Task;
@@ -13,9 +13,28 @@ type Row = {
 };
 
 
-export default function TaskLabel({task}: Props) {
+export default function TaskLabel({ task }: Props) {
 
-    const rows: Row[] = [
+  //* 編集用データ
+  /// 開始日を変更することなんかまずない
+  const [formData, setFormData] = useState({
+    category_id: task.category.id,
+    deadline_at: task.deadline_at.slice(0, 10),
+    status_id: task.status_id,
+  });
+
+  // 編集が出来るか否かの判定
+  const [edit, setEdit] = useState(false);
+
+  // inputの変更をformDataに反映する処理
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const rows: Row[] = [
     {
       label: "カテゴリー",
       key: "category_id",
@@ -41,9 +60,6 @@ export default function TaskLabel({task}: Props) {
       type: "select",
     },
   ];
-
-  // 編集が出来るか否かの判定
-  const [edit, setEdit] = useState(false);
 
   return (
     <>
