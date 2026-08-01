@@ -2,15 +2,23 @@ import React from "react";
 import BoardCardContet from "./BoardCardContent";
 import { useState } from "react";
 import TaskSheet from "./TaskSheet";
+import type { Task } from "../types/task";
+import type { Status } from "../types/statuses";
 
-function BoardCard({ onOpenModal }) {
+type Props = {
+  // 引数無し戻り値無し
+  onOpenModal: () => void;
+}
+
+function BoardCard({ onOpenModal }: Props) {
 
   //* レンダー場所指定
   const root = document.getElementById('board');
+  if (!root) throw new Error("board ID dont exist");
 
   //* JSONの書き換え
-  const statuses = JSON.parse(root.dataset.statuses);
-  const tasks = JSON.parse(root.dataset.tasks);
+  const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
+  const tasks = JSON.parse(root.dataset.tasks ?? "[]") as Task[];
   const editedTasks = JSON.parse(root.dataset.editedTasks);
 
   //* 状態管理セット
@@ -20,7 +28,7 @@ function BoardCard({ onOpenModal }) {
   //* タスク個数計算
   const statusCount = {};
   tasks.forEach(task => {
-    statusCount[task.status_id] = (statusCount[task.status_id] || 0) + 1;
+    statusCount[task.status.id] = (statusCount[task.status.id] || 0) + 1;
   });
 
   return (
@@ -44,7 +52,8 @@ function BoardCard({ onOpenModal }) {
             superTasks={editedTasks.super[status.id] ?? []}
             warningTasks={editedTasks.warning[status.id] ?? []}
             normalTasks={editedTasks.normal[status.id] ?? []}
-            tasks={tasks}
+            //~ 未使用および子の定義づけにも関連してないため削除
+            // tasks={tasks}
             onTaskClick={(task) => { setSelectedTask(task); setOpen(true); }}
           />
         </div>
