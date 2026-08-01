@@ -22,14 +22,7 @@ export default function TaskSheet({
   onClose
 }: Props) {
 
-  const saveTask = async () => {
-    try {
-      await updateTask({
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
+
 
   const rows: Row[] = [
     {
