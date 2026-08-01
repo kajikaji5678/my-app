@@ -5,9 +5,15 @@ type Props = {
   task: Task;
 };
 
+type TaskFormData = {
+  category_id: number;
+  deadline_at: string;
+  status_id: number;
+};
+
 type Row = {
   label: string;
-  key: string;
+  key: keyof TaskFormData | "created_at";
   value: string;
   type: string;
 };
@@ -26,7 +32,7 @@ export default function TaskLabel({ task }: Props) {
   // 編集が出来るか否かの判定
   const [edit, setEdit] = useState(false);
 
-  // inputの変更をformDataに反映する処理
+  //* inputの変更をformDataに反映する処理
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -82,23 +88,25 @@ export default function TaskLabel({ task }: Props) {
         </div>
       </div>
       <div className="grid grid-cols-[120px_1fr]">
-        {rows.map((row: Row) => (
-          <>
+        {rows.map((row) => (
+          <React.Fragment key={row.key}>
             <p className="text-gray-600 px-4 py-3">
               {row.label}
             </p>
-            <p className="font-semibold px-4 py-3">
-              {edit ? (
+            {/* //  Pタグの入れ子は勧められてない */}
+            <div className="font-semibold px-4 py-3">
+              {edit && row.key !== "created_at" ? (
                 <input
-                  value={row.value}
+                  name={row.key}
+                  value={formData[row.key]}
                   className="w-full border rounded px-2 py-1" />
               ) : (
                 <p className="font-semibold">
                   {row.value}
                 </p>
               )}
-            </p>
-          </>
+            </div>
+          </React.Fragment>
         ))}
       </div>
     </>
