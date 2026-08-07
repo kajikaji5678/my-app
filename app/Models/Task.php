@@ -137,7 +137,7 @@ class Task extends Model
         return $this->belongsToMany(Role::class);
     }
 
-    public function statuses()
+    public function status()
     {
         return $this->belongsTo(Status::class);
     }

@@ -11,8 +11,9 @@ export type Task = {
     type_color: string;
   }
 
+  status_id: number;
+
   status: {
-    id: number;
     status_name: string;
   }
 
