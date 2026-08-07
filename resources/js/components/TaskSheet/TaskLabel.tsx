@@ -1,6 +1,7 @@
 import type { Task } from "resources/js/types/task";
 import React, { useState } from "react";
 import type { Status } from "resources/js/types/statuses";
+import type { Categories } from "resources/js/types/categories";
 
 // ======== Types ========
 
@@ -18,16 +19,20 @@ type Row = {
   label: string;
   key: keyof TaskFormData | "created_at";
   value: string;
-  type: string;
+  type: "text" | "data" | "select";
 };
 
 
 export default function TaskLabel({ task }: Props) {
 
+  console.log(task.status_id);
+
   // ======== State ========
   const root = document.getElementById('board');
   if (!root) return;
   const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
+  const categories = JSON.parse(root.dataset.categories ?? "[]") as Categories[];
+  console.log(categories);
 
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
@@ -37,7 +42,7 @@ export default function TaskLabel({ task }: Props) {
   });
 
   // ======== Events ========
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -49,7 +54,7 @@ export default function TaskLabel({ task }: Props) {
       const res = await fetch(`/api/tasks/${task.id}`, {
         method: "PUT",
         headers: {
-          "Content-Type" : "application/json",
+          "Content-Type": "application/json",
           "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ?? "",
         },
         body: JSON.stringify(formData)
@@ -76,13 +81,13 @@ export default function TaskLabel({ task }: Props) {
       label: "作成日",
       key: "created_at",
       value: task.created_at.slice(0, 10),
-      type: "date"
+      type: "data"
     },
     {
       label: "期限日",
       key: "deadline_at",
       value: task.deadline_at.slice(0, 10),
-      type: "date"
+      type: "data"
     },
     {
       label: "ステータス",
@@ -92,7 +97,56 @@ export default function TaskLabel({ task }: Props) {
     },
   ];
 
-    // ======== TSX ========
+  // ======== function ========
+
+  const renderInput = (row: Row) => {
+    if (row.key === "created_at") return null;
+    switch (row.type) {
+      case "select":
+        return (
+          <select
+            name={row.key}
+            value={formData[row.key]}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1">
+            {row.key === "status_id" &&
+              statuses.map((status) => (
+                <option key={status.id} value={status.id}>
+                  {status.status_name}
+                </option>
+              ))}
+            {row.key === "category_id" &&
+              categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.category_name}
+                </option>
+              ))}
+          </select>
+        );
+
+      case "data":
+        return (
+          <input
+            type="date"
+            name={row.key}
+            value={formData[row.key]}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"></input>
+        );
+
+      default:
+        return (
+          <input
+            type="text"
+            name={row.key}
+            value={formData[row.key]}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"></input>
+        )
+    }
+  }
+
+  // ======== TSX ========
 
   return (
     <>
@@ -123,15 +177,12 @@ export default function TaskLabel({ task }: Props) {
             {/* //  Pタグの入れ子は勧められてない */}
             <div className="font-semibold px-4 py-3">
               {edit && row.key !== "created_at" ? (
-                <input
-                  name={row.key}
-                  value={formData[row.key]}
-                  className="w-full border rounded px-2 py-1"
-                  onChange={handleChange} />
+                renderInput(row)
               ) : (
                 <p className="font-semibold">
                   {row.value}
                 </p>
+
               )}
             </div>
           </React.Fragment>

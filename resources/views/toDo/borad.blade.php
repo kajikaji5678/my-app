@@ -29,7 +29,7 @@
         </div>
         <div class="mt-4 flex-1 flex gap-4 flex-nowrap overflow-y-hidden w-full">
           <div id="board" class="flex gap-4 w-full" data-tasks='@json($tasks)'
-            data-statuses='@json($statuses)' data-edited-tasks='@json($editedTasks)'>
+            data-statuses='@json($statuses)' data-categories='@json($categories)' data-edited-tasks='@json($editedTasks)'>
           </div>
         </div>
       </div>
