@@ -1,5 +1,8 @@
 import type { Task } from "resources/js/types/task";
 import React, { useState } from "react";
+import type { Status } from "resources/js/types/statuses";
+
+// ======== Types ========
 
 type Props = {
   task: Task;
@@ -21,18 +24,19 @@ type Row = {
 
 export default function TaskLabel({ task }: Props) {
 
-  //* 編集用データ
-  /// 開始日を変更することなんかまずない
+  // ======== State ========
+  const root = document.getElementById('board');
+  if (!root) return;
+  const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
+
+  const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
     category_id: task.category.id,
     deadline_at: task.deadline_at.slice(0, 10),
     status_id: task.status_id,
   });
 
-  // 編集が出来るか否かの判定
-  const [edit, setEdit] = useState(false);
-
-  //* inputの変更をformDataに反映する処理
+  // ======== Events ========
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -40,6 +44,27 @@ export default function TaskLabel({ task }: Props) {
     });
   }
 
+  const handleUpdate = async () => {
+    try {
+      const res = await fetch(`/api/tasks/${task.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type" : "application/json",
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ?? "",
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!res.ok) throw new Error("更新失敗");
+
+      setEdit(false);
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
+
+  // ======== Display Data ========
   const rows: Row[] = [
     {
       label: "カテゴリー",
@@ -66,6 +91,8 @@ export default function TaskLabel({ task }: Props) {
       type: "select",
     },
   ];
+
+    // ======== TSX ========
 
   return (
     <>
@@ -99,7 +126,8 @@ export default function TaskLabel({ task }: Props) {
                 <input
                   name={row.key}
                   value={formData[row.key]}
-                  className="w-full border rounded px-2 py-1" />
+                  className="w-full border rounded px-2 py-1"
+                  onChange={handleChange} />
               ) : (
                 <p className="font-semibold">
                   {row.value}

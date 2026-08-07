@@ -17,7 +17,7 @@ function BoardCard({ onOpenModal }: Props) {
   const root = document.getElementById('board');
   if (!root) throw new Error("board ID dont exist");
 
-  //* JSONの書き換え
+  //* JSONの受け取り
   const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
   const tasks = JSON.parse(root.dataset.tasks ?? "[]") as Task[];
   const editedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
