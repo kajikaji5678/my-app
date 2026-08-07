@@ -13,17 +13,13 @@ type Props = {
 
 function BoardCard({ onOpenModal }: Props) {
 
-  //* レンダー場所指定
   const root = document.getElementById('board');
   if (!root) throw new Error("board ID dont exist");
-
-  //* JSONの受け取り
   const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
   const tasks = JSON.parse(root.dataset.tasks ?? "[]") as Task[];
   const editedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
 
-  //* 状態管理セット
-  const [selectedTask, setSelectedTask] = useState<Task>(null);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [open, setOpen] = useState(false);
 
   //* タスク個数計算
