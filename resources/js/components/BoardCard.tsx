@@ -23,7 +23,7 @@ function BoardCard({ onOpenModal }: Props) {
   const editedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
 
   //* 状態管理セット
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [selectedTask, setSelectedTask] = useState<Task>(null);
   const [open, setOpen] = useState(false);
 
   //* タスク個数計算

@@ -65,26 +65,6 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
  * @property-read int|null $comments_count
  * @mixin \Eloquent
- * @property int $id
- * @property string $epic_name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $project_id
- * @property int $category_id
- * @property int $type_id
- * @property int|null $responsible_user_id
- * @property string|null $priority
- * @property string|null $description
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereEpicName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic wherePriority($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereProjectId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereResponsibleUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Epic whereUpdatedAt($value)
  */
 	class Epic extends \Eloquent {}
 }
@@ -353,17 +333,17 @@ namespace App\Models{
  * @property int $milestone_id
  * @property string $status
  * @property string $status_color
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $status_id
  * @property-read Category $category
  * @property-read Milestone $milestone
  * @property-read Project $project
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
+ * @property-read Collection<int, Role> $roles
  * @property-read int|null $roles_count
  * @property-read Status|null $statuses
  * @property-read Type $type
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
@@ -380,13 +360,13 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskAssign> $taskAssigns
+ * @property-read Collection<int, TaskAssign> $taskAssigns
  * @property-read int|null $task_assigns_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserTask> $userTask
+ * @property-read Collection<int, UserTask> $userTask
  * @property-read int|null $user_task_count
  * @property int|null $estimated_time
  * @property int|null $real_time
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUser> $TaskUser
+ * @property-read Collection<int, TaskUser> $TaskUser
  * @property-read int|null $task_user_count
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereEstimatedTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereRealTime($value)
@@ -408,11 +388,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
  * @property string|null $schedule
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereSchedule($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read Collection<int, Comment> $comments
  * @property-read int|null $comments_count
  * @mixin \Eloquent
  * @property string|null $description
+ * @property int|null $parent_task_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Task> $childlen
+ * @property-read int|null $childlen_count
+ * @property-read Task|null $parent
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereParentTaskId($value)
  */
 	class Task extends \Eloquent {}
 }

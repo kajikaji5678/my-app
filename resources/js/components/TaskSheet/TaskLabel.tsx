@@ -25,8 +25,6 @@ type Row = {
 
 export default function TaskLabel({ task }: Props) {
 
-  console.log(task.status_id);
-
   // ======== State ========
   const root = document.getElementById('board');
   if (!root) return;
@@ -35,7 +33,7 @@ export default function TaskLabel({ task }: Props) {
   console.log(categories);
 
   const [edit, setEdit] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<TaskFormData>({
     category_id: task.category.id,
     deadline_at: task.deadline_at.slice(0, 10),
     status_id: task.status_id,
@@ -162,6 +160,7 @@ export default function TaskLabel({ task }: Props) {
           {edit && (
             <button
               className="ml-3 text-green-600 text-sm hover:underline cursor-pointer"
+              onClick={handleUpdate}
             >
               変更
             </button>

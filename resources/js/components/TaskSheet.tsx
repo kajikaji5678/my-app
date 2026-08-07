@@ -7,7 +7,7 @@ import TaskCommnets from "./TaskSheet/TaskComments";
 
 type Props = {
   open: boolean;
-  task: Task | null;
+  task: Task;
   onClose: () => void;
 };
 
