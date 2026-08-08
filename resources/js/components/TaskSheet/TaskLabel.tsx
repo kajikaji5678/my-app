@@ -7,6 +7,7 @@ import type { Categories } from "resources/js/types/categories";
 
 type Props = {
   task: Task;
+  onUpdate: (task : Task) => void;
 };
 
 type TaskFormData = {
@@ -23,7 +24,7 @@ type Row = {
 };
 
 
-export default function TaskLabel({ task }: Props) {
+export default function TaskLabel({ task, onUpdate }: Props) {
 
   // ======== State ========
   const root = document.getElementById('board');
@@ -40,6 +41,7 @@ export default function TaskLabel({ task }: Props) {
   });
 
   // ======== Events ========
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
@@ -60,6 +62,8 @@ export default function TaskLabel({ task }: Props) {
 
       if (!res.ok) throw new Error("更新失敗");
 
+      const updatedTask = await res.json();
+      onUpdate(updatedTask);
       setEdit(false);
     } catch (e) {
       console.error(e);
