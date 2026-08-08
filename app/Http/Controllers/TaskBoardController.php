@@ -23,10 +23,27 @@ class TaskBoardController extends Controller
     public function get()
     {
         $projectId = 1;
-        $tasks = Task::with('type')->with('category')->with('statuses')->where('project_id', $projectId)->get();
+        $tasks = Task::with('type')->with('category')->with('status')->where('project_id', $projectId)->get();
         $data = $this->boardService->getBoardData($projectId, $tasks);
 
         return view('toDo.borad', $data);
+    }
+
+    public function updateTask(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'status_id' => 'required|exists:statuses,id',
+            'deadline_at' => 'nullable|date',
+        ]);
+
+        $task = Task::findOrFail($id);
+        $task->update($validated);
+
+        return response()->json([
+            'message' => '更新しました',
+            'task'=> $task->load(['category', 'status'])
+        ]);
     }
 
     public function act(Request $request)

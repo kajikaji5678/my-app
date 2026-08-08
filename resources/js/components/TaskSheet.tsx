@@ -7,7 +7,7 @@ import TaskCommnets from "./TaskSheet/TaskComments";
 
 type Props = {
   open: boolean;
-  task: Task | null;
+  task: Task;
   onClose: () => void;
 };
 
@@ -22,30 +22,6 @@ export default function TaskSheet({
   onClose
 }: Props) {
 
-
-
-  const rows: Row[] = [
-    {
-      label: "カテゴリー",
-      value: task?.category.category_name
-    },
-    {
-      label: "作成日",
-      value: task?.created_at.slice(0, 10),
-    },
-    {
-      label: "期限日",
-      value: task?.deadline_at
-    },
-    {
-      label: "優先度",
-      value: task?.priority
-    },
-    {
-      label: "ステータス",
-      value: task?.status.status_name
-    }
-  ]
 
   return (
     <AnimatePresence>
@@ -87,7 +63,7 @@ export default function TaskSheet({
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <div className="rounded-lg border-2 border-gray-200 overflow-hidden">
-                      <TaskLabel rows={rows} />
+                      <TaskLabel task={task} />
                     </div>
                     <div className="rounded border-2 mt-6 border-gray-200 overflow-hidden">
                       <TaskDescription />

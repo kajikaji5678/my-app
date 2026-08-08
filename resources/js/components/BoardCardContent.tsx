@@ -16,7 +16,6 @@ export default function BoardCardContet({
   onTaskClick,
 }: Props) {
 
-  console.log(superTasks);
 
   const renderTasks = (tasks: Task[]) =>
     tasks.map((task) => (
