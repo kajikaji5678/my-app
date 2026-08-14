@@ -7,6 +7,10 @@ import type { Categories } from "resources/js/types/categories";
 
 type Props = {
   task: Task;
+  onTaskUpdate: (
+    updatedTask: Task,
+    level: "super" | "warning" | "normal"
+  ) => void;
 };
 
 type TaskFormData = {
@@ -23,7 +27,7 @@ type Row = {
 };
 
 
-export default function TaskLabel({ task }: Props) {
+export default function TaskLabel({ task, onTaskUpdate }: Props) {
 
   // ======== State ========
   const root = document.getElementById('board');
@@ -59,6 +63,8 @@ export default function TaskLabel({ task }: Props) {
       });
 
       if (!res.ok) throw new Error("更新失敗");
+      const data = await res.json();
+      onTaskUpdate(data.task, data.level);
 
       setEdit(false);
     } catch (e) {

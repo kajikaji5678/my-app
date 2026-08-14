@@ -88,6 +88,7 @@ function BoardCard({ onOpenModal }: Props) {
         //! 応急処置で強制してます
         task={selectedTask!}
         onClose={() => setOpen(false)}
+        onTaskUpdate={handleTaskUpdated}
       />
     </div>
   );
