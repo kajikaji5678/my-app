@@ -40,9 +40,12 @@ class TaskBoardController extends Controller
         $task = Task::findOrFail($id);
         $task->update($validated);
 
+        $level = $this->boardService->classifyTask($task);
+
         return response()->json([
             'message' => '更新しました',
-            'task'=> $task->load(['category', 'status'])
+            'task'=> $task->load(['category', 'status']),
+            'level' => $level
         ]);
     }
 

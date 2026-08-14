@@ -8,6 +8,6 @@ export type EditedTasks = {
     [statusId: number]: Task[];
   };
   normal: {
-    [statuId: number]: Task[];
+    [statusId: number]: Task[];
   }
 }
