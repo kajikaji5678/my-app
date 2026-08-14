@@ -16,14 +16,20 @@ export default function BoardCardContet({
   onTaskClick,
 }: Props) {
 
+  const borderColors = {
+    super: "border-red-500",
+    warning: "border-yellow-500",
+    normal: "border-[#C5C5C5]"
+  }
 
-  const renderTasks = (tasks: Task[]) =>
+
+  const renderTasks = (tasks: Task[], level: "super" | "warning" | "normal") =>
     tasks.map((task) => (
       <div
         key={task.id}
         //! 子でカードを指定したら親に通知する
         onClick={() => onTaskClick(task)}
-        className="h-20 rounded border border-[#C5C5C5] mt-3 p-2 cursor-pointer relative"
+        className={`h-20 rounded border mt-3 p-2 cursor-pointer relative ${borderColors[level]}`}
       >
         <p
           className="py-1 px-2 text-xs rounded-lg w-fit"
@@ -44,9 +50,9 @@ export default function BoardCardContet({
 
   return (
     <>
-      {renderTasks(superTasks)}
-      {renderTasks(warningTasks)}
-      {renderTasks(normalTasks)}
+      {renderTasks(superTasks, "super")}
+      {renderTasks(warningTasks, "warning")}
+      {renderTasks(normalTasks, "normal")}
     </>
   );
 }
