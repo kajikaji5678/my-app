@@ -34,7 +34,6 @@ export default function TaskLabel({ task, onTaskUpdate }: Props) {
   if (!root) return;
   const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
   const categories = JSON.parse(root.dataset.categories ?? "[]") as Categories[];
-  console.log(categories);
 
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState<TaskFormData>({

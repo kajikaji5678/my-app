@@ -17,6 +17,8 @@ function BoardCard({ onOpenModal }: Props) {
   const tasks = JSON.parse(root.dataset.tasks ?? "[]") as Task[];
   const initialEditedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
 
+  console.log(tasks[0]);
+
   // 状態管理
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [boardTasks, setBoardTasks] = useState<EditedTasks>(initialEditedTasks);
