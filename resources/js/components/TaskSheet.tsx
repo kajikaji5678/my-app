@@ -9,6 +9,10 @@ type Props = {
   open: boolean;
   task: Task;
   onClose: () => void;
+  onTaskUpdate: (
+    updatedTask: Task,
+    level: "super" | "warning" | "normal"
+  ) => void;
 };
 
 type Row = {
@@ -19,7 +23,8 @@ type Row = {
 export default function TaskSheet({
   open,
   task,
-  onClose
+  onClose,
+  onTaskUpdate
 }: Props) {
 
 
@@ -63,7 +68,7 @@ export default function TaskSheet({
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <div className="rounded-lg border-2 border-gray-200 overflow-hidden">
-                      <TaskLabel task={task} />
+                      <TaskLabel task={task} onTaskUpdate={onTaskUpdate}/>
                     </div>
                     <div className="rounded border-2 mt-6 border-gray-200 overflow-hidden">
                       <TaskDescription />

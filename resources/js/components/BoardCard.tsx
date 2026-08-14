@@ -1,4 +1,3 @@
-import React from "react";
 import BoardCardContet from "./BoardCardContent";
 import { useState } from "react";
 import TaskSheet from "./TaskSheet";
@@ -7,7 +6,6 @@ import type { Status } from "../types/statuses";
 import type { EditedTasks } from "../types/EditedTasks";
 
 type Props = {
-  // 引数無し戻り値無し
   onOpenModal: () => void;
 }
 
@@ -17,9 +15,11 @@ function BoardCard({ onOpenModal }: Props) {
   if (!root) throw new Error("board ID dont exist");
   const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
   const tasks = JSON.parse(root.dataset.tasks ?? "[]") as Task[];
-  const editedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
+  const initialEditedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
 
+  // 状態管理
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [boardTasks, setBoardTasks] = useState<EditedTasks>(initialEditedTasks);
   const [open, setOpen] = useState(false);
 
   //* タスク個数計算
@@ -27,6 +27,33 @@ function BoardCard({ onOpenModal }: Props) {
   tasks.forEach(task => {
     statusCount[task.status_id] = (statusCount[task.status_id] || 0) + 1;
   });
+
+  // 更新された1件を適切な場所へ移動させる処理
+  const handleTaskUpdated = (updatedTask: Task, level: "super" | "warning" | "normal") => {
+    setBoardTasks((prev) => {
+      const newTasks = structuredClone(prev);
+
+      // 今いる場所から削除
+      for (const currentlevel of ["super", "warning", "normal"] as const) {
+        for (const statusId in newTasks[currentlevel]) {
+          const tasks = newTasks[currentlevel][statusId] ?? [];
+          newTasks[currentlevel][statusId] = tasks.filter(
+            (task) => task.id !== updatedTask.id
+          )
+        }
+      }
+
+      // 新しい場所へ追加
+      const statusId = updatedTask.status_id;
+
+      newTasks[level][statusId] ??= [];
+      newTasks[level][statusId].push(updatedTask);
+
+      return newTasks;
+    });
+
+    setSelectedTask(updatedTask);
+  }
 
   return (
     <div className="p-6 flex gap-4">
@@ -46,9 +73,9 @@ function BoardCard({ onOpenModal }: Props) {
             <button onClick={onOpenModal} className="mt-1 w-6 h-6 cursor-pointer">+</button>
           </div>
           <BoardCardContet key={status.id} status={status}
-            superTasks={editedTasks.super[status.id] ?? []}
-            warningTasks={editedTasks.warning[status.id] ?? []}
-            normalTasks={editedTasks.normal[status.id] ?? []}
+            superTasks={boardTasks.super[status.id] ?? []}
+            warningTasks={boardTasks.warning[status.id] ?? []}
+            normalTasks={boardTasks.normal[status.id] ?? []}
             //~ 未使用および子の定義づけにも関連してないため削除
             // tasks={tasks}
             onTaskClick={(task) => { setSelectedTask(task); setOpen(true); }}
@@ -58,8 +85,10 @@ function BoardCard({ onOpenModal }: Props) {
 
       <TaskSheet
         open={open}
-        task={selectedTask}
+        //! 応急処置で強制してます
+        task={selectedTask!}
         onClose={() => setOpen(false)}
+        onTaskUpdate={handleTaskUpdated}
       />
     </div>
   );
