@@ -44,7 +44,7 @@ class TaskBoardController extends Controller
 
         return response()->json([
             'message' => '更新しました',
-            'task'=> $task->load(['category', 'status']),
+            'task'=> $task->load(['category', 'status', 'type']),
             'level' => $level
         ]);
     }

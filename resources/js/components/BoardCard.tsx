@@ -24,9 +24,13 @@ function BoardCard({ onOpenModal }: Props) {
 
   //* タスク個数計算
   const statusCount: {[statusId: number]: number} = {};
-  tasks.forEach(task => {
-    statusCount[task.status_id] = (statusCount[task.status_id] || 0) + 1;
-  });
+  for (const level of ["super", "warning", "normal"] as const ) {
+    for (const statusId in boardTasks[level]) {
+      const taskList = boardTasks[level][statusId] ?? [];
+
+      statusCount[statusId] = (statusCount[statusId] || 0) + taskList.length;
+    }
+  }
 
   // 更新された1件を適切な場所へ移動させる処理
   const handleTaskUpdated = (updatedTask: Task, level: "super" | "warning" | "normal") => {
