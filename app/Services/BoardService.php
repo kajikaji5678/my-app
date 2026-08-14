@@ -9,6 +9,20 @@ use App\Models\Type;
 
 class BoardService
 {
+
+    public function classifyTask($task)
+    {
+        $overTime = $task->real_time - $task->estimated_time;
+
+        if ($overTime >= 60 && $task->status_id == 2) {
+            return 'super';
+        } elseif ($overTime >= 30) {
+            return 'warning';
+        } else {
+            return 'normal';
+        }
+    }
+
     public function getBoardData($projectId, $tasks)
     {
         $editedTasks = [
@@ -18,15 +32,7 @@ class BoardService
         ];
 
         foreach ($tasks as $task) {
-            $overTime = $task->real_time - $task->estimated_time;
-            if ($overTime >= 60 && $task->status_id == 2) {
-                $level = 'super';
-            } elseif ($overTime >= 30) {
-                $level = 'warning';
-            } else {
-                $level = 'normal';
-            }
-
+            $level = $this->classifyTask($task);
             $editedTasks[$level][$task->status_id][] = $task;
         }
 
