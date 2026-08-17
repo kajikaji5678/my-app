@@ -37,6 +37,7 @@ class TaskPolicy
      */
     public function update(User $user, task $task): bool
     {
+        dd($user->admin);
         return $user->admin === 1;
     }
 
