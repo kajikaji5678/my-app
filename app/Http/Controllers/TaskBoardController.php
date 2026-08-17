@@ -31,7 +31,6 @@ class TaskBoardController extends Controller
 
     public function updateTask(Request $request, $id)
     {
-        dd("controller");
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'status_id' => 'required|exists:statuses,id',

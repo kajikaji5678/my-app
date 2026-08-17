@@ -3,6 +3,7 @@ import type { Task } from "../types/task";
 const API_URL = "/api/tasks";
 
 type UpdateTaskResponse = {
+  message: string;
   task: Task;
   level: "super" | "warning" | "normal";
 };

@@ -34,6 +34,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange }: Props) {
   const categories = JSON.parse(root.dataset.categories ?? "[]") as Categories[];
 
   const [edit, setEdit] = useState(false);
+  const [msg, setMsg] = useState("");
   const [formData, setFormData] = useState<TaskFormData>({
     category_id: task.category.id,
     deadline_at: task.deadline_at.slice(0, 10),
@@ -55,7 +56,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange }: Props) {
     try {
       const data = await updateTask(task.id, formData);
       onTaskUpdate(data.task, data.level);
-      setEdit(false);
+      setMsg(data.message);
     } catch (e) {
       console.error(e);
     }
@@ -175,6 +176,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange }: Props) {
         >
 
           {/* ヘッダー */}
+          {msg && <div>{msg}</div>}
           <div className="w-full shrink-0 flex items-center justify-between px-4 py-3 border-b bg-gray-200">
             <AccordionTrigger className="p-0 hover:no-underline">
               <h2 className="font-semibold">
