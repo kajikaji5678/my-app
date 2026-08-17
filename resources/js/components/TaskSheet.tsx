@@ -1,9 +1,9 @@
 import type { Task } from "../types/task";
 import { AnimatePresence, motion } from "motion/react"
-import { updateTask } from "../api/Task";
 import TaskLabel from "./TaskSheet/TaskLabel";
 import TaskDescription from "./TaskSheet/TaskDescription";
 import TaskCommnets from "./TaskSheet/TaskComments";
+import { useState } from "react";
 
 type Props = {
   open: boolean;
@@ -27,6 +27,8 @@ export default function TaskSheet({
   onTaskUpdate
 }: Props) {
 
+  const [detailOpen, setDetailOpen] = useState(true);
+
 
   return (
     <AnimatePresence>
@@ -49,32 +51,36 @@ export default function TaskSheet({
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6">
-              <button
-                onClick={onClose}
-                className="mb-4">
-                ×
-              </button>
-              <p
-                className="w-fit px-3 py-1 rounded-lg"
-                style={{ backgroundColor: task?.type.type_color }}
-              >
-                {task?.type.type_name}
-              </p>
-              <p className="text-2xl font-bold mt-4">
-                {task?.task_name}
-              </p>
-              <div className="mt-6 overflow-hidden bg-white">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="rounded-lg border-2 border-gray-200 overflow-hidden">
-                      <TaskLabel task={task} onTaskUpdate={onTaskUpdate}/>
+            <div className="p-6 h-full flex flex-col">
+              {/* ヘッダー */}
+              <div className="shrink-0">
+                <button
+                  onClick={onClose}
+                  className="mb-4">
+                  ×
+                </button>
+                <p
+                  className="w-fit px-3 py-1 rounded-lg"
+                  style={{ backgroundColor: task?.type.type_color }}
+                >
+                  {task?.type.type_name}
+                </p>
+                <p className="text-2xl font-bold mt-4">
+                  {task?.task_name}
+                </p>
+              </div>
+
+              <div className="mt-6 overflow-hidden flex-1 min-h-0 bg-white">
+                <div className="grid grid-cols-2 gap-4 h-full min-h-0">
+                  <div className="flex flex-col min-h-0">
+                    <div className={`rounded-lg border-2 border-gray-200 overflow-hidden ${detailOpen ? "h-1/2" : "shrink-0"}`}>
+                      <TaskLabel task={task} onTaskUpdate={onTaskUpdate} onOpenChange={setDetailOpen}/>
                     </div>
-                    <div className="rounded border-2 mt-6 border-gray-200 overflow-hidden">
+                    <div className="flex-1 min-h-0 rounded border-2 mt-6 border-gray-200 overflow-hidden">
                       <TaskDescription />
                     </div>
                   </div>
-                  <div>
+                  <div className="min-h-0">
                     <TaskCommnets />
                   </div>
                 </div>

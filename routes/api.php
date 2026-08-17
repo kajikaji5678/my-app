@@ -15,8 +15,4 @@ use App\Http\Controllers\TaskBoardController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::put('/tasks/{id}', [TaskBoardController::class, 'updateTask']);
+Route::put('/tasks/{id}', [TaskBoardController::class, 'updateTask'])->middleware('auth:sanctum');
