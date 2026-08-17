@@ -1,8 +1,10 @@
-import type { Task } from "resources/js/types/task";
+import type { Task, TaskFormData } from "resources/js/types/task";
 import React, { useState } from "react";
 import type { Status } from "resources/js/types/statuses";
 import type { Categories } from "resources/js/types/categories";
+import { AnimatePresence, motion } from "motion/react"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { updateTask } from "../../api/Task";
 
 // ======== Types ========
 
@@ -12,23 +14,18 @@ type Props = {
     updatedTask: Task,
     level: "super" | "warning" | "normal"
   ) => void;
-};
-
-type TaskFormData = {
-  category_id: number;
-  deadline_at: string;
-  status_id: number;
+  onOpenChange: (open: boolean) => void;
 };
 
 type Row = {
   label: string;
   key: keyof TaskFormData | "created_at";
-  value: string;
+  value: string | number;
   type: "text" | "data" | "select";
 };
 
 
-export default function TaskLabel({ task, onTaskUpdate }: Props) {
+export default function TaskLabel({ task, onTaskUpdate, onOpenChange }: Props) {
 
   // ======== State ========
   const root = document.getElementById('board');
@@ -41,6 +38,9 @@ export default function TaskLabel({ task, onTaskUpdate }: Props) {
     category_id: task.category.id,
     deadline_at: task.deadline_at.slice(0, 10),
     status_id: task.status_id,
+    schedule: task.schedule,
+    estimated_time: task.estimated_time,
+    real_time: task.real_time
   });
 
   // ======== Events ========
@@ -53,24 +53,12 @@ export default function TaskLabel({ task, onTaskUpdate }: Props) {
 
   const handleUpdate = async () => {
     try {
-      const res = await fetch(`/api/tasks/${task.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ?? "",
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!res.ok) throw new Error("更新失敗");
-      const data = await res.json();
+      const data = await updateTask(task.id, formData);
       onTaskUpdate(data.task, data.level);
-
       setEdit(false);
     } catch (e) {
       console.error(e);
     }
-
   }
 
   // ======== Display Data ========
@@ -99,6 +87,24 @@ export default function TaskLabel({ task, onTaskUpdate }: Props) {
       value: task.status.status_name,
       type: "select",
     },
+    {
+      label: "スケジュール",
+      key: "schedule",
+      value: task.schedule,
+      type: "text"
+    },
+    {
+      label: "予定時間",
+      key: "estimated_time",
+      value: task.estimated_time,
+      type: "text"
+    },
+    {
+      label: "実際時間",
+      key: "real_time",
+      value: task.real_time,
+      type: "text"
+    }
   ];
 
   // ======== function ========
@@ -154,11 +160,26 @@ export default function TaskLabel({ task, onTaskUpdate }: Props) {
 
   return (
     <>
-      <Accordion type="single" collapsible defaultValue="detail">
-        <AccordionItem value="detail">
-          <div className="w-full flex items-center justify-between px-4 py-3 border-b bg-gray-200">
+      <Accordion
+        type="single"
+        collapsible
+        defaultValue="detail"
+        className="h-full"
+        onValueChange={(value) => {
+          onOpenChange(value === "detail")
+        }}
+      >
+        <AccordionItem
+          value="detail"
+          className="h-full grid grid-rows-[auto_1fr]"
+        >
+
+          {/* ヘッダー */}
+          <div className="w-full shrink-0 flex items-center justify-between px-4 py-3 border-b bg-gray-200">
             <AccordionTrigger className="p-0 hover:no-underline">
-              <h2 className="font-semibold">詳細</h2>
+              <h2 className="font-semibold">
+                詳細
+              </h2>
             </AccordionTrigger>
 
             <div>
@@ -179,27 +200,37 @@ export default function TaskLabel({ task, onTaskUpdate }: Props) {
               )}
             </div>
           </div>
-          <AccordionContent className="p-0 text-base">
-            <div className="grid grid-cols-[120px_1fr]">
-              {rows.map((row) => (
-                <React.Fragment key={row.key}>
-                  <p className="text-gray-600 px-4 py-3 !mb-0">
-                    {row.label}
-                  </p>
 
-                  <div className="font-semibold px-4 py-3 m-0">
-                    {edit && row.key !== "created_at" ? (
-                      renderInput(row)
-                    ) : (
-                      <p className="font-semibold">
-                        {row.value}
-                      </p>
-                    )}
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
+          {/* 詳細内容 */}
+          <AccordionContent className="p-0 text-base">
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              className="max-h-[300px] overflow-y-auto"
+            >
+              <div className="grid grid-cols-[120px_1fr]">
+                {rows.map((row) => (
+                  <React.Fragment key={row.key}>
+                    <p className="text-gray-600 px-4 py-2 !mb-0">
+                      {row.label}
+                    </p>
+
+                    <div className="font-semibold px-4 py-2 m-0">
+                      {edit && row.key !== "created_at" ? (
+                        renderInput(row)
+                      ) : (
+                        <p className="font-semibold">
+                          {row.value}
+                        </p>
+                      )}
+                    </div>
+                  </React.Fragment>
+                ))}
+              </div>
+            </motion.div>
           </AccordionContent>
+
         </AccordionItem>
       </Accordion>
     </>

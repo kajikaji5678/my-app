@@ -10,6 +10,7 @@ export type Task = {
 
   estimated_time: number;
   real_time: number;
+  schedule: string;
 
   responsible_user_id: number;
 
@@ -29,5 +30,14 @@ export type Task = {
     type_color: string;
   }
 }
+
+export type TaskFormData = {
+  category_id: number;
+  deadline_at: string;
+  status_id: number;
+  schedule: string;
+  estimated_time: number;
+  real_time: number
+};
 
 

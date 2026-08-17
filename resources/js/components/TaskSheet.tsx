@@ -1,9 +1,9 @@
 import type { Task } from "../types/task";
 import { AnimatePresence, motion } from "motion/react"
-import { updateTask } from "../api/Task";
 import TaskLabel from "./TaskSheet/TaskLabel";
 import TaskDescription from "./TaskSheet/TaskDescription";
 import TaskCommnets from "./TaskSheet/TaskComments";
+import { useState } from "react";
 
 type Props = {
   open: boolean;
@@ -26,6 +26,8 @@ export default function TaskSheet({
   onClose,
   onTaskUpdate
 }: Props) {
+
+  const [detailOpen, setDetailOpen] = useState(true);
 
 
   return (
@@ -67,11 +69,12 @@ export default function TaskSheet({
                   {task?.task_name}
                 </p>
               </div>
+
               <div className="mt-6 overflow-hidden flex-1 min-h-0 bg-white">
                 <div className="grid grid-cols-2 gap-4 h-full min-h-0">
                   <div className="flex flex-col min-h-0">
-                    <div className="max-h-[50%] rounded-lg border-2 border-gray-200 overflow-hidden">
-                      <TaskLabel task={task} onTaskUpdate={onTaskUpdate} />
+                    <div className={`rounded-lg border-2 border-gray-200 overflow-hidden ${detailOpen ? "h-1/2" : "shrink-0"}`}>
+                      <TaskLabel task={task} onTaskUpdate={onTaskUpdate} onOpenChange={setDetailOpen}/>
                     </div>
                     <div className="flex-1 min-h-0 rounded border-2 mt-6 border-gray-200 overflow-hidden">
                       <TaskDescription />
