@@ -9,6 +9,7 @@ use App\Http\Controllers\UpdateSalary;
 use App\Http\Controllers\WorkTimeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AsssignController;
+use App\Http\Controllers\CMSController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SettingController;
@@ -46,9 +47,6 @@ Route::middleware('auth')->group(function () {
     // メインページその2
     Route::get('/toDo/main', [MainController::class, 'get']);
 
-    //! todo API (ここらへんからReact)
-    Route::get('/api/tasks/{id}', [TaskBoardController::class, 'api']);
-
     // * お知らせ
     Route::get('/toDo/notification/{id}', [NotificationController::class, 'get'])->name('notification.open');
 
@@ -73,6 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/toDo/graph/getusername', [TallyDataController::class, 'test'])->name('graph.test');
     Route::get('/toDo/graph/getWeekRanking', [TallyDataController::class, 'week'])->name('graph.week');
 
+    // * アドミン
+    Route::get('/toDo/admin', [CMSController::class, 'get']);
 
     Route::get('/salary', function () {
         return view('salary');
