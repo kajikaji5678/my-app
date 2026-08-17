@@ -35,9 +35,13 @@ class TaskBoardController extends Controller
             'category_id' => 'required|exists:categories,id',
             'status_id' => 'required|exists:statuses,id',
             'deadline_at' => 'nullable|date',
+            'estimated_time' => 'nullable|integer|min:0',
+            'real_time' => 'nullable|integer|min:0',
+            'schedule'=> 'required|string|max:255',
         ]);
 
         $task = Task::findOrFail($id);
+        $this->authorize('update', $task);
         $task->update($validated);
 
         $level = $this->boardService->classifyTask($task);
