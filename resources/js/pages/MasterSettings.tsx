@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 
 // =====================型補完==========================
@@ -49,12 +52,57 @@ export default function MasterSettings() {
       name: name.trim()
     };
 
-    setData((prev) => ({...prev, [activeType]: [...prev[activeType], newItem]}));
+    setData((prev) => ({ ...prev, [activeType]: [...prev[activeType], newItem] }));
   }
 
   return (
-    <div>
-      <h1>マスタ管理</h1>
+    <div className="flex h-full flex-col gap-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold">マスタ管理</h1>
+        <p className="text-sm text-muted-foreground">
+          カテゴリー・タイプ・ステータスを管理します。
+        </p>
+      </div>
+      <Tabs
+        value={activeType}
+        onValueChange={(value) => setActiveType(value as MasterType)}
+        className="flex flex-1 flex-col"
+      >
+
+        <div className="mt-4 flex-1">
+          <div className="rounded-lg border bg-white">
+            <div className="flex items-center justify-between border-b p-4">
+              <h2 className="font-semibold">
+                {titles[activeType]}
+              </h2>
+
+              <Button onClick={() => setIsOpen(true)}>
+                追加
+              </Button>
+            </div>
+
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>名前</TableHead>
+                  <TableHead className="w-[120px]">操作</TableHead>
+                </TableRow>
+              </TableHeader>
+
+              <TableBody>
+                {currentItems.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>
+                      <Button variant="outline" size="sm">編集</Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+      </Tabs>
     </div>
   )
 }
