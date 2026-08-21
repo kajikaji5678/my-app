@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+// =====================型補完==========================
 type MasterType = "category" | "type" | "status";
 
 type MasterItem = {
@@ -30,6 +33,25 @@ const titles: Record<MasterType, string> = {
 }
 
 export default function MasterSettings() {
+
+  // =====================状態管理==========================
+  const [data, setData] = useState(initialDate);
+  const [activeType, setActiveType] = useState<MasterType>("category");
+  const [isOpen, setIsOpen] = useState(false);
+  const [name, setName] = useState("");
+
+  const currentItems = data[activeType];
+
+  const handleAdd = () => {
+    if (!name.trim()) return;
+    const newItem: MasterItem = {
+      id: Date.now(),
+      name: name.trim()
+    };
+
+    setData((prev) => ({...prev, [activeType]: [...prev[activeType], newItem]}));
+  }
+
   return (
     <div>
       <h1>マスタ管理</h1>
