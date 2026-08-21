@@ -47,14 +47,29 @@ export default function MasterSettings() {
 
   const currentItems = data[activeType];
 
-  const handleAdd = () => {
-    if (!name.trim()) return;
-    const newItem: MasterItem = {
-      id: Date.now(),
-      name: name.trim()
-    };
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
 
-    setData((prev) => ({ ...prev, [activeType]: [...prev[activeType], newItem] }));
+  const handleAdd = async () => {
+    const response = await fetch("/api/categories", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-TOKEN": csrfToken ?? ""
+      },
+      body: JSON.stringify({
+        name,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(data);
+      return;
+    }
+
+    console.log(data);
   }
 
   return (
@@ -90,21 +105,8 @@ export default function MasterSettings() {
               <h2 className="font-semibold">
                 {titles[activeType]}
               </h2>
-              <Button
-                onClick={async () => {
-                  const response = await fetch("/api/categories", {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                      Accept: "application/json",
-                    },
-                  });
 
-                  const data = await response.json();
-
-                  console.log(data);
-                }}
-              >
+              <Button onClick={() => setIsOpen(true)}>
                 追加
               </Button>
             </div>
@@ -130,7 +132,7 @@ export default function MasterSettings() {
             </Table>
           </div>
         </div>
-      </Tabs >
+      </Tabs>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
@@ -163,6 +165,6 @@ export default function MasterSettings() {
           </div>
         </DialogContent>
       </Dialog>
-    </div >
+    </div>
   )
 }

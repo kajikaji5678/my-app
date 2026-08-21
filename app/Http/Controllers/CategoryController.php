@@ -23,7 +23,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //! マジックナンバー注意
+        $category = Category::create(['category_name' => $request->name, 'project_id' => 1]);
+        return new CategoryResource($category);
     }
 
     /**
