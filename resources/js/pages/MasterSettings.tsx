@@ -57,6 +57,7 @@ export default function MasterSettings() {
     setData((prev) => ({ ...prev, [activeType]: [...prev[activeType], newItem] }));
   }
 
+  // =====================表示TSX==========================
   return (
     <div className="flex h-full flex-col gap-6 p-6">
       <div>
