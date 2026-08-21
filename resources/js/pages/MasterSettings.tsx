@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // =====================型補完==========================
 type MasterType = "category" | "type" | "status";
@@ -90,8 +90,21 @@ export default function MasterSettings() {
               <h2 className="font-semibold">
                 {titles[activeType]}
               </h2>
+              <Button
+                onClick={async () => {
+                  const response = await fetch("/api/categories", {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                      Accept: "application/json",
+                    },
+                  });
 
-              <Button onClick={() => setIsOpen(true)}>
+                  const data = await response.json();
+
+                  console.log(data);
+                }}
+              >
                 追加
               </Button>
             </div>
@@ -117,7 +130,7 @@ export default function MasterSettings() {
             </Table>
           </div>
         </div>
-      </Tabs>
+      </Tabs >
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
@@ -150,6 +163,6 @@ export default function MasterSettings() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </div >
   )
 }
