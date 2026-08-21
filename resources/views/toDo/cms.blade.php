@@ -20,7 +20,7 @@
   <div class="flex w-full h-full">
     <x-sidebar />
     <main class="h-[calc(100vh-50px)] flex flex-1 flex-col min-w-0 bg-[#F0F0F0]">
-
+        <div id="cms-root"></div>
     </main>
   </div>
   <script src="{{ asset('js/aside.js') }}"></script>
