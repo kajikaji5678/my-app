@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
@@ -69,6 +71,19 @@ export default function MasterSettings() {
         className="flex flex-1 flex-col"
       >
 
+        <TabsList className="w-fit">
+          <TabsTrigger value="category">
+            カテゴリー
+          </TabsTrigger>
+
+          <TabsTrigger value="type">
+            タイプ
+          </TabsTrigger>
+
+          <TabsTrigger value="status">
+            ステータス
+          </TabsTrigger>
+        </TabsList>
         <div className="mt-4 flex-1">
           <div className="rounded-lg border bg-white">
             <div className="flex items-center justify-between border-b p-4">
@@ -103,6 +118,38 @@ export default function MasterSettings() {
           </div>
         </div>
       </Tabs>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {titles[activeType]}を追加
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">
+                名前
+              </label>
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={`${titles[activeType]}名を入力`}
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setIsOpen(false)}
+              >
+                キャンセル
+              </Button>
+              <Button onClick={handleAdd}>保存</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
