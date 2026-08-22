@@ -3,15 +3,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { act, useEffect, useState } from "react";
+import type { MasterItem, MasterType } from "../types/master";
+import { createMasterItems, getMasterItems, updateMasterItems, deleteMasterItems } from "../service/masterService";
 
-// =====================型補完==========================
-type MasterType = "category" | "type" | "status";
-
-type MasterItem = {
-  id: number,
-  name: string
-};
+//* =====================型補完==========================
 
 const initialDate: Record<MasterType, MasterItem[]> = {
   category: [
@@ -39,23 +35,67 @@ const titles: Record<MasterType, string> = {
 
 export default function MasterSettings() {
 
-  // =====================状態管理==========================
+  //* =====================状態管理==========================
   const [data, setData] = useState(initialDate);
   const [activeType, setActiveType] = useState<MasterType>("category");
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
+  const [editingId, setEditingId] = useState<number | null>(null);
 
   const currentItems = data[activeType];
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
 
-  const handleAdd = () => {
-    if (!name.trim()) return;
-    const newItem: MasterItem = {
-      id: Date.now(),
-      name: name.trim()
+  //~ カテゴリーの自動リロード
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const categories = await getMasterItems("category");
+        setData((prev) => ({ ...prev, category: categories }));
+      } catch (e) {
+        console.error(e);
+      }
     };
 
-    setData((prev) => ({ ...prev, [activeType]: [...prev[activeType], newItem] }));
+    loadCategories()
+  }, []);
+
+  //~ カテゴリーの追加および編集
+  const handleSave = async () => {
+    try {
+      if (editingId === null) {
+        const item = await createMasterItems(activeType, name, csrfToken ?? "");
+        setData((prev) => ({ ...prev, category: [...prev.category, item] }));
+        setName("");
+        setIsOpen(false);
+      } else {
+        const item = await updateMasterItems(activeType, editingId, name, csrfToken ?? "");
+        setData((prev) => {
+          const updatedItems = prev[activeType].map((nowItem) =>
+            nowItem.id === editingId ? item : nowItem
+          );
+          return {
+            ...prev,
+            [activeType]: updatedItems,
+          };
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
+
+  //~ カテゴリーの削除
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteMasterItems(activeType, csrfToken ?? "", id);
+      setData((prev) => ({ ...prev, [activeType]: prev[activeType].filter((item) => item.id !== id) }));
+      setName("");
+      setEditingId(null);
+      setIsOpen(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="flex h-full flex-col gap-6 p-6">
@@ -85,13 +125,13 @@ export default function MasterSettings() {
           </TabsTrigger>
         </TabsList>
         <div className="mt-4 flex-1">
-          <div className="rounded-lg border bg-white">
+          <div className="rounded border bg-white">
             <div className="flex items-center justify-between border-b p-4">
               <h2 className="font-semibold">
                 {titles[activeType]}
               </h2>
 
-              <Button onClick={() => setIsOpen(true)}>
+              <Button onClick={() => { setEditingId(null); setName(""); setIsOpen(true) }}>
                 追加
               </Button>
             </div>
@@ -109,7 +149,14 @@ export default function MasterSettings() {
                   <TableRow key={item.id}>
                     <TableCell>{item.name}</TableCell>
                     <TableCell>
-                      <Button variant="outline" size="sm">編集</Button>
+                      <Button
+                        className="rounded"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => { setEditingId(item.id); setName(item.name); setIsOpen(true) }}>
+                        編集
+                      </Button>
+                      <Button className="rounded" variant="outline" size="sm" onClick={() => handleDelete(item.id)}>削除</Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -145,7 +192,7 @@ export default function MasterSettings() {
               >
                 キャンセル
               </Button>
-              <Button onClick={handleAdd}>保存</Button>
+              <Button onClick={handleSave}>保存</Button>
             </div>
           </div>
         </DialogContent>
