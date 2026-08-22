@@ -20,5 +20,6 @@ Route::put('/tasks/{id}', [TaskBoardController::class, 'updateTask'])->middlewar
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
     Route::post('/categories', [CategoryController::class, 'store']);
 });

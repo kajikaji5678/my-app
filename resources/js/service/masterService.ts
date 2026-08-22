@@ -41,9 +41,10 @@ export async function createMasterItems(
 export async function updateMasterItems(
   type: MasterType,
   name: string,
-  csrfToken: string
+  csrfToken: string,
+  id: number
 ): Promise<MasterItem> {
-  const res = await fetch(endpoints[type], {
+  const res = await fetch(`${endpoints[type]}/ ${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -53,6 +54,25 @@ export async function updateMasterItems(
     body: JSON.stringify({ name })
   });
   const result = await res.json();
-  if (!res.ok) throw new Error(result.message ?? "作成失敗");
+  if (!res.ok) throw new Error(result.message ?? "更新失敗");
+  return result.data;
+};
+
+export async function deleteMasterItems(
+  type: MasterType,
+  csrfToken: string,
+  id: number
+): Promise<void> {
+  const res = await fetch(`${endpoints[type]}/ ${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-CSRF-TOKEN": csrfToken,
+    },
+    body: JSON.stringify({ name })
+  });
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message ?? "消去失敗");
   return result.data;
 };

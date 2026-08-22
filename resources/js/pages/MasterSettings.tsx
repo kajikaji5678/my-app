@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
 import type { MasterItem, MasterType } from "../types/master";
-import { createMasterItems, getMasterItems } from "../service/masterService";
+import { createMasterItems, getMasterItems, updateMasterItems, deleteMasterItems } from "../service/masterService";
 
 // =====================型補完==========================
 
@@ -69,6 +69,16 @@ export default function MasterSettings() {
     }
   }
 
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteMasterItems(activeType, csrfToken ?? "", id);
+      setData((prev) => ({ ...prev, [activeType]: prev[activeType].filter((item) => item.id !== id) }));
+
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div className="flex h-full flex-col gap-6 p-6">
       <div>
@@ -122,6 +132,7 @@ export default function MasterSettings() {
                     <TableCell>{item.name}</TableCell>
                     <TableCell>
                       <Button className="rounded" variant="outline" size="sm">編集</Button>
+                      <Button className="rounded" variant="outline" size="sm" onClick={() => handleDelete(item.id)}>削除</Button>
                     </TableCell>
                   </TableRow>
                 ))}
