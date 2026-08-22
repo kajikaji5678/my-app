@@ -10,18 +10,9 @@ import { createMasterItems, getMasterItems, updateMasterItems, deleteMasterItems
 //* =====================型補完==========================
 
 const initialDate: Record<MasterType, MasterItem[]> = {
-  category: [
-  ],
-  type: [
-    { id: 1, name: "機能修正" },
-    { id: 2, name: "修正" },
-    { id: 3, name: "調査" }
-  ],
-  status: [
-    { id: 1, name: "未着手" },
-    { id: 2, name: "進行中" },
-    { id: 3, name: "完了" }
-  ]
+  category: [],
+  type: [],
+  status: []
 };
 
 const titles: Record<MasterType, string> = {
@@ -35,8 +26,11 @@ export default function MasterSettings() {
   //* =====================状態管理==========================
   const [data, setData] = useState(initialDate);
   const [activeType, setActiveType] = useState<MasterType>("category");
+  // トグル
   const [isOpen, setIsOpen] = useState(false);
+  // 入力フォームに既知の内容を入れるか
   const [name, setName] = useState("");
+  // 現在編集している項目のID
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const currentItems = data[activeType];
@@ -132,11 +126,9 @@ export default function MasterSettings() {
           <TabsTrigger value="category">
             カテゴリー
           </TabsTrigger>
-
           <TabsTrigger value="type">
             タイプ
           </TabsTrigger>
-
           <TabsTrigger value="status">
             ステータス
           </TabsTrigger>
