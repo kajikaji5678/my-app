@@ -11,9 +11,6 @@ import { createMasterItems, getMasterItems, updateMasterItems, deleteMasterItems
 
 const initialDate: Record<MasterType, MasterItem[]> = {
   category: [
-    { id: 1, name: "開発" },
-    { id: 2, name: "デザイン" },
-    { id: 3, name: "バグ修正" }
   ],
   type: [
     { id: 1, name: "機能修正" },
@@ -56,7 +53,27 @@ export default function MasterSettings() {
       }
     };
 
-    loadCategories()
+    const loadTypes = async () => {
+      try {
+        const types = await getMasterItems("type");
+        setData((prev) => ({ ...prev, type: types }));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    const loadStatuses = async () => {
+      try {
+        const statuses = await getMasterItems("status");
+        setData((prev) => ({ ...prev, status: statuses }));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    loadTypes();
+    loadCategories();
+    loadStatuses();
   }, []);
 
   //~ カテゴリーの追加および編集

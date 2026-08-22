@@ -3,7 +3,7 @@ import type { MasterItem, MasterType } from "../types/master";
 const endpoints: Record<MasterType, string> = {
   category: "/api/categories",
   type: "/api/types",
-  status: "/api/status"
+  status: "/api/statuses"
 };
 
 export async function getMasterItems(type: MasterType): Promise<MasterItem[]> {
