@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -22,10 +23,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UpdateCategoryRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         //! マジックナンバー注意
-        $category = Category::create(['category_name' => $request->name, 'project_id' => 1]);
+        $category = Category::create(['category_name' => $request->category_name, 'project_id' => 1]);
         return new CategoryResource($category);
     }
 

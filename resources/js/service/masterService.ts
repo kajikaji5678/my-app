@@ -1,0 +1,58 @@
+import type { MasterItem, MasterType } from "../types/master";
+
+const endpoints: Record<MasterType, string> = {
+  category: "/api/category",
+  type: "/api/types",
+  status: "/api/status"
+};
+
+export async function getMasterItems(type: MasterType): Promise<MasterItem[]> {
+  const res = await fetch(endpoints[type], {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message ?? "取得失敗");
+
+  return result.data;
+};
+
+export async function createMasterItems(
+  type: MasterType,
+  name: string,
+  csrfToken: string
+): Promise<MasterItem> {
+  const res = await fetch(endpoints[type], {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-CSRF-TOKEN": csrfToken,
+    },
+    body: JSON.stringify({ name })
+  });
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message ?? "作成失敗");
+  return result.data;
+};
+
+export async function updateMasterItems(
+  type: MasterType,
+  name: string,
+  csrfToken: string
+): Promise<MasterItem> {
+  const res = await fetch(endpoints[type], {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-CSRF-TOKEN": csrfToken,
+    },
+    body: JSON.stringify({ name })
+  });
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message ?? "作成失敗");
+  return result.data;
+};

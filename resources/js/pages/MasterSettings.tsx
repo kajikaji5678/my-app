@@ -4,14 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
+import type { MasterItem, MasterType } from "../types/master";
 
 // =====================型補完==========================
-type MasterType = "category" | "type" | "status";
-
-type MasterItem = {
-  id: number,
-  name: string
-};
 
 const initialDate: Record<MasterType, MasterItem[]> = {
   category: [
@@ -58,18 +53,21 @@ export default function MasterSettings() {
         "X-CSRF-TOKEN": csrfToken ?? ""
       },
       body: JSON.stringify({
-        name,
+        category_name: name,
       }),
     });
 
-    const data = await response.json();
+    const res = await response.json();
 
     if (!response.ok) {
-      console.error(data);
+      console.error(res);
       return;
     }
 
-    console.log(data);
+    console.log(res);
+    setData((prev) => ({...prev, category: [...prev.category, res.data]}));
+    setName("");
+    setIsOpen(false);
   }
 
   return (
@@ -100,7 +98,7 @@ export default function MasterSettings() {
           </TabsTrigger>
         </TabsList>
         <div className="mt-4 flex-1">
-          <div className="rounded-lg border bg-white">
+          <div className="rounded border bg-white">
             <div className="flex items-center justify-between border-b p-4">
               <h2 className="font-semibold">
                 {titles[activeType]}
@@ -124,7 +122,7 @@ export default function MasterSettings() {
                   <TableRow key={item.id}>
                     <TableCell>{item.name}</TableCell>
                     <TableCell>
-                      <Button variant="outline" size="sm">編集</Button>
+                      <Button className="rounded" variant="outline" size="sm">編集</Button>
                     </TableCell>
                   </TableRow>
                 ))}
