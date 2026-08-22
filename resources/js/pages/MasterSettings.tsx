@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
 import type { MasterItem, MasterType } from "../types/master";
+import { createMasterItems, getMasterItems } from "../service/masterService";
 
 // =====================型補完==========================
 
@@ -41,33 +42,31 @@ export default function MasterSettings() {
   const [name, setName] = useState("");
 
   const currentItems = data[activeType];
-
   const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
 
+  //~ カテゴリーの自動リロード
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const categories = await getMasterItems("category");
+        setData((prev) => ({ ...prev, category: categories }));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    loadCategories()
+  }, []);
+
   const handleAdd = async () => {
-    const response = await fetch("/api/categories", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "X-CSRF-TOKEN": csrfToken ?? ""
-      },
-      body: JSON.stringify({
-        category_name: name,
-      }),
-    });
-
-    const res = await response.json();
-
-    if (!response.ok) {
-      console.error(res);
-      return;
+    try {
+      const item = await createMasterItems(activeType, name, csrfToken ?? "");
+      setData((prev) => ({ ...prev, category: [...prev.category, item] }));
+      setName("");
+      setIsOpen(false);
+    } catch (e) {
+      console.error(e);
     }
-
-    console.log(res);
-    setData((prev) => ({...prev, category: [...prev.category, res.data]}));
-    setName("");
-    setIsOpen(false);
   }
 
   return (
