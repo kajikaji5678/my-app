@@ -43,7 +43,7 @@ class TypeController extends Controller
     public function update(UpdateTypeRequest $request, Type $type)
     {
         $type->update(['task_name' => $request->name]);
-        return TypeResource($type);
+        return new TypeResource($type);
     }
 
     /**
