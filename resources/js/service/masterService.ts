@@ -40,11 +40,11 @@ export async function createMasterItems(
 
 export async function updateMasterItems(
   type: MasterType,
+  id: number,
   name: string,
-  csrfToken: string,
-  id: number
+  csrfToken: string
 ): Promise<MasterItem> {
-  const res = await fetch(`${endpoints[type]}/ ${id}`, {
+  const res = await fetch(`${endpoints[type]}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
