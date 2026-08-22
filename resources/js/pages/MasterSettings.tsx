@@ -75,20 +75,17 @@ export default function MasterSettings() {
     try {
       if (editingId === null) {
         const item = await createMasterItems(activeType, name, csrfToken ?? "");
-        setData((prev) => ({ ...prev, category: [...prev.category, item] }));
+        setData((prev) => ({ ...prev, [activeType]: [...prev[activeType], item] }));
         setName("");
         setIsOpen(false);
       } else {
         const item = await updateMasterItems(activeType, editingId, name, csrfToken ?? "");
-        setData((prev) => {
-          const updatedItems = prev[activeType].map((nowItem) =>
+        setData((prev) => ({
+          ...prev,
+          [activeType]: prev[activeType].map((nowItem) =>
             nowItem.id === editingId ? item : nowItem
-          );
-          return {
-            ...prev,
-            [activeType]: updatedItems,
-          };
-        });
+          ),
+        }));
       }
     } catch (e) {
       console.error(e);

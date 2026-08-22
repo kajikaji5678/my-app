@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTypeRequest;
+use App\Http\Requests\UpdateTypeRequest;
 use App\Http\Resources\TypeResource;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -21,7 +23,7 @@ class TypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
         $type = Type::create(['type_name' => $request->name, 'project_id' => 1]);
         return new TypeResource($type);
@@ -38,9 +40,10 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        $type->update(['task_name' => $request->name]);
+        return TypeResource($type);
     }
 
     /**
