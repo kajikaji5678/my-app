@@ -8,9 +8,14 @@ use App\Http\Resources\TypeResource;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\MasterTrait;
 
 class TypeController extends Controller
 {
+    use MasterTrait;
+
+    protected $modelClass = Type::class;
+    protected $resourceClass = TypeResource::class;
     /**
      * Display a listing of the resource.
      */

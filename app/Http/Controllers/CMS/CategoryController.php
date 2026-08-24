@@ -8,18 +8,17 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\MasterTrait;
 
 class CategoryController extends Controller
 {
+    use MasterTrait;
+
+    protected $modelClass = Category::class;
+    protected $resourceClass = CategoryResource::class;
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $this->authorize('viewAny', Category::class);
-        $categories = Category::orderBy('id')->get();
-        return CategoryResource::collection($categories);
-    }
 
     /**
      * Store a newly created resource in storage.

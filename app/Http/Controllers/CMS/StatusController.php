@@ -6,9 +6,14 @@ use App\Http\Resources\StatusResource;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\MasterTrait;
 
 class StatusController extends Controller
 {
+    use MasterTrait;
+
+    protected $modelClass = Status::class;
+    protected $resourceClass = StatusResource::class;
     /**
      * Display a listing of the resource.
      */
