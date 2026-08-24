@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\StatusController;
+use App\Http\Controllers\CMS\StatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskBoardController;
-use App\Http\Controllers\TypeController;
+use App\Http\Controllers\CMS\CategoryController;
+use App\Http\Controllers\CMS\TypeController;
 
 /*
 |--------------------------------------------------------------------------

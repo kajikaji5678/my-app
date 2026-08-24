@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMS;
 
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
 use App\Http\Resources\TypeResource;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TypeController extends Controller
 {
@@ -25,6 +26,7 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
+        $this->authorize('create', Type::class);
         $type = Type::create(['type_name' => $request->name, 'project_id' => 1]);
         return new TypeResource($type);
     }
@@ -42,6 +44,7 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
+        $this->authorize('update', $type);
         $type->update(['task_name' => $request->name]);
         return new TypeResource($type);
     }
@@ -51,6 +54,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
+        $this->authorize('delete', $type);
         $type->delete();
         return response()->json(['message' => "消去しました"]);
     }

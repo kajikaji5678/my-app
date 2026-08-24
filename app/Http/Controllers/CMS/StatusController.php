@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMS;
 
 use App\Http\Resources\StatusResource;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StatusController extends Controller
 {
@@ -23,7 +24,9 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Status::class);
+        $status = Status::create(['status_name' => $request->name, 'project_id' => 1]);
+        return new StatusResource($status);
     }
 
     /**
@@ -37,16 +40,20 @@ class StatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Status $status)
     {
-        //
+        $this->authorize('update', $status);
+        $status->update(['status_name' => $request->name]);
+        return new StatusResource($status);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Status $status)
     {
-        //
+        $this->authorize('delete', $status);
+        $status->delete();
+        return response()->json(['message' => "消去しました"]);
     }
 }
