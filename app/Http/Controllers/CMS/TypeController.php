@@ -27,7 +27,7 @@ class TypeController extends Controller
     public function store(StoreTypeRequest $request)
     {
         $this->authorize('create', Type::class);
-        $type = Type::create(['type_name' => $request->name, 'project_id' => 1]);
+        $type = Type::create(['type_name' => $request->name, 'projects_id' => 1, 'type_color' => "red"]);
         return new TypeResource($type);
     }
 

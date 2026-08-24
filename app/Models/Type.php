@@ -32,7 +32,8 @@ class Type extends Model
     protected $fillable = [
         'id',
         'type_name',
-        'projects_id'
+        'projects_id',
+        'type_color'
     ];
 
     public function project()

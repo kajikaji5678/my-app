@@ -25,7 +25,7 @@ class StatusController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Status::class);
-        $status = Status::create(['status_name' => $request->name, 'project_id' => 1]);
+        $status = Status::create(['status_name' => $request->name, 'project_id' => 1, 'status_color' => "red"]);
         return new StatusResource($status);
     }
 

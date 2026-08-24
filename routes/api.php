@@ -27,11 +27,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/types', [TypeController::class, 'index']);
     Route::post('/types', [TypeController::class, 'store']);
-    Route::put('/types/{types}', [TypeController::class, 'update']);
-    Route::delete('/types/{types}', [TypeController::class, 'destory']);
+    Route::put('/types/{type}', [TypeController::class, 'update']);
+    Route::delete('/types/{type}', [TypeController::class, 'destroy']);
 
     Route::get('/statuses', [StatusController::class, 'index']);
     Route::post('/statuses', [StatusController::class, 'store']);
-    Route::put('/statuses/{statuses}', [StatusController::class,'update']);
-    Route::delete('/statuses/{statuses}', [StatusController::class, 'destory']);
+    Route::put('/statuses/{status}', [StatusController::class,'update']);
+    Route::delete('/statuses/{status}', [StatusController::class, 'destroy']);
 });
