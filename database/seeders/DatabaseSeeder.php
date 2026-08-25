@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             TaskSeeder::class,
             RoleLevelSeeder::class,
             RoleUserSeeder::class,
+            // 8月25日久々にやる
+            CommentSeeder::class
         ]);
     }
 }
