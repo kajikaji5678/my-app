@@ -32,6 +32,8 @@ export default function MasterSettings() {
   const [name, setName] = useState("");
   // 現在編集している項目のID
   const [editingId, setEditingId] = useState<number | null>(null);
+  // 消去確認ボタン
+  const [isDelete, setIsDelete] = useState(false);
 
   const currentItems = data[activeType];
   const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
@@ -120,19 +122,21 @@ export default function MasterSettings() {
       >
 
         <TabsList className="w-fit">
-          <TabsTrigger value="category">
-            カテゴリー
-          </TabsTrigger>
-          <TabsTrigger value="type">
-            タイプ
-          </TabsTrigger>
-          <TabsTrigger value="status">
-            ステータス
-          </TabsTrigger>
+          {(Object.keys(titles) as MasterType[]).map((item) => {
+            return (
+              <TabsTrigger
+                key={item}
+                value={item}
+                className="data-[state=active]:bg-blue-300 px-3 py-2 bg-white rounded-lg [&:not(:first-child)]:ml-3"
+              >
+                {titles[item]}
+              </TabsTrigger>
+            )
+          })}
         </TabsList>
         <div className="mt-4 flex-1">
-          <div className="rounded border bg-white">
-            <div className="flex items-center justify-between border-b p-4">
+          <div className="rounded bg-white w-1/2 border-2">
+            <div className="border-b-2 flex items-center justify-between p-4">
               <h2 className="font-semibold">
                 {titles[activeType]}
               </h2>
@@ -143,26 +147,32 @@ export default function MasterSettings() {
             </div>
 
             <Table>
-              <TableHeader>
+              <TableHeader className="border-b-2">
                 <TableRow>
                   <TableHead>名前</TableHead>
                   <TableHead className="w-[120px]">操作</TableHead>
                 </TableRow>
               </TableHeader>
 
-              <TableBody>
+              <TableBody className="overflow-y-auto">
                 {currentItems.map((item) => (
                   <TableRow key={item.id}>
                     <TableCell>{item.name}</TableCell>
                     <TableCell>
                       <Button
-                        className="rounded"
+                        className="rounded border-2 border-blue-200 hover:border-blue-400"
                         variant="outline"
                         size="sm"
                         onClick={() => { setEditingId(item.id); setName(item.name); setIsOpen(true) }}>
                         編集
                       </Button>
-                      <Button className="rounded" variant="outline" size="sm" onClick={() => handleDelete(item.id)}>削除</Button>
+                      <Button
+                        className="rounded ml-2 border-2 border-red-200 hover:border-red-400"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDelete(item.id)}>
+                        削除
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -173,7 +183,7 @@ export default function MasterSettings() {
       </Tabs>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent>
+        <DialogContent className="bg-white">
           <DialogHeader>
             <DialogTitle>
               {titles[activeType]}を追加
