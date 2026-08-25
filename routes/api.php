@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\StatusController;
+use App\Http\Controllers\CMS\StatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskBoardController;
-use App\Http\Controllers\TypeController;
+use App\Http\Controllers\CMS\CategoryController;
+use App\Http\Controllers\CMS\TypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +27,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/types', [TypeController::class, 'index']);
     Route::post('/types', [TypeController::class, 'store']);
-    Route::put('/types/{types}', [TypeController::class, 'update']);
-    Route::delete('/types/{types}', [TypeController::class, 'destory']);
+    Route::put('/types/{type}', [TypeController::class, 'update']);
+    Route::delete('/types/{type}', [TypeController::class, 'destroy']);
 
     Route::get('/statuses', [StatusController::class, 'index']);
     Route::post('/statuses', [StatusController::class, 'store']);
-    Route::put('/statuses/{statuses}', [StatusController::class,'update']);
-    Route::delete('/statuses/{statuses}', [StatusController::class, 'destory']);
+    Route::put('/statuses/{status}', [StatusController::class,'update']);
+    Route::delete('/statuses/{status}', [StatusController::class, 'destroy']);
 });
