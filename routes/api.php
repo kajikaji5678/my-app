@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskBoardController;
 use App\Http\Controllers\CMS\CategoryController;
 use App\Http\Controllers\CMS\TypeController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/statuses/{status}', [StatusController::class,'update']);
     Route::delete('/statuses/{status}', [StatusController::class, 'destroy']);
 });
+
+    Route::get('/tasks/{task}/comments', [CommentController::class, 'index']);
