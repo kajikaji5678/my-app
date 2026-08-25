@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/statuses', [StatusController::class, 'store']);
     Route::put('/statuses/{status}', [StatusController::class,'update']);
     Route::delete('/statuses/{status}', [StatusController::class, 'destroy']);
-});
 
     Route::get('/tasks/{task}/comments', [CommentController::class, 'index']);
+});
+

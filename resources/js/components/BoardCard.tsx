@@ -24,7 +24,7 @@ function BoardCard({ onOpenModal }: Props) {
   const [boardTasks, setBoardTasks] = useState<EditedTasks>(initialEditedTasks);
   const [open, setOpen] = useState(false);
 
-  //* タスク個数計算
+  //? タスク個数計算
   const statusCount: {[statusId: number]: number} = {};
   for (const level of ["super", "warning", "normal"] as const ) {
     for (const statusId in boardTasks[level]) {
