@@ -102,6 +102,7 @@ export default function MasterSettings() {
       setName("");
       setEditingId(null);
       setIsOpen(false);
+      setIsDelete(false);
     } catch (e) {
       console.error(e);
     }
@@ -141,7 +142,7 @@ export default function MasterSettings() {
                 {titles[activeType]}
               </h2>
 
-              <Button onClick={() => { setEditingId(null); setName(""); setIsOpen(true) }}>
+              <Button onClick={() => { setEditingId(null); setName(""); setIsOpen(true); setIsDelete(false)}}>
                 追加
               </Button>
             </div>
@@ -163,14 +164,19 @@ export default function MasterSettings() {
                         className="rounded border-2 border-blue-200 hover:border-blue-400"
                         variant="outline"
                         size="sm"
-                        onClick={() => { setEditingId(item.id); setName(item.name); setIsOpen(true) }}>
+                        onClick={() => { setEditingId(item.id); setName(item.name); setIsOpen(true); setIsDelete(false) }}>
                         編集
                       </Button>
                       <Button
                         className="rounded ml-2 border-2 border-red-200 hover:border-red-400"
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(item.id)}>
+                        onClick={() => {
+                          setEditingId(item.id);
+                          setName(item.name);
+                          setIsDelete(true);
+                          setIsOpen(true);
+                        }}>
                         削除
                       </Button>
                     </TableCell>
@@ -183,34 +189,67 @@ export default function MasterSettings() {
       </Tabs>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-white">
+        <DialogContent className={isDelete ? "border-2 border-red-400 bg-white" : "border-2 border-blue-400 bg-white"}>
           <DialogHeader>
             <DialogTitle>
-              {titles[activeType]}を追加
+              {isDelete
+                ? `${titles[activeType]}を削除`
+                : editingId === null
+                  ? `${titles[activeType]}を追加`
+                  : `${titles[activeType]}を編集`}
             </DialogTitle>
           </DialogHeader>
-
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">
-                名前
-              </label>
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder={`${titles[activeType]}名を入力`}
-              />
+          {isDelete ? (
+            <div className="space-y-4">
+              <p>「<span className="font-bold">{name}</span>を削除してもよろしいでしょうか？」</p>
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="outline"
+                  className="hover:border-gray-400"
+                  onClick={() => {
+                    setIsOpen(false)
+                    setIsDelete(false)
+                    setEditingId(null)
+                  }}
+                >
+                  キャンセル
+                </Button>
+                <Button
+                  variant="destructive"
+                  className="border-2 border-red-200 hover:border-red-400"
+                  onClick={() => { if (editingId !== null) handleDelete(editingId) }}
+                >
+                  削除
+                </Button>
+              </div>
             </div>
-            <div className="flex justify-end gap-2">
-              <Button
+          ) : (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  名前
+                </label>
+                <Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder={`${titles[activeType]}名を入力`}
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setIsOpen(false)}
+                  className="hover:border-gray-400"
+                >
+                  キャンセル
+                </Button>
+                <Button
                 variant="outline"
-                onClick={() => setIsOpen(false)}
-              >
-                キャンセル
-              </Button>
-              <Button onClick={handleSave}>保存</Button>
+                onClick={handleSave}
+                className="border-2 border-blue-200 hover:border-blue-400">保存</Button>
+              </div>
             </div>
-          </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
