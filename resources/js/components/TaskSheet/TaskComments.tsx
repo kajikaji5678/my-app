@@ -3,10 +3,13 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import type { Comment } from "resources/js/types/task";
 import { useState, useEffect } from "react";
 import { getComments } from "../../api/TaskComments";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 export default function TaskCommnets({ taskId }: { taskId: number }) {
 
   const [comments, setComments] = useState<Comment[]>([]);
+  const [nowComments, setNowComments] = useState("");
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -43,6 +46,22 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="space-y-2">
+            <Textarea
+              placeholder="コメントを入力してください"
+              value={nowComments}
+              onChange={(e) => setNowComments(e.target.value)}
+            />
+            <div className="flex justify-end">
+              <Button
+                disabled={!nowComments.trim()}
+                variant="secondary"
+                className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
+              >
+                送信
+              </Button>
+            </div>
           </div>
         </ScrollArea>
       </div>
