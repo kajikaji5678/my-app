@@ -18,5 +18,6 @@ export const createComments = async (taskId: number, body: string) => {
 
   if (!response.ok) throw new Error("コメントの投稿に失敗しました");
 
-  return response.json();
+  const data = await response.json();
+  return data.data;
 }

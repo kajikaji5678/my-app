@@ -21,6 +21,8 @@ class CommentController extends Controller
             'user_id' => auth()->id()
         ]);
 
+        $comments->load('user');
+
         return new CommentResource($comments);
     }
 }
