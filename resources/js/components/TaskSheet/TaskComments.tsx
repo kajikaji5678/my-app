@@ -1,7 +1,25 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import type { Comment } from "resources/js/types/task";
+import { useState, useEffect } from "react";
+import { getComments } from "../../api/TaskComments";
 
-export default function TaskCommnets() {
+export default function TaskCommnets({ taskId }: { taskId: number }) {
+
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const comments = await getComments(taskId);
+        setComments(comments);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchComments()
+  }, [taskId]);
   return (
     <>
       <div className="rounded-xl h-full border-2 border-gray-300 overflow-hidden">
@@ -10,19 +28,21 @@ export default function TaskCommnets() {
         </div>
         <ScrollArea className="h-full bg-red-50 p-2">
           <div className="space-y-3">
-            <Card className="m-2">
-              <CardContent className="p-4">
-                <div className="font-semibold text-sm">
-                  福田
-                </div>
-                <div className="text-xs text-gray-500">
-                  2026/08/25/12:00
-                </div>
-                <p className="mt-2 text-sm text-gray-700">
-                  テストコメント
-                </p>
-              </CardContent>
-            </Card>
+            {comments.map((comment) => (
+              <Card key={comment.id} className="m-2">
+                <CardContent className="p-4">
+                  <div className="font-semibold text-sm">
+                    {comment.user.name}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {comment.created_at}
+                  </div>
+                  <p className="mt-2 text-sm text-gray-700">
+                    {comment.body}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </ScrollArea>
       </div>
