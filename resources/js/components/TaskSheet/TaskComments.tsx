@@ -67,8 +67,8 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             <div className="flex justify-end">
               <Button
                 disabled={!nowComments.trim()}
-                variant="secondary"
                 className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
+                onClick={handleSubmit}
               >
                 送信
               </Button>
