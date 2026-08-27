@@ -1,3 +1,5 @@
+import type { TaskComment } from "../types/task";
+
 export const getComments = async (taskId: number) => {
   const res = await fetch(`/api/tasks/${taskId}/comments`);
   if (!res.ok) throw new Error("コメントの取得に失敗しました");
@@ -20,4 +22,29 @@ export const createComments = async (taskId: number, body: string) => {
 
   const data = await response.json();
   return data.data;
+}
+
+export const updateComment = async (commentId: number, body: string): Promise<TaskComment> => {
+  const response = await fetch(`/api/comments/${commentId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    body: JSON.stringify({body}),
+  });
+
+  if (!response.ok) throw new Error("コメントの更新に失敗しました");
+  return response.json();
+}
+
+export const deleteComment = async (commentId: number): Promise<void> => {
+  const response = await fetch(`/api/comments/${commentId}`, {
+    method: "DELETE",
+    headers: {
+      "Accept": "application/json",
+    },
+  });
+
+  if (!response.ok) throw new Error("コメントの削除に失敗しました");
 }

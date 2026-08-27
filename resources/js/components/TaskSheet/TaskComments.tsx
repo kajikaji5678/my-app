@@ -1,14 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import type { Comment } from "resources/js/types/task";
+import type { TaskComment } from "resources/js/types/task";
 import { useState, useEffect } from "react";
-import { createComments, getComments } from "../../api/TaskComments";
+import { createComments, deleteComment, getComments, updateComment } from "../../api/TaskComments";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 export default function TaskCommnets({ taskId }: { taskId: number }) {
 
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<TaskComment[]>([]);
   const [nowComments, setNowComments] = useState("");
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
   const [editBody, setEditBody] = useState("");
@@ -20,6 +20,27 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
       console.log(newComment);
       setComments((prev) => [...prev, newComment]);
       setNowComments("");
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  const handleEdit = async () => {
+    if (!editBody.trim() || editCommentId === null) return;
+    try {
+      const updatedComment = await updateComment(editCommentId, editBody);
+      setComments((prev) => prev.map((content) => content.id === updatedComment.id ? updatedComment : content));
+      setEditCommentId(null);
+      setEditBody("");
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  const handleDelete = async (commentId: number) => {
+    try {
+      await deleteComment(commentId);
+      setComments((prev) => prev.filter((comment) => comment.id !== commentId));
     } catch (e) {
       console.error(e);
     }
