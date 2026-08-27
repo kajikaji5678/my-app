@@ -47,21 +47,41 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
           <div className="space-y-3">
             {comments.map((comment) => (
               <Card key={comment.id} className="m-2">
-                <CardContent className="p-4">
-                  <div className="flex justify-between">
-                    <p className="font-semibold text-sm">{comment.user.name}</p>
-                    <div className="flex">
-                      <div className="text-xs mr-2 text-blue-600 cursor-pointer">編集</div>
-                      <div className="text-xs text-red-600 cursor-pointer">削除</div>
+                {editCommentId === comment.id ? (
+                  <div className="space-y-2 shrink-0">
+                    <Textarea
+                      value={editBody}
+                      onChange={(e) => setEditBody(e.target.value)}
+                    />
+                    <div className="flex justify-end">
+                      <Button
+                        disabled={!editBody.trim()}
+                        className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
+                        onClick={handleSubmit}
+                      >
+                        送信
+                      </Button>
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {comment.created_at}
-                  </div>
-                  <p className="mt-2 text-sm text-gray-700">
-                    {comment.body}
-                  </p>
-                </CardContent>
+                ) : (
+                  <CardContent className="p-4">
+                    <div className="flex justify-between">
+                      <p className="font-semibold text-sm">{comment.user.name}</p>
+                      <div className="flex">
+                        <div
+                          className="text-xs mr-2 text-blue-600 cursor-pointer"
+                          onClick={() => { setEditCommentId(comment.id); setEditBody(comment.body) }}>編集</div>
+                        <div className="text-xs text-red-600 cursor-pointer">削除</div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {comment.created_at}
+                    </div>
+                    <p className="mt-2 text-sm text-gray-700">
+                      {comment.body}
+                    </p>
+                  </CardContent>
+                )}
               </Card>
             ))}
           </div>
