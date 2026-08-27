@@ -10,6 +10,8 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
 
   const [comments, setComments] = useState<Comment[]>([]);
   const [nowComments, setNowComments] = useState("");
+  const [editCommentId, setEditCommentId] = useState<number | null>(null);
+  const [editBody, setEditBody] = useState("");
 
   const handleSubmit = async () => {
     if (!nowComments.trim()) return;
@@ -46,8 +48,12 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             {comments.map((comment) => (
               <Card key={comment.id} className="m-2">
                 <CardContent className="p-4">
-                  <div className="font-semibold text-sm">
-                    {comment.user.name}
+                  <div className="flex justify-between">
+                    <p className="font-semibold text-sm">{comment.user.name}</p>
+                    <div className="flex">
+                      <div className="text-xs mr-2 text-blue-600 cursor-pointer">編集</div>
+                      <div className="text-xs text-red-600 cursor-pointer">削除</div>
+                    </div>
                   </div>
                   <div className="text-xs text-gray-500">
                     {comment.created_at}
