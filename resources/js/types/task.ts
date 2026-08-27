@@ -40,4 +40,12 @@ export type TaskFormData = {
   real_time: number
 };
 
-
+export type Comment = {
+  id: number;
+  body: string;
+  user: {
+    id: number;
+    name: string;
+  }
+  created_at: string
+}
