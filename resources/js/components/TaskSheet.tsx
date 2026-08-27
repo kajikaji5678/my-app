@@ -29,7 +29,6 @@ export default function TaskSheet({
 
   const [detailOpen, setDetailOpen] = useState(true);
 
-
   return (
     <AnimatePresence>
       {open && (
@@ -81,7 +80,9 @@ export default function TaskSheet({
                     </div>
                   </div>
                   <div className="min-h-0">
-                    <TaskCommnets />
+                    {task && (
+                      <TaskCommnets taskId={task.id}/>
+                    )}
                   </div>
                 </div>
               </div>
