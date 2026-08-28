@@ -41,4 +41,11 @@ class CommentController extends Controller
         $comment->delete();
         return response()->noContent();
     }
+
+    public function replyCommentStore(StoreCommentRequest $request, Comment $comment)
+    {
+        $reply = $comment->child()->create(['body' => $request->body, 'user_id' => auth()->id()]);
+        $reply->load('user');
+        return new CommentResource($reply);
+    }
 }

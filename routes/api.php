@@ -42,4 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 
     Route::get('/user', function(Request $request) {return $request->user();});
+    Route::post('/comments/{comment}/replies', [CommentController::class, 'replyCommentStore']);
 });
+
+
