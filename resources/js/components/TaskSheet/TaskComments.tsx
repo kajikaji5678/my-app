@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { createComments, deleteComment, getComments, updateComment } from "../../api/TaskComments";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import type { CurrentUser } from "../../types/user";
 
 export default function TaskCommnets({ taskId }: { taskId: number }) {
 
@@ -12,6 +13,26 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [nowComments, setNowComments] = useState("");
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
   const [editBody, setEditBody] = useState("");
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("/api/user", {
+          headers: {
+            Accept: "application/json"
+          }
+        });
+        if (!response.ok) throw new Error("ユーザー情報の取得失敗");
+        const user = await response.json();
+        setCurrentUser(user);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    fetchUser();
+  })
 
   const handleSubmit = async () => {
     if (!nowComments.trim()) return;
@@ -66,57 +87,62 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
         </div>
         <ScrollArea className="min-h-0 flex-1 bg-red-50 p-2">
           <div className="space-y-3">
-            {comments.map((comment) => (
-              <Card key={comment.id} className="m-2">
-                {editCommentId === comment.id ? (
-                  <div className="space-y-2 shrink-0">
-                    <Textarea
-                      value={editBody}
-                      onChange={(e) => setEditBody(e.target.value)}
-                    />
-                    <div className="flex justify-end">
-                      <Button
-                        disabled={!editBody.trim()}
-                        className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
-                        onClick={handleEdit}
-                      >
-                        保存
-                      </Button>
-                      <Button
-                        className="py-2 px-4 rounded bg-gray-200 text-black cursor-pointer"
-                        onClick={() => { setEditCommentId(null); setEditBody("") }}
-                      >
-                        キャンセル
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  <CardContent className="p-4">
-                    <div className="flex justify-between">
-                      <p className="font-semibold text-sm">{comment.user.name}</p>
-                      <div className="flex">
-                        <div
-                          className="text-xs mr-2 text-blue-600 cursor-pointer"
-                          onClick={() => { setEditCommentId(comment.id); setEditBody(comment.body) }}>
-                          編集
-                        </div>
-                        <div
-                          className="text-xs text-red-600 cursor-pointer"
-                          onClick={() => { handleDelete(comment.id) }}>
-                          削除
-                        </div>
+            {comments.map((comment) => {
+              const canEdit = currentUser !== null && (currentUser.admin === 1 || currentUser.id === comment.user.id);
+
+              return (
+                <Card key={comment.id} className="m-2">
+                  {editCommentId === comment.id ? (
+                    <div className="space-y-2 shrink-0">
+                      <Textarea
+                        value={editBody}
+                        onChange={(e) => setEditBody(e.target.value)}
+                      />
+                      <div className="flex justify-end">
+                        <Button
+                          disabled={!editBody.trim()}
+                          className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
+                          onClick={handleEdit}
+                        >
+                          保存
+                        </Button>
+                        <Button
+                          className="py-2 px-4 rounded bg-gray-200 text-black cursor-pointer"
+                          onClick={() => { setEditCommentId(null); setEditBody("") }}
+                        >
+                          キャンセル
+                        </Button>
                       </div>
                     </div>
-                    <div className="text-xs text-gray-500">
-                      {comment.created_at}
-                    </div>
-                    <p className="mt-2 text-sm text-gray-700">
-                      {comment.body}
-                    </p>
-                  </CardContent>
-                )}
-              </Card>
-            ))}
+                  ) : (
+                    <CardContent className="p-4">
+                      <div className="flex justify-between">
+                        <p className="font-semibold text-sm">{comment.user.name}</p>
+                        {canEdit &&
+                          <div className="flex">
+                            <div
+                              className="text-xs mr-2 text-blue-600 cursor-pointer"
+                              onClick={() => { setEditCommentId(comment.id); setEditBody(comment.body) }}>
+                              編集
+                            </div>
+                            <div
+                              className="text-xs text-red-600 cursor-pointer"
+                              onClick={() => { handleDelete(comment.id) }}>
+                              削除
+                            </div>
+                          </div>}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {comment.created_at}
+                      </div>
+                      <p className="mt-2 text-sm text-gray-700">
+                        {comment.body}
+                      </p>
+                    </CardContent>
+                  )}
+                </Card>
+              )
+            })}
           </div>
         </ScrollArea>
         <div className="space-y-2 shrink-0 border-t bg-white p-3">
