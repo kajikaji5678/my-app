@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Resources\CommentResource;
+use App\Models\Comment;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class CommentController extends Controller
         return CommentResource::collection($comments);
     }
 
-    public function store(StoreCommentRequest $request, Task $task) {
+    // このTaskにコメントを新規作成する
+    public function store(StoreCommentRequest $request, Task $task)
+    {
         $comments = $task->comments()->create([
             'body' => $request->body,
             'user_id' => auth()->id()
@@ -24,5 +27,18 @@ class CommentController extends Controller
         $comments->load('user');
 
         return new CommentResource($comments);
+    }
+
+    public function update(StoreCommentRequest $request, Comment $comment)
+    {
+        $comment->update($request->validated());
+        $comment->load('user');
+        return new CommentResource($comment);
+    }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+        return response()->noContent();
     }
 }
