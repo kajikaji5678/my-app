@@ -6,6 +6,7 @@ import { createComments, deleteComment, getComments, updateComment } from "../..
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "../../types/user";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function TaskCommnets({ taskId }: { taskId: number }) {
 
@@ -16,6 +17,9 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [editError, setEditError] = useState<{ commentId: number; message: string } | null>(null);
+  const [deleteError, setDeleteError] = useState<{ commentId: number; message: string } | null>(null);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -68,7 +72,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
       setComments((prev) => prev.filter((comment) => comment.id !== commentId));
     } catch (e) {
       console.error(e);
-      setEditError({ commentId, message: e instanceof Error ? e.message : "予期せぬエラーが発生しました。" });
+      setDeleteError({ commentId, message: e instanceof Error ? e.message : "予期せぬエラーが発生しました。" });
     }
   }
 
@@ -132,7 +136,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
                             </div>
                             <div
                               className="text-xs text-red-600 cursor-pointer"
-                              onClick={() => { handleDelete(comment.id) }}>
+                              onClick={() => { setIsDeleteOpen(true); setDeleteCommentId(comment.id) }}>
                               削除
                             </div>
                           </div>}
@@ -144,6 +148,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
                         {comment.body}
                       </p>
                       {editError?.commentId === comment.id && <p className="text-sm text-red-500">{editError.message}</p>}
+                      {deleteError?.commentId === comment.id && <p className="text-sm text-red-500">{deleteError.message}</p>}
                     </CardContent>
                   )}
                 </Card>
@@ -168,6 +173,39 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             {submitError && <p className="text-sm text-red-500">{submitError}</p>}
           </div>
         </div>
+
+        <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+          <DialogContent className="border-2 border-red-400 bg-white">
+            <DialogHeader>
+              <DialogTitle>
+                コメントの削除
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p>コメントを削除してもよろしいでしょうか？</p>
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="outline"
+                  className="hover:border-gray-400"
+                  onClick={() => {
+                    setIsDeleteOpen(false);
+                    setDeleteCommentId(null);
+                  }}
+                >
+                  キャンセル
+                </Button>
+                <Button
+                  variant="destructive"
+                  className="border-2 border-red-200 hover:border-red-400"
+                  onClick={() => { if (deleteCommentId !== null) handleDelete(deleteCommentId); setIsDeleteOpen(false); setDeleteCommentId(null) }}
+                >
+                  削除
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
       </div>
     </>
   )
