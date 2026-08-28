@@ -32,6 +32,7 @@ class CommentController extends Controller
     public function update(StoreCommentRequest $request, Comment $comment)
     {
         $comment->update($request->validated());
+        $comment->load('user');
         return new CommentResource($comment);
     }
 

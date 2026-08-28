@@ -78,9 +78,15 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
                       <Button
                         disabled={!editBody.trim()}
                         className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
-                        onClick={handleSubmit}
+                        onClick={handleEdit}
                       >
-                        送信
+                        保存
+                      </Button>
+                      <Button
+                        className="py-2 px-4 rounded bg-gray-200 text-black cursor-pointer"
+                        onClick={() => { setEditCommentId(null); setEditBody("") }}
+                      >
+                        キャンセル
                       </Button>
                     </div>
                   </div>
@@ -91,8 +97,14 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
                       <div className="flex">
                         <div
                           className="text-xs mr-2 text-blue-600 cursor-pointer"
-                          onClick={() => { setEditCommentId(comment.id); setEditBody(comment.body) }}>編集</div>
-                        <div className="text-xs text-red-600 cursor-pointer">削除</div>
+                          onClick={() => { setEditCommentId(comment.id); setEditBody(comment.body) }}>
+                          編集
+                        </div>
+                        <div
+                          className="text-xs text-red-600 cursor-pointer"
+                          onClick={() => { handleDelete(comment.id) }}>
+                          削除
+                        </div>
                       </div>
                     </div>
                     <div className="text-xs text-gray-500">
