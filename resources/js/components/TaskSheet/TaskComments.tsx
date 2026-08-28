@@ -14,6 +14,8 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
   const [editBody, setEditBody] = useState("");
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+  const [submitError, setSubmitError] = useState<String | null>(null);
+  const [editError, setEditError] = useState<String | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -43,6 +45,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
       setNowComments("");
     } catch (e) {
       console.error(e);
+      setSubmitError(e instanceof Error ? e.message : "予期せぬエラーが発生しました。");
     }
   }
 
@@ -55,6 +58,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
       setEditBody("");
     } catch (e) {
       console.error(e);
+      setEditError(e instanceof Error ? e.message : "予期せぬエラーが発生しました。");
     }
   }
 
@@ -64,6 +68,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
       setComments((prev) => prev.filter((comment) => comment.id !== commentId));
     } catch (e) {
       console.error(e);
+      setEditError(e instanceof Error ? e.message : "予期せぬエラーが発生しました。");
     }
   }
 
@@ -138,6 +143,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
                       <p className="mt-2 text-sm text-gray-700">
                         {comment.body}
                       </p>
+                      {editError && <p className="text-sm text-red-500">{editError}</p>}
                     </CardContent>
                   )}
                 </Card>
@@ -159,6 +165,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             >
               送信
             </Button>
+            {submitError && <p className="text-sm text-red-500">{submitError}</p>}
           </div>
         </div>
       </div>
