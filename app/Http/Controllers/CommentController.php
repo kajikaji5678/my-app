@@ -44,7 +44,12 @@ class CommentController extends Controller
 
     public function replyCommentStore(StoreCommentRequest $request, Comment $comment)
     {
-        $reply = $comment->child()->create(['body' => $request->body, 'user_id' => auth()->id()]);
+        $reply = $comment->child()->create([
+            'body' => $request->body,
+            'user_id' => auth()->id(),
+            'commentable_type' => $comment->commentable_type,
+            'commentable_id' => $comment->commentable_id
+            ]);
         $reply->load('user');
         return new CommentResource($reply);
     }

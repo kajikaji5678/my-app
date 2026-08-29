@@ -53,3 +53,22 @@ export const deleteComment = async (commentId: number): Promise<void> => {
 
   if (!response.ok) throw new Error("コメントの削除に失敗しました");
 }
+
+export const createReply = async (commentId: number, body: string) => {
+  const response = await fetch(`/api/comments/${commentId}/replies`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN":
+          document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ?? "",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ body }),
+    }
+  );
+
+  if (!response.ok) throw new Error("返信の投稿に失敗しました");
+
+  return response.json();
+}

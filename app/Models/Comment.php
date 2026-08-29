@@ -33,7 +33,9 @@ class Comment extends Model
     protected $fillable = [
         'body',
         'user_id',
-        'parent_id'
+        'parent_id',
+        'commentable_type',
+        'commentable_id'
     ];
 
     use HasFactory;

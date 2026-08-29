@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import type { TaskComment } from "resources/js/types/task";
 import { useState, useEffect } from "react";
-import { createComments, deleteComment, getComments, updateComment } from "../../api/TaskComments";
+import { createComments, createReply, deleteComment, getComments, updateComment } from "../../api/TaskComments";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "../../types/user";
@@ -22,6 +22,8 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [deleteError, setDeleteError] = useState<{ commentId: number; message: string } | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
+  const [replyCommentId, setReplyCommentId] = useState<number | null>(null);
+  const [replyBody, setReplyBody] = useState("");
 
   const dummyReplies = [
     {
@@ -94,6 +96,16 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
     } catch (e) {
       console.error(e);
       setDeleteError({ commentId, message: e instanceof Error ? e.message : "予期せぬエラーが発生しました。" });
+    }
+  };
+
+  const handleReply = async (commentId: number) => {
+    if (!replyBody) return;
+    try {
+      const reply = await createReply(commentId, replyBody);
+      setReplyBody("");
+    } catch (e) {
+      console.error(e);
     }
   }
 
@@ -182,6 +194,31 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
                           onClick={() => toggleReplies(comment.id)}>
                           {isRepliesOpen ? "返信を閉じる" : "返信を見る"}
                         </Button>
+                        <Button
+                          variant="ghost"
+                          className="mt-3 ml-2 px-0 text-xs text-blue-600"
+                          onClick={() => { setReplyCommentId(replyCommentId === comment.id ? null : comment.id); setReplyBody("") }}>
+                          {replyCommentId === comment.id ? "返信を閉じる" : "返信する"}
+                        </Button>
+
+                        {replyCommentId === comment.id && (
+                          <div className="mt-3 space-y-2 border-t pt-3">
+                            <Textarea
+                              placeholder="返信を入力してください"
+                              value={replyBody}
+                              onChange={(e) => setReplyBody(e.target.value)}
+                            />
+                            <div className="flex justify-end">
+                              <Button
+                                disabled={!replyBody.trim()}
+                                className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
+                                onClick={() => handleReply(comment.id)}
+                              >
+                                送信
+                              </Button>
+                            </div>
+                          </div>
+                        )}
                       </CardContent>
                     )}
                   </Card>
