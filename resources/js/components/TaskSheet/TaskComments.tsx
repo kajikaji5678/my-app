@@ -7,9 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "../../types/user";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { TaskCommentDialog } from "./TaskCommentDialog";
 
 export default function TaskCommnets({ taskId }: { taskId: number }) {
 
+  const [openReplyIds, setOpenReplyIds] = useState<number[]>([]);
   const [comments, setComments] = useState<TaskComment[]>([]);
   const [nowComments, setNowComments] = useState("");
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
@@ -20,6 +22,25 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [deleteError, setDeleteError] = useState<{ commentId: number; message: string } | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
+
+  const dummyReplies = [
+    {
+      id: 101,
+      user: {
+        name: "田中"
+      },
+      created_at: "2029",
+      body: "これは返信コメントです"
+    },
+    {
+      id: 101,
+      user: {
+        name: "大和田"
+      },
+      created_at: "2029",
+      body: "これも返信コメントです"
+    }
+  ]
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -98,60 +119,110 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
           <div className="space-y-3">
             {comments.map((comment) => {
               const canEdit = currentUser !== null && (currentUser.admin === 1 || currentUser.id === comment.user.id);
-
+              const isRepliesOpen = openReplyIds.includes(comment.id);
+              const toggleReplies = (commentId: number) => {
+                setOpenReplyIds((prev) => prev.includes(commentId) ? prev.filter((id) => id !== commentId) : [...prev, commentId]);
+              }
               return (
-                <Card key={comment.id} className="m-2">
-                  {editCommentId === comment.id ? (
-                    <div className="space-y-2 shrink-0">
-                      <Textarea
-                        value={editBody}
-                        onChange={(e) => setEditBody(e.target.value)}
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          disabled={!editBody.trim()}
-                          className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
-                          onClick={handleEdit}
-                        >
-                          保存
-                        </Button>
-                        <Button
-                          className="py-2 px-4 rounded bg-gray-200 text-black cursor-pointer"
-                          onClick={() => { setEditCommentId(null); setEditBody("") }}
-                        >
-                          キャンセル
-                        </Button>
+                <>
+                  <Card key={comment.id} className="m-2">
+                    {editCommentId === comment.id ? (
+                      <div className="space-y-2 shrink-0">
+                        <Textarea
+                          value={editBody}
+                          onChange={(e) => setEditBody(e.target.value)}
+                        />
+                        <div className="flex justify-end">
+                          <Button
+                            disabled={!editBody.trim()}
+                            className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
+                            onClick={handleEdit}
+                          >
+                            保存
+                          </Button>
+                          <Button
+                            className="py-2 px-4 rounded bg-gray-200 text-black cursor-pointer"
+                            onClick={() => { setEditCommentId(null); setEditBody("") }}
+                          >
+                            キャンセル
+                          </Button>
+                        </div>
                       </div>
+                    ) : (
+                      <CardContent className="p-3">
+                        <div className="flex justify-between">
+                          <p className="font-semibold text-sm">{comment.user.name}</p>
+                          {canEdit &&
+                            <div className="flex">
+                              <div
+                                className="text-xs mr-2 text-blue-600 cursor-pointer"
+                                onClick={() => { setEditCommentId(comment.id); setEditBody(comment.body) }}>
+                                編集
+                              </div>
+                              <div
+                                className="text-xs text-red-600 cursor-pointer"
+                                onClick={() => { setIsDeleteOpen(true); setDeleteCommentId(comment.id) }}>
+                                削除
+                              </div>
+                            </div>}
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          {comment.created_at}
+                        </p>
+                        <p className="mt-1 text-sm text-gray-700">
+                          {comment.body}
+                        </p>
+                        {editError?.commentId === comment.id && <p className="text-sm text-red-500">{editError.message}</p>}
+                        {deleteError?.commentId === comment.id && <p className="text-sm text-red-500">{deleteError.message}</p>}
+
+                        {/* 返信開閉 */}
+                        <Button
+                          variant="ghost"
+                          className="mt-3 px-0 text-xs text-blue-600"
+                          onClick={() => toggleReplies(comment.id)}>
+                          {isRepliesOpen ? "返信を閉じる" : "返信を見る"}
+                        </Button>
+                      </CardContent>
+                    )}
+                  </Card>
+
+                  {isRepliesOpen && (
+                    <div className="ml-3">
+                      {dummyReplies.map((reply) => (
+                        <Card key={reply.id} className="m-2">
+                          <CardContent className="p-3">
+                            <div className="flex justify-between">
+                              <p className="font-semibold text-sm">
+                                {reply.user.name}
+                              </p>
+                              {canEdit &&
+                                <div className="flex">
+                                  <div
+                                    className="text-xs mr-2 text-blue-600 cursor-pointer"
+                                    onClick={() => { setEditCommentId(reply.id); setEditBody(reply.body) }}>
+                                    編集
+                                  </div>
+                                  <div
+                                    className="text-xs text-red-600 cursor-pointer"
+                                    onClick={() => { setIsDeleteOpen(true); setDeleteCommentId(reply.id) }}>
+                                    削除
+                                  </div>
+                                </div>}
+                            </div>
+                            <p className="text-xs text-gray-500">
+                              {reply.created_at}
+                            </p>
+                            <p className="mt-1 text-sm text-gray-700">
+                              {reply.body}
+                            </p>
+                            {editError?.commentId === comment.id && <p className="text-sm text-red-500">{editError.message}</p>}
+                            {deleteError?.commentId === comment.id && <p className="text-sm text-red-500">{deleteError.message}</p>}
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
-                  ) : (
-                    <CardContent className="p-4">
-                      <div className="flex justify-between">
-                        <p className="font-semibold text-sm">{comment.user.name}</p>
-                        {canEdit &&
-                          <div className="flex">
-                            <div
-                              className="text-xs mr-2 text-blue-600 cursor-pointer"
-                              onClick={() => { setEditCommentId(comment.id); setEditBody(comment.body) }}>
-                              編集
-                            </div>
-                            <div
-                              className="text-xs text-red-600 cursor-pointer"
-                              onClick={() => { setIsDeleteOpen(true); setDeleteCommentId(comment.id) }}>
-                              削除
-                            </div>
-                          </div>}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {comment.created_at}
-                      </div>
-                      <p className="mt-2 text-sm text-gray-700">
-                        {comment.body}
-                      </p>
-                      {editError?.commentId === comment.id && <p className="text-sm text-red-500">{editError.message}</p>}
-                      {deleteError?.commentId === comment.id && <p className="text-sm text-red-500">{deleteError.message}</p>}
-                    </CardContent>
                   )}
-                </Card>
+                </>
               )
             })}
           </div>
@@ -174,37 +245,13 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
           </div>
         </div>
 
-        <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-          <DialogContent className="border-2 border-red-400 bg-white">
-            <DialogHeader>
-              <DialogTitle>
-                コメントの削除
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <p>コメントを削除してもよろしいでしょうか？</p>
-              <div className="flex justify-end gap-2">
-                <Button
-                  variant="outline"
-                  className="hover:border-gray-400"
-                  onClick={() => {
-                    setIsDeleteOpen(false);
-                    setDeleteCommentId(null);
-                  }}
-                >
-                  キャンセル
-                </Button>
-                <Button
-                  variant="destructive"
-                  className="border-2 border-red-200 hover:border-red-400"
-                  onClick={() => { if (deleteCommentId !== null) handleDelete(deleteCommentId); setIsDeleteOpen(false); setDeleteCommentId(null) }}
-                >
-                  削除
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <TaskCommentDialog
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={setIsDeleteOpen}
+          deleteCommentId={deleteCommentId}
+          setDeleteCommentId={setDeleteCommentId}
+          handleDelete={handleDelete}
+        />
 
       </div>
     </>
