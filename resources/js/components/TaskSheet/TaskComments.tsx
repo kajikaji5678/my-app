@@ -72,7 +72,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const handleDelete = async (commentId: number) => {
     try {
       await deleteComment(commentId);
-      setComments((prev) => prev.filter((comment) => comment.id !== commentId));
+      setComments((prev) => prev.filter((comment) => comment.id !== commentId).map((comment) => ({...comment, replies: (comment.replies ?? []).filter((reply) => reply.id !== commentId)})));
     } catch (e) {
       console.error(e);
       setDeleteError({ commentId, message: e instanceof Error ? e.message : "予期せぬエラーが発生しました。" });
@@ -83,6 +83,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
     if (!replyBody) return;
     try {
       const reply = await createReply(commentId, replyBody);
+      setComments((prev) => prev.map((comment) => comment.id === commentId ? { ...comment, replies: [...(comment.replies ?? []), reply] } : comment))
       setReplyBody("");
     } catch (e) {
       console.error(e);

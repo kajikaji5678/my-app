@@ -30,12 +30,11 @@ export const updateComment = async (commentId: number, body: string): Promise<Ta
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      "X-CSrF-TOKEN":
+      "X-CSRF-TOKEN":
         document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ?? ""
     },
     body: JSON.stringify({ body }),
   });
-
   if (!response.ok) throw new Error("コメントの更新に失敗しました");
   const data = await response.json();
   return data.data;
@@ -46,7 +45,7 @@ export const deleteComment = async (commentId: number): Promise<void> => {
     method: "DELETE",
     headers: {
       "Accept": "application/json",
-      "X-CSrF-TOKEN":
+      "X-CSRF-TOKEN":
         document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ?? ""
     },
   });
@@ -69,6 +68,6 @@ export const createReply = async (commentId: number, body: string) => {
   );
 
   if (!response.ok) throw new Error("返信の投稿に失敗しました");
-
-  return response.json();
+  const data = await response.json();
+  return data.data;
 }

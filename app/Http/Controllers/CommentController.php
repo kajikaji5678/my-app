@@ -12,7 +12,7 @@ class CommentController extends Controller
 {
     public function index(Task $task)
     {
-        $comments = $task->comments()->with('user', 'child.user')->latest()->get();
+        $comments = $task->comments()->whereNull('parent_id')->with('user', 'child.user')->latest()->get();
         return CommentResource::collection($comments);
     }
 
