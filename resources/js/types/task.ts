@@ -49,5 +49,5 @@ export type TaskComment = {
   }
   created_at: string
   parent_id: number | null;
-  replies: Comment[];
+  replies: TaskComment[];
 }

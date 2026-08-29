@@ -6,7 +6,6 @@ import { createComments, createReply, deleteComment, getComments, updateComment 
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "../../types/user";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { TaskCommentDialog } from "./TaskCommentDialog";
 
 export default function TaskCommnets({ taskId }: { taskId: number }) {
@@ -24,25 +23,6 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
   const [replyCommentId, setReplyCommentId] = useState<number | null>(null);
   const [replyBody, setReplyBody] = useState("");
-
-  const dummyReplies = [
-    {
-      id: 101,
-      user: {
-        name: "田中"
-      },
-      created_at: "2029",
-      body: "これは返信コメントです"
-    },
-    {
-      id: 101,
-      user: {
-        name: "大和田"
-      },
-      created_at: "2029",
-      body: "これも返信コメントです"
-    }
-  ]
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -225,38 +205,42 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
 
                   {isRepliesOpen && (
                     <div className="ml-3">
-                      {dummyReplies.map((reply) => (
-                        <Card key={reply.id} className="m-2">
-                          <CardContent className="p-3">
-                            <div className="flex justify-between">
-                              <p className="font-semibold text-sm">
-                                {reply.user.name}
+                      {(comment.replies ?? []).length === 0 ? (
+                        <p className="text-xs text-gray-500">返信はありません</p>
+                      ) : (
+                        comment.replies.map((reply) => (
+                          <Card key={reply.id} className="m-2">
+                            <CardContent className="p-3">
+                              <div className="flex justify-between">
+                                <p className="font-semibold text-sm">
+                                  {reply.user.name}
+                                </p>
+                                {canEdit &&
+                                  <div className="flex">
+                                    <div
+                                      className="text-xs mr-2 text-blue-600 cursor-pointer"
+                                      onClick={() => { setEditCommentId(reply.id); setEditBody(reply.body) }}>
+                                      編集
+                                    </div>
+                                    <div
+                                      className="text-xs text-red-600 cursor-pointer"
+                                      onClick={() => { setIsDeleteOpen(true); setDeleteCommentId(reply.id) }}>
+                                      削除
+                                    </div>
+                                  </div>}
+                              </div>
+                              <p className="text-xs text-gray-500">
+                                {reply.created_at}
                               </p>
-                              {canEdit &&
-                                <div className="flex">
-                                  <div
-                                    className="text-xs mr-2 text-blue-600 cursor-pointer"
-                                    onClick={() => { setEditCommentId(reply.id); setEditBody(reply.body) }}>
-                                    編集
-                                  </div>
-                                  <div
-                                    className="text-xs text-red-600 cursor-pointer"
-                                    onClick={() => { setIsDeleteOpen(true); setDeleteCommentId(reply.id) }}>
-                                    削除
-                                  </div>
-                                </div>}
-                            </div>
-                            <p className="text-xs text-gray-500">
-                              {reply.created_at}
-                            </p>
-                            <p className="mt-1 text-sm text-gray-700">
-                              {reply.body}
-                            </p>
-                            {editError?.commentId === comment.id && <p className="text-sm text-red-500">{editError.message}</p>}
-                            {deleteError?.commentId === comment.id && <p className="text-sm text-red-500">{deleteError.message}</p>}
-                          </CardContent>
-                        </Card>
-                      ))}
+                              <p className="mt-1 text-sm text-gray-700">
+                                {reply.body}
+                              </p>
+                              {editError?.commentId === comment.id && <p className="text-sm text-red-500">{editError.message}</p>}
+                              {deleteError?.commentId === comment.id && <p className="text-sm text-red-500">{deleteError.message}</p>}
+                            </CardContent>
+                          </Card>
+                        ))
+                      )}
                     </div>
                   )}
                 </>
