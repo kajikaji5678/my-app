@@ -53,6 +53,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
  * @mixin \Eloquent
+ * @property int|null $parent_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Comment> $child
+ * @property-read int|null $child_count
+ * @property-read Comment|null $parent
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereParentId($value)
  */
 	class Comment extends \Eloquent {}
 }

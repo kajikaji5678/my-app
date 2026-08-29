@@ -12,7 +12,7 @@ class CommentController extends Controller
 {
     public function index(Task $task)
     {
-        $comments = $task->comments()->with('user')->latest()->get();
+        $comments = $task->comments()->whereNull('parent_id')->with('user', 'child.user')->latest()->get();
         return CommentResource::collection($comments);
     }
 
@@ -40,5 +40,17 @@ class CommentController extends Controller
     {
         $comment->delete();
         return response()->noContent();
+    }
+
+    public function replyCommentStore(StoreCommentRequest $request, Comment $comment)
+    {
+        $reply = $comment->child()->create([
+            'body' => $request->body,
+            'user_id' => auth()->id(),
+            'commentable_type' => $comment->commentable_type,
+            'commentable_id' => $comment->commentable_id
+            ]);
+        $reply->load('user');
+        return new CommentResource($reply);
     }
 }

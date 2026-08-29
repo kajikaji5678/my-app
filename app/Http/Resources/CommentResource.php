@@ -21,7 +21,8 @@ class CommentResource extends JsonResource
                 'id' => $this->user->id,
                 'name' => $this->user->name,
             ],
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'replies' => CommentResource::collection($this->whenLoaded('child')),
         ];
     }
 }
