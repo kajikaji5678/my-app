@@ -13,11 +13,13 @@
   <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
   <link rel="stylesheet" href="{{ asset('css/board-box.css') }}">
   @viteReactRefresh
-  @vite(['resources/css/app.css', 'resources/js/entries/board.tsx', 'resources/js/dashboard.js'])
+  @vite(['resources/css/app.css', 'resources/js/entries/board.tsx', 'resources/js/dashboard.js', 'resources/js/components/Header/Header.tsx'])
 </head>
 
 <body>
-  <x-header />
+  <div>
+    <div id="header-root"></div>
+  </div>
   <div class="flex w-full h-full">
     <x-sidebar />
     <main class="h-[calc(100vh-50px)] flex flex-1 flex-col min-w-0 bg-[#F0F0F0]">
@@ -30,7 +32,8 @@
         </div>
         <div class="mt-4 flex-1 flex gap-4 flex-nowrap overflow-y-hidden w-full">
           <div id="board" class="flex gap-4 w-full" data-tasks='@json($tasks)'
-            data-statuses='@json($statuses)' data-categories='@json($categories)' data-edited-tasks='@json($editedTasks)'>
+            data-statuses='@json($statuses)' data-categories='@json($categories)'
+            data-edited-tasks='@json($editedTasks)'>
           </div>
         </div>
       </div>
