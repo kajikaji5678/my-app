@@ -30,6 +30,23 @@ export default function Header({ }: HeaderProps) {
     fetchNotification();
   }, []);
 
+  const readNotification = async (id: string) => {
+    try {
+      const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+      const res = await fetch(`/api/notifications/${id}/read`, {
+        method: "PUT",
+        headers: {
+          "X-CSRF-TOKEN": token ?? "",
+          Accept: "application/json",
+        },
+      });
+      if (!res.ok) throw new Error("通知の既読処理に失敗しました");
+      setNotifications((prev) => prev.filter((notification) => notification.id !== id));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <header className="bg-green-50 border-b">
       <ul className="flex gap-2">
@@ -83,6 +100,7 @@ export default function Header({ }: HeaderProps) {
                     <button
                       key={notification.id}
                       type="button"
+                      onClick={() => {readNotification(notification.id); setHasNotification(false)}}
                       className="w-full border-b p-2 text-left transition hover:bg-gray-100"
                     >
                       <p className="text-sm">
