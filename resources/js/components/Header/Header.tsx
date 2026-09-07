@@ -1,8 +1,26 @@
+import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 type HeaderProps = {};
-
 export default function Header({ }: HeaderProps) {
+
+  const [hasNotification, setHasNotification] = useState(false);
+
+  useEffect(() => {
+    const fetchNotification = async () => {
+      try {
+        const res = await fetch("/api/notification");
+        if (!res.ok) throw new Error("失敗");
+        const result = await res.json();
+        console.log(result);
+        setHasNotification(result.data.length > 0);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchNotification();
+  }, []);
+
   return (
     <header className="bg-green-50 border-b">
       <ul className="flex gap-2">
