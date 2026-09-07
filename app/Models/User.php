@@ -72,6 +72,8 @@ use App\Models\Task;
  * @property-read int|null $task_user1_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskUser> $TaskUser2
  * @property-read int|null $task_user2_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CommentMention> $mentions
+ * @property-read int|null $mentions_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -141,7 +143,8 @@ class User extends Authenticatable
     //     return $this->belongsToMany(Task::class);
     // }
 
-    public function userTask() {
+    public function userTask()
+    {
         return $this->hasMany(UserTask::class);
     }
 
@@ -155,16 +158,24 @@ class User extends Authenticatable
         return $this->hasMany(TaskAssign::class);
     }
 
-    public function getIconUrlAttribute() {
+    public function getIconUrlAttribute()
+    {
         return $this->icon ? asset('storage/' . $this->icon) : asset('img/human.png');
     }
 
-    public function TaskUser1() {
+    public function TaskUser1()
+    {
         return $this->hasMany(TaskUser::class, 'user_id');
     }
 
-    public function TaskUser2() {
+    public function TaskUser2()
+    {
         return $this->hasMany(TaskUser::class, 'assigned_by');
+    }
+
+    public function mentions()
+    {
+        return $this->hasMany(CommentMention::class);
     }
 }
 

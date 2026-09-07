@@ -28,7 +28,6 @@ use Illuminate\Support\Carbon;
  * @property-read Type $type
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- *
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
@@ -44,7 +43,6 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTaskName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
- *
  * @property-read Collection<int, TaskAssign> $taskAssigns
  * @property-read int|null $task_assigns_count
  * @property-read Collection<int, UserTask> $userTask
@@ -53,39 +51,35 @@ use Illuminate\Support\Carbon;
  * @property int|null $real_time
  * @property-read Collection<int, TaskUser> $TaskUser
  * @property-read int|null $task_user_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereEstimatedTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereRealTime($value)
- *
  * @property string|null $priority
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Task wherePriority($value)
- *
  * @property int|null $responsible_user_id
  * @property string|null $added_date
  * @property string|null $end_date
  * @property string|null $dead_time
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereResponsibleUserId($value)
- *
  * @property string|null $added_at
  * @property string|null $completed_at
  * @property string|null $deadline_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereAddedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereCompletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeadlineAt($value)
- *
  * @property string|null $schedule
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereSchedule($value)
- *
  * @property-read Collection<int, Comment> $comments
  * @property-read int|null $comments_count
- *
+ * @property string|null $description
+ * @property int|null $parent_task_id
+ * @property-read Collection<int, Task> $childlen
+ * @property-read int|null $childlen_count
+ * @property-read Task|null $parent
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereParentTaskId($value)
  * @mixin \Eloquent
  */
 class Task extends Model
