@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 
 type HeaderProps = {};
 
-export default function Header({}: HeaderProps) {
+export default function Header({ }: HeaderProps) {
   return (
     <header className="bg-green-50 border-b">
       <ul className="flex gap-2">
@@ -24,7 +24,11 @@ export default function Header({}: HeaderProps) {
           </a>
         </li>
 
-        <li className="list-none px-3 py-2">
+        <li className="relative list-none px-3 py-2">
+          <span className="absolute right-3 top-3 flex h-3 w-3">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+            <span className="relative inline-flex h-full w-full rounded-full bg-red-500" />
+          </span>
           <a
             href=""
             className="block px-4 py-2 text-[#333] transition duration-300 hover:bg-emerald-500 hover:text-green-50"
