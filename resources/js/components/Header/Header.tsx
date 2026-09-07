@@ -3,27 +3,16 @@ import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 type HeaderProps = {};
+type Notification = {
+  id: string;
+  message: string;
+  readAt: string | null;
+  createdAt: string;
+};
 export default function Header({ }: HeaderProps) {
 
   const [hasNotification, setHasNotification] = useState(false);
-
-  const notifications = [
-    {
-      id: 1,
-      message: "田中さんがあなたをメンションしました",
-      time: "5分前",
-    },
-    {
-      id: 2,
-      message: "鈴木さんがコメントを追加しました",
-      time: "20分前",
-    },
-    {
-      id: 3,
-      message: "タスクが更新されました",
-      time: "1時間前",
-    },
-  ];
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   useEffect(() => {
     const fetchNotification = async () => {
@@ -32,7 +21,8 @@ export default function Header({ }: HeaderProps) {
         if (!res.ok) throw new Error("失敗");
         const result = await res.json();
         console.log(result);
-        setHasNotification(result.data.length > 0);
+        setHasNotification(result.length > 0);
+        setNotifications(result);
       } catch (e) {
         console.error(e);
       }
@@ -69,10 +59,12 @@ export default function Header({ }: HeaderProps) {
                 className="block px-4 py-2 text-[#333] transition duration-300 hover:bg-emerald-500 hover:text-green-50"
               >
                 お知らせ
-                <span className="absolute right-3 top-3 flex h-3 w-3">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-                  <span className="relative inline-flex h-full w-full rounded-full bg-red-500" />
-                </span>
+                {hasNotification && (
+                  <span className="absolute right-3 top-3 flex h-3 w-3">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+                    <span className="relative inline-flex h-full w-full rounded-full bg-red-500" />
+                  </span>
+                )}
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-80 bg-white" align="end">
@@ -82,20 +74,23 @@ export default function Header({ }: HeaderProps) {
                 </h3>
               </div>
               <div className="max-h-80 overflow-y-auto">
-                {notifications.map((notification) => (
-                  <button
-                    key={notification.id}
-                    type="button"
-                    className="w-full border-b p-2 text-left transition hover:bg-gray-50"
-                  >
-                    <p className="text-sm">
-                      {notification.message}
-                    </p>
-                    <p className="mt-1 text-xs text-gray-400">
-                      {notification.time}
-                    </p>
-                  </button>
-                ))}
+                {notifications.length === 0 ? (
+                  <p className="text-sm text-gray-500">
+                    お知らせはありません
+                  </p>
+                ) : (
+                  notifications.map((notification) => (
+                    <button
+                      key={notification.id}
+                      type="button"
+                      className="w-full border-b p-2 text-left transition hover:bg-gray-100"
+                    >
+                      <p className="text-sm">
+                        {notification.message}
+                      </p>
+                    </button>
+                  ))
+                )}
               </div>
             </PopoverContent>
           </Popover>
