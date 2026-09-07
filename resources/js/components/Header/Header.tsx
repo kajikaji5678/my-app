@@ -6,6 +6,7 @@ type HeaderProps = {};
 type Notification = {
   id: string;
   message: string;
+  commentId: number | null;
   readAt: string | null;
   createdAt: string;
 };
@@ -47,8 +48,12 @@ export default function Header({ }: HeaderProps) {
     }
   }
 
+  const handleClick = (notification: Notification) => {
+    console.log(notification.commentId)
+  }
+
   return (
-    <header className="bg-green-50 border-b">
+    <header className="bg-green-50 border-b pt-2">
       <ul className="flex gap-2">
         <li className="list-none px-3 py-2">
           <a
@@ -100,7 +105,7 @@ export default function Header({ }: HeaderProps) {
                     <button
                       key={notification.id}
                       type="button"
-                      onClick={() => {readNotification(notification.id); setHasNotification(false)}}
+                      onClick={() => {readNotification(notification.id); setHasNotification(false); handleClick(notification)}}
                       className="w-full border-b p-2 text-left transition hover:bg-gray-100"
                     >
                       <p className="text-sm">
