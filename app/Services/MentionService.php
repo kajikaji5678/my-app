@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Comment;
 use App\Models\User;
+use App\Notifications\CommentMentionNotification;
 
 class MentionService
 {
@@ -16,6 +17,7 @@ class MentionService
         $comment->mentions()->delete();
         foreach($users as $user) {
             $comment->mentions()->create(['user_id' => $user->id]);
+            $user->notify(new CommentMentionNotification($comment));
         }
     }
 }
