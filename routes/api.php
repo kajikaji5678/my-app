@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/comments/{comment}/replies', [CommentController::class, 'replyCommentStore']);
 
     Route::get('/notification', [NotificationController::class, 'index']);
+    Route::put('/notifications/{id}/read', [NotificationController::class, 'read']);
 });
 
 
