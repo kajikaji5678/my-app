@@ -7,6 +7,7 @@ use App\Http\Controllers\TaskBoardController;
 use App\Http\Controllers\CMS\CategoryController;
 use App\Http\Controllers\CMS\TypeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Notification\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user', function(Request $request) {return $request->user();});
     Route::post('/comments/{comment}/replies', [CommentController::class, 'replyCommentStore']);
+
+    Route::get('/notification', [NotificationController::class, 'index']);
+    Route::put('/notifications/{id}/read', [NotificationController::class, 'read']);
 });
 
 
