@@ -25,6 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
+ * @property int|null $parent_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Comment> $child
+ * @property-read int|null $child_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CommentMention> $mentions
+ * @property-read int|null $mentions_count
+ * @property-read Comment|null $parent
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereParentId($value)
  * @mixin \Eloquent
  */
 class Comment extends Model
@@ -58,5 +65,10 @@ class Comment extends Model
     public function child()
     {
         return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    public function mentions()
+    {
+        return $this->hasMany(CommentMention::class);
     }
 }

@@ -23,5 +23,12 @@ class MyStartAndEndTimeSeeder extends Seeder
             'password' => Hash::make('kajikaji1'),
             'admin' => 1,
         ]);
+
+        User::factory()->create([
+            'name' => "岸和田",
+            'email' => 'eee@gmail.com',
+            'password' => Hash::make('kajikaji1'),
+            'admin' => 0,
+        ]);
     }
 }

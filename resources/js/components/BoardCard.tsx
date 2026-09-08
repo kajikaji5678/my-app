@@ -1,5 +1,5 @@
 import BoardCardContet from "./BoardCardContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskSheet from "./TaskSheet";
 import type { Task } from "../types/task";
 import type { Status } from "../types/statuses";
@@ -25,14 +25,29 @@ function BoardCard({ onOpenModal }: Props) {
   const [open, setOpen] = useState(false);
 
   //? タスク個数計算
-  const statusCount: {[statusId: number]: number} = {};
-  for (const level of ["super", "warning", "normal"] as const ) {
+  const statusCount: { [statusId: number]: number } = {};
+  for (const level of ["super", "warning", "normal"] as const) {
     for (const statusId in boardTasks[level]) {
       const taskList = boardTasks[level][statusId] ?? [];
 
       statusCount[statusId] = (statusCount[statusId] || 0) + taskList.length;
     }
   }
+
+  useEffect(() => {
+    const handleOpenTask = (event: Event) => {
+      const customEvent = event as CustomEvent<{ taskId: number; commentId: number }>;
+      const { taskId, commentId } = customEvent.detail;
+      const task = tasks.find((task) => task.id === taskId);
+      if (!task) return;
+      setSelectedTask(task);
+      setOpen(true);
+    };
+    window.addEventListener("open-task", handleOpenTask);
+    return() => {
+      window.removeEventListener("open-task", handleOpenTask);
+    };
+  }, [tasks])
 
   // 更新された1件を適切な場所へ移動させる処理
   const handleTaskUpdated = (updatedTask: Task, level: "super" | "warning" | "normal") => {
