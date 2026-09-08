@@ -6,21 +6,18 @@ import type { Status } from "../types/statuses";
 import type { EditedTasks } from "../types/EditedTasks";
 
 type Props = {
+  tasks: Task[];
+  statuses: Status[];
+  editedTasks: EditedTasks;
   onOpenModal?: () => void;
 }
 
-function BoardCard({ onOpenModal }: Props) {
-
-  const root = document.getElementById('board');
-  if (!root) throw new Error("board ID dont exist");
-  const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
-  const tasks = JSON.parse(root.dataset.tasks ?? "[]") as Task[];
-  const initialEditedTasks = JSON.parse(root.dataset.editedTasks ?? "[]") as EditedTasks;
+function BoardCard({ tasks, statuses, editedTasks, onOpenModal }: Props) {
 
   // 状態管理
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  const [boardTasks, setBoardTasks] = useState<EditedTasks>(initialEditedTasks);
   const [open, setOpen] = useState(false);
+  const [boardTasks, setBoardTasks] = useState<EditedTasks>(editedTasks);
 
   //? タスク個数計算
   const statusCount: { [statusId: number]: number } = {};
@@ -42,7 +39,7 @@ function BoardCard({ onOpenModal }: Props) {
       setOpen(true);
     };
     window.addEventListener("open-task", handleOpenTask);
-    return() => {
+    return () => {
       window.removeEventListener("open-task", handleOpenTask);
     };
   }, [tasks])
