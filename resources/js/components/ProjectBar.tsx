@@ -12,10 +12,6 @@ export default function ProjectBar() {
       <div className="projectbar_right">
         <div className="user_button">
           <a href="">ユーザー招待</a>
-          <div className="dot" />
-          <div className="search_icon">
-            <img src="/img/search.png" />
-          </div>
         </div>
       </div>
     </div>

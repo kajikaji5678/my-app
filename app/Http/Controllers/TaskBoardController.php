@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BoardResource;
+use App\Models\Project;
 use App\Models\Task;
 use App\Services\BoardService;
 use App\Services\UserTaskProcessing;
@@ -121,5 +123,14 @@ class TaskBoardController extends Controller
         $real = $calculation->getTotalRealTime($id);
 
         return view('toDo.borad', compact('estimated', 'real'));
+    }
+
+    //~ 以下 @jsonからAPIへの移行のため
+    public function getTasksAPI(Project $project)
+    {
+        $tasks = Task::with('type', 'category', 'status')->where('project_id', $project->id)->get();
+        $data = $this->boardService->getBoardData($project->id, $tasks);
+
+        return new BoardResource($data);
     }
 }

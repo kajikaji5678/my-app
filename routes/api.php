@@ -47,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/notification', [NotificationController::class, 'index']);
     Route::put('/notifications/{id}/read', [NotificationController::class, 'read']);
+
+    Route::get('/api/projects/{project}/board', [TaskBoardController::class, 'getTasksAPI']);
 });
 
 
