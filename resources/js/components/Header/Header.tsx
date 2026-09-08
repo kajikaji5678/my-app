@@ -9,6 +9,7 @@ type Notification = {
   commentId: number | null;
   readAt: string | null;
   createdAt: string;
+  taskId: number | null;
 };
 export default function Header({ }: HeaderProps) {
 
@@ -49,11 +50,18 @@ export default function Header({ }: HeaderProps) {
   }
 
   const handleClick = (notification: Notification) => {
-    console.log(notification.commentId)
-  }
+    window.dispatchEvent(
+      new CustomEvent("open-task", {
+        detail: {
+          taskId: notification.taskId,
+          commentId: notification.commentId,
+        }
+      })
+    );
+  };
 
   return (
-    <header className="bg-green-50 border-b pt-2">
+    <header className="bg-green-50 border-b">
       <ul className="flex gap-2">
         <li className="list-none px-3 py-2">
           <a

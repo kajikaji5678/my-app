@@ -58,7 +58,7 @@ class CommentMentionNotification extends Notification
         return [
             'comment_id' => $this->comment->id,
             'messsage' => 'コメントでメンションされました',
-            'task_id' => $this->comment->task_id,
+            'task_id' => $this->comment->commentable_id,
         ];
     }
 }
