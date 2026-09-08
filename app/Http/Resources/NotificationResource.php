@@ -20,6 +20,7 @@ class NotificationResource extends JsonResource
             'message' => $this->data['messsage'] ?? null,
             'readAt' => $this->read_at,
             'createAt' => $this->created_at,
+            'task_id' => $this->data['task_id'] ?? null,
         ];
     }
 }
