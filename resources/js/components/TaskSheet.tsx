@@ -4,6 +4,8 @@ import TaskLabel from "./TaskSheet/TaskLabel";
 import TaskDescription from "./TaskSheet/TaskDescription";
 import TaskCommnets from "./TaskSheet/TaskComments";
 import { useState } from "react";
+import type { Status } from "../types/statuses";
+import type { Categories } from "../types/categories";
 
 type Props = {
   open: boolean;
@@ -13,6 +15,8 @@ type Props = {
     updatedTask: Task,
     level: "super" | "warning" | "normal"
   ) => void;
+  statuses: Status[];
+  categories: Categories[];
 };
 
 type Row = {
@@ -24,8 +28,12 @@ export default function TaskSheet({
   open,
   task,
   onClose,
-  onTaskUpdate
+  onTaskUpdate,
+  statuses,
+  categories
 }: Props) {
+
+  console.log("TaskSheet!!!!:", task);
 
   const [detailOpen, setDetailOpen] = useState(true);
 
@@ -73,7 +81,13 @@ export default function TaskSheet({
                 <div className="grid grid-cols-2 gap-4 h-full min-h-0">
                   <div className="flex flex-col min-h-0">
                     <div className={`rounded-lg border-2 border-gray-200 overflow-hidden ${detailOpen ? "h-1/2" : "shrink-0"}`}>
-                      <TaskLabel task={task} onTaskUpdate={onTaskUpdate} onOpenChange={setDetailOpen}/>
+                      <TaskLabel
+                        task={task}
+                        onTaskUpdate={onTaskUpdate}
+                        onOpenChange={setDetailOpen}
+                        statuses={statuses}
+                        categories={categories}
+                      />
                     </div>
                     <div className="flex-1 min-h-0 rounded border-2 mt-6 border-gray-200 overflow-hidden">
                       <TaskDescription />
@@ -81,7 +95,7 @@ export default function TaskSheet({
                   </div>
                   <div className="min-h-0">
                     {task && (
-                      <TaskCommnets taskId={task.id}/>
+                      <TaskCommnets taskId={task.id} />
                     )}
                   </div>
                 </div>

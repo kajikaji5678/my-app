@@ -15,6 +15,8 @@ type Props = {
     level: "super" | "warning" | "normal"
   ) => void;
   onOpenChange: (open: boolean) => void;
+  statuses: Status[];
+  categories: Categories[];
 };
 
 type Row = {
@@ -25,13 +27,9 @@ type Row = {
 };
 
 
-export default function TaskLabel({ task, onTaskUpdate, onOpenChange }: Props) {
+export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, categories }: Props) {
 
   // ======== State ========
-  const root = document.getElementById('board');
-  if (!root) return;
-  const statuses = JSON.parse(root.dataset.statuses ?? "[]") as Status[];
-  const categories = JSON.parse(root.dataset.categories ?? "[]") as Categories[];
 
   const [edit, setEdit] = useState(false);
   const [msg, setMsg] = useState("");
@@ -61,6 +59,9 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange }: Props) {
       console.error(e);
     }
   }
+
+  // ========= Debug ============
+  console.log("Debug!!!!!!", task.category.category_name);
 
   // ======== Display Data ========
   const rows: Row[] = [
