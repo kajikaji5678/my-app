@@ -4,10 +4,12 @@ import type { Task } from "../types/task";
 import type { Status } from "../types/statuses";
 import type { EditedTasks } from "../types/EditedTasks";
 import { useEffect, useState } from "react";
+import type { Categories } from "../types/categories";
 
 type BoardData = {
   tasks: Task[];
   statuses: Status[];
+  categories: Categories[];
   editedTasks: EditedTasks;
 };
 
@@ -36,6 +38,7 @@ export default function TaskBoard() {
           tasks={boardData.tasks}
           statuses={boardData.statuses}
           editedTasks={boardData.editedTasks}
+          categories={boardData.categories}
         />
       </Layout>
     </>

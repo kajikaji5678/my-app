@@ -4,15 +4,17 @@ import TaskSheet from "./TaskSheet";
 import type { Task } from "../types/task";
 import type { Status } from "../types/statuses";
 import type { EditedTasks } from "../types/EditedTasks";
+import type { Categories } from "../types/categories";
 
 type Props = {
   tasks: Task[];
   statuses: Status[];
   editedTasks: EditedTasks;
   onOpenModal?: () => void;
+  categories: Categories[];
 }
 
-function BoardCard({ tasks, statuses, editedTasks, onOpenModal }: Props) {
+function BoardCard({ tasks, statuses, editedTasks, onOpenModal,categories }: Props) {
 
   // 状態管理
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -20,15 +22,18 @@ function BoardCard({ tasks, statuses, editedTasks, onOpenModal }: Props) {
   const [boardTasks, setBoardTasks] = useState<EditedTasks>(editedTasks);
 
   //* タスク個数計算
+  /// 件数保存する箱を準備
+  /// レベル分け->ステータス分けという順番
+  /// 状態変化というよりはプログラミングの本質と思ってくれていいだろう
   const statusCount: { [statusKey: string]: number } = {};
   for (const level of ["super", "warning", "normal"] as const) {
     for (const statusKey in boardTasks[level]) {
       const taskList = boardTasks[level][statusKey] ?? [];
-
       statusCount[statusKey] = (statusCount[statusKey] || 0) + taskList.length;
     }
   }
 
+  //* タスクモーダルを開く処理（お知らせから）
   useEffect(() => {
     const handleOpenTask = (event: Event) => {
       const customEvent = event as CustomEvent<{ taskId: number; commentId: number }>;
@@ -105,6 +110,8 @@ function BoardCard({ tasks, statuses, editedTasks, onOpenModal }: Props) {
         task={selectedTask!}
         onClose={() => setOpen(false)}
         onTaskUpdate={handleTaskUpdated}
+        statuses={statuses}
+        categories={categories}
       />
     </div>
   );
