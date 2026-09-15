@@ -17,9 +17,22 @@ class BoardResource extends JsonResource
         return [
             'tasks' => TaskResource::collection($this['tasks']),
             'editedTasks' => [
-                'super' => collect($this['editedTasks']['super'])->map(fn($tasks) => TaskResource::collection($tasks))->all(),
-                'warning' => collect($this['editedTasks']['warning'])->map(fn($tasks) => TaskResource::collection($tasks))->all(),
-                'normal' => collect($this['editedTasks']['normal'])->map(fn($tasks) => TaskResource::collection($tasks))->all(),
+                'super' => collect($this['editedTasks']['super'])
+                    ->mapWithKeys(fn($tasks, $statusId) => [
+                        'status_' . $statusId => TaskResource::collection($tasks),
+                    ])
+                    ->all(),
+                'warning' => collect($this['editedTasks']['warning'])
+                    ->mapWithKeys(fn($tasks, $statusId) => [
+                        'status_' . $statusId => TaskResource::collection($tasks),
+                    ])
+                    ->all(),
+
+                'normal' => collect($this['editedTasks']['normal'])
+                    ->mapWithKeys(fn($tasks, $statusId) => [
+                        'status_' . $statusId => TaskResource::collection($tasks),
+                    ])
+                    ->all(),
             ],
             'types' => $this['types'],
             'categories' => $this['categories'],

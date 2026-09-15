@@ -2,12 +2,12 @@ import type { Task } from "./task";
 
 export type EditedTasks = {
   super: {
-    [statusId: number]: Task[];
+    [key: string]: Task[];
   };
   warning: {
-    [statusId: number]: Task[];
+    [key: string]: Task[];
   };
   normal: {
-    [statusId: number]: Task[];
+    [key: string]: Task[];
   }
 }

@@ -22,7 +22,6 @@ export default function BoardCardContet({
     normal: "border-[#C5C5C5]"
   }
 
-
   const renderTasks = (tasks: Task[], level: "super" | "warning" | "normal") =>
     tasks.map((task) => (
       <div

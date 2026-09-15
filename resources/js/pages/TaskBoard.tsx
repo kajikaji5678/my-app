@@ -18,10 +18,9 @@ export default function TaskBoard() {
   useEffect(() => {
     fetch(`/api/projects/1/board`)
       .then((res) => {
-        console.log("status:", res.status);
-        return res.json()})
+        return res.json()
+      })
       .then((data) => {
-        console.log("data:", data);
         setBoardData(data.data);
       });
   }, []);
