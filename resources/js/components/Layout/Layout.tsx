@@ -15,6 +15,7 @@ export default function Layout({children}: Props) {
         <Sidebar />
         <main className="h-[calc(100vh-50px)] flex flex-1 flex-col min-w-0 bg-[#F0F0F0]">
           <ProjectBar />
+          {children}
         </main>
       </div>
     </div>

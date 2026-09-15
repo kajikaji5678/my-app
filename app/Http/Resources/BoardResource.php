@@ -15,14 +15,15 @@ class BoardResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'tasks' => TaskResource::collection($this['tasks']),
             'editedTasks' => [
                 'super' => collect($this['editedTasks']['super'])->map(fn($tasks) => TaskResource::collection($tasks))->all(),
-                'warnig' => collect($this['editedTasks']['warning'])->map(fn($tasks) => TaskResource::collection($tasks))->all(),
+                'warning' => collect($this['editedTasks']['warning'])->map(fn($tasks) => TaskResource::collection($tasks))->all(),
                 'normal' => collect($this['editedTasks']['normal'])->map(fn($tasks) => TaskResource::collection($tasks))->all(),
             ],
             'types' => $this['types'],
             'categories' => $this['categories'],
-            'status' => $this['statuses'],
+            'statuses' => $this['statuses'],
             'project' => $this['project'],
         ];
     }

@@ -14,6 +14,8 @@ type Props = {
 
 function BoardCard({ tasks, statuses, editedTasks, onOpenModal }: Props) {
 
+  console.log(tasks);
+
   // 状態管理
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [open, setOpen] = useState(false);
