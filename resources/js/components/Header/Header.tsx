@@ -2,7 +2,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
-type HeaderProps = {};
 type Notification = {
   id: string;
   message: string;
@@ -17,7 +16,11 @@ type Project = {
   projects_name: string;
 }
 
-export default function Header({ }: HeaderProps) {
+type HeaderProps = {
+  onSelectProject: (id: number) => void;
+}
+
+export default function Header({ onSelectProject }: HeaderProps) {
 
   // ================= 通知処理 ==========================
   const [hasNotification, setHasNotification] = useState(false);
@@ -79,6 +82,9 @@ export default function Header({ }: HeaderProps) {
     fetchPoints();
   }, [])
 
+
+
+  //* ================== JSX処理 ==========================
   return (
     <header className="bg-green-50 border-b">
       <ul className="flex gap-2">
@@ -117,6 +123,7 @@ export default function Header({ }: HeaderProps) {
                     <button
                       key={project.id}
                       type="button"
+                      onClick={() => onSelectProject(project.id)}
                       className="w-full border-b p-2 text-left transition hover:bg-gray-100"
                     >
                       <p className="text-sm">
@@ -180,8 +187,3 @@ export default function Header({ }: HeaderProps) {
   );
 }
 
-const elemet = document.getElementById("header-root");
-
-if (elemet) {
-  createRoot(elemet).render(<Header />)
-}

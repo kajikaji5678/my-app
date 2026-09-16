@@ -12,10 +12,10 @@ type BoardData = {
   categories: Categories[];
   editedTasks: EditedTasks;
 };
-
 export default function TaskBoard() {
 
   const [boardData, setBoardData] = useState<BoardData | null>(null);
+  const [selectedProjects, setSelectedProjects] = useState(1);
 
   useEffect(() => {
     fetch(`/api/projects/1/board`)
@@ -33,7 +33,7 @@ export default function TaskBoard() {
 
   return (
     <>
-      <Layout>
+      <Layout onSelectProject={(id) => setSelectedProjects(id)}>
         <BoardCard
           tasks={boardData.tasks}
           statuses={boardData.statuses}
