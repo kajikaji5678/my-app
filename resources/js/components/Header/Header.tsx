@@ -11,8 +11,15 @@ type Notification = {
   createdAt: string;
   taskId: number | null;
 };
+
+type Project = {
+  id: number;
+  projects_name: string;
+}
+
 export default function Header({ }: HeaderProps) {
 
+  // ================= 通知処理 ==========================
   const [hasNotification, setHasNotification] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
@@ -22,7 +29,6 @@ export default function Header({ }: HeaderProps) {
         const res = await fetch("/api/notification");
         if (!res.ok) throw new Error("失敗");
         const result = await res.json();
-        console.log(result);
         setHasNotification(result.length > 0);
         setNotifications(result);
       } catch (e) {
@@ -60,6 +66,19 @@ export default function Header({ }: HeaderProps) {
     );
   };
 
+  //* ================== プロジェクトバー処理 ==========================
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    const fetchPoints = async () => {
+      const response = await fetch("/api/projects");
+      if (!response.ok) throw new Error("プロジェクトの取得に失敗しました");
+      const data = await response.json();
+      setProjects(data.projects);
+    };
+    fetchPoints();
+  }, [])
+
   return (
     <header className="bg-green-50 border-b">
       <ul className="flex gap-2">
@@ -73,12 +92,42 @@ export default function Header({ }: HeaderProps) {
         </li>
 
         <li className="list-none px-3 py-2">
-          <a
-            href=""
-            className="block px-4 py-2 text-[#333] transition duration-300 hover:bg-emerald-500 hover:text-green-50"
-          >
-            プロジェクト
-          </a>
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                type="button"
+                className="block px-4 py-2 text-[#333] transition duration-300 hover:bg-emerald-500 hover:text-green-50"
+              >
+                プロジェクト
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 bg-white border-2" align="end">
+              <div className="border-b px-2 py-2">
+                <h3 className="font-semibold">
+                  プロジェクト一覧
+                </h3>
+              </div>
+              <div className="max-h-80 overflow-y-auto">
+                {projects.length === 0 ? (
+                  <p className="text-sm text-gray-500">
+                    お知らせはありません
+                  </p>
+                ) : (
+                  projects.map((project) => (
+                    <button
+                      key={project.id}
+                      type="button"
+                      className="w-full border-b p-2 text-left transition hover:bg-gray-100"
+                    >
+                      <p className="text-sm">
+                        {project.projects_name}
+                      </p>
+                    </button>
+                  ))
+                )}
+              </div>
+            </PopoverContent>
+          </Popover>
         </li>
 
         <li className="relative list-none px-3 py-2">
@@ -97,7 +146,7 @@ export default function Header({ }: HeaderProps) {
                 )}
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-80 bg-white" align="end">
+            <PopoverContent className="w-80 bg-white border-2" align="end">
               <div className="border-b px-2 py-2">
                 <h3 className="font-semibold">
                   お知らせ
@@ -113,7 +162,7 @@ export default function Header({ }: HeaderProps) {
                     <button
                       key={notification.id}
                       type="button"
-                      onClick={() => {readNotification(notification.id); setHasNotification(false); handleClick(notification)}}
+                      onClick={() => { readNotification(notification.id); setHasNotification(false); handleClick(notification) }}
                       className="w-full border-b p-2 text-left transition hover:bg-gray-100"
                     >
                       <p className="text-sm">
