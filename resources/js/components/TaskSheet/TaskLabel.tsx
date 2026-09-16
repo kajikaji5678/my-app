@@ -5,7 +5,8 @@ import type { Categories } from "resources/js/types/categories";
 import { AnimatePresence, motion } from "motion/react"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { updateTask } from "../../api/Task";
-import { getTaskDetailRows } from "resources/js/types/Tasksheet";
+import { getTaskDetailRows } from "../../types/Tasksheet";
+import type { Row } from "../../types/Tasksheet";
 
 // ===================== Types =========================
 
@@ -19,14 +20,6 @@ type Props = {
   statuses: Status[];
   categories: Categories[];
 };
-
-type Row = {
-  label: string;
-  key: keyof TaskFormData | "created_at";
-  value: string | number;
-  type: "text" | "date" | "select";
-};
-
 
 export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, categories }: Props) {
 
@@ -44,7 +37,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, 
   });
   const rows = getTaskDetailRows(task);
 
-  // ======== Events ========
+  // ====================== Events =========================
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
@@ -62,9 +55,10 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, 
     }
   }
 
-  // ====================== function ====================
+  //* ====================== function ====================
 
   const renderInput = (row: Row) => {
+    ///  入力欄は編集しない
     if (row.key === "created_at") return null;
     switch (row.type) {
       case "select":
