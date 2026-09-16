@@ -5,8 +5,9 @@ import type { Categories } from "resources/js/types/categories";
 import { AnimatePresence, motion } from "motion/react"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { updateTask } from "../../api/Task";
+import { getTaskDetailRows } from "resources/js/types/Tasksheet";
 
-// ======== Types ========
+// ===================== Types =========================
 
 type Props = {
   task: Task;
@@ -23,7 +24,7 @@ type Row = {
   label: string;
   key: keyof TaskFormData | "created_at";
   value: string | number;
-  type: "text" | "data" | "select";
+  type: "text" | "date" | "select";
 };
 
 
@@ -41,6 +42,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, 
     estimated_time: task.estimated_time,
     real_time: task.real_time
   });
+  const rows = getTaskDetailRows(task);
 
   // ======== Events ========
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -60,56 +62,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, 
     }
   }
 
-  // ========= Debug ============
-  console.log("Debug!!!!!!", task.category.category_name);
-
-  // ======== Display Data ========
-  const rows: Row[] = [
-    {
-      label: "カテゴリー",
-      key: "category_id",
-      value: task.category.category_name,
-      type: "select",
-    },
-    {
-      label: "作成日",
-      key: "created_at",
-      value: task.created_at.slice(0, 10),
-      type: "data"
-    },
-    {
-      label: "期限日",
-      key: "deadline_at",
-      value: task.deadline_at.slice(0, 10),
-      type: "data"
-    },
-    {
-      label: "ステータス",
-      key: "status_id",
-      value: task.status.status_name,
-      type: "select",
-    },
-    {
-      label: "スケジュール",
-      key: "schedule",
-      value: task.schedule,
-      type: "text"
-    },
-    {
-      label: "予定時間",
-      key: "estimated_time",
-      value: task.estimated_time,
-      type: "text"
-    },
-    {
-      label: "実際時間",
-      key: "real_time",
-      value: task.real_time,
-      type: "text"
-    }
-  ];
-
-  // ======== function ========
+  // ====================== function ====================
 
   const renderInput = (row: Row) => {
     if (row.key === "created_at") return null;
@@ -136,7 +89,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, 
           </select>
         );
 
-      case "data":
+      case "date":
         return (
           <input
             type="date"
@@ -158,7 +111,7 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, 
     }
   }
 
-  // ======== TSX ========
+  // =================== TSX ========================
 
   return (
     <>
