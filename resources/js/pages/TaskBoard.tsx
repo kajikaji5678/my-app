@@ -5,7 +5,7 @@ import type { Status } from "../types/statuses";
 import type { EditedTasks } from "../types/EditedTasks";
 import { useEffect, useState } from "react";
 import type { Categories } from "../types/categories";
-import { ProjectPrivider } from "../context/ProjectContext";
+import { ProjectPrivider, useProject } from "../context/Projectcontext";
 
 type BoardData = {
   tasks: Task[];
@@ -16,7 +16,6 @@ type BoardData = {
 export default function TaskBoard() {
 
   const [boardData, setBoardData] = useState<BoardData | null>(null);
-  const [selectedProjects, setSelectedProjects] = useState(1);
 
   useEffect(() => {
     fetch(`/api/projects/1/board`)
@@ -36,12 +35,7 @@ export default function TaskBoard() {
     <>
       <ProjectPrivider>
         <Layout>
-          <BoardCard
-            tasks={boardData.tasks}
-            statuses={boardData.statuses}
-            editedTasks={boardData.editedTasks}
-            categories={boardData.categories}
-          />
+          <BoardCard />
         </Layout>
       </ProjectPrivider>
     </>

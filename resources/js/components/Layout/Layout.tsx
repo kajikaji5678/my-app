@@ -11,10 +11,6 @@ type Props = {
 
 export default function Layout({ children }: Props) {
 
-  const { selectedProjectId } = useProject();
-
-  console.log(selectedProjectId);
-
   return (
     <div className="h-screen">
       <Header
