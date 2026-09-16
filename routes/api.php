@@ -8,6 +8,7 @@ use App\Http\Controllers\CMS\CategoryController;
 use App\Http\Controllers\CMS\TypeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Notification\NotificationController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/notifications/{id}/read', [NotificationController::class, 'read']);
 
     Route::get('/projects/{project}/board', [TaskBoardController::class, 'getTasksAPI']);
+
+    Route::get('/projects', [ProjectController::class, 'index']);
 });
-
-
