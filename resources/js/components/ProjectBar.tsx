@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useProject } from "../context/Projectcontext";
 
 type Project = {
   id: number;
@@ -7,6 +8,7 @@ type Project = {
 
 export default function ProjectBar() {
 
+  const { selectedProjectId } = useProject();
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -17,12 +19,14 @@ export default function ProjectBar() {
       setProjects(data.projects);
     };
     fetchPoints();
-  }, [])
+  }, []);
+
+  const selectedProject = projects.find((project) => project.id === selectedProjectId);
 
   return (
     <div className="projectbar">
       <p className="project_name">
-        {projects[0]?.projects_name}
+        {selectedProject?.projects_name}
       </p>
       <div className="projectbar_right">
         <div className="user_button">
