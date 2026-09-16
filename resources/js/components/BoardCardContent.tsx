@@ -1,3 +1,4 @@
+import { formatDate } from "../service/timeService";
 import type { Task } from "../types/task";
 
 type Props = {
@@ -42,7 +43,7 @@ export default function BoardCardContet({
         </p>
 
         <p className="text-xs my-1">
-          {task.created_at}
+          {formatDate(task.created_at)}
         </p>
       </div>
     ));
