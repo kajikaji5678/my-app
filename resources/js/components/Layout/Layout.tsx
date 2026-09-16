@@ -3,19 +3,21 @@ import Sidebar from "../Sidebar/Sidebar";
 import ProjectBar from "../ProjectBar";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { useProject } from "../../context/Projectcontext";
 
 type Props = {
   children?: ReactNode;
-  onSelectProject: (id: number) => void;
 }
 
+export default function Layout({ children }: Props) {
 
-export default function Layout({ children, onSelectProject }: Props) {
+  const { selectedProjectId } = useProject();
+
+  console.log(selectedProjectId);
 
   return (
     <div className="h-screen">
       <Header
-        onSelectProject={(id) => onSelectProject(id)}
       />
       <div className="flex w-full h-full">
         <Sidebar />

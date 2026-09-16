@@ -2,17 +2,17 @@ import React, { createContext, useContext, useState } from "react";
 
 type ProjectContextType = {
   selectedProjectId: number;
-  setSelectedPtojectId: (id: number) => void;
+  setSelectedProjectId: (id: number) => void;
 }
 
 const ProjectContext = createContext<ProjectContextType | null>(null);
 
 export function ProjectPrivider({children}: {children: React.ReactNode}) {
-  const [selectedProjectId, setSelectedPtojectId] = useState(1);
+  const [selectedProjectId, setSelectedProjectId] = useState(1);
 
   return (
     <ProjectContext.Provider
-      value={{selectedProjectId,setSelectedPtojectId}}
+      value={{selectedProjectId,setSelectedProjectId}}
     >
       {children}
     </ProjectContext.Provider>

@@ -1,6 +1,6 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
+import { useProject } from "../../context/Projectcontext";
 
 type Notification = {
   id: string;
@@ -16,11 +16,8 @@ type Project = {
   projects_name: string;
 }
 
-type HeaderProps = {
-  onSelectProject: (id: number) => void;
-}
 
-export default function Header({ onSelectProject }: HeaderProps) {
+export default function Header() {
 
   // ================= 通知処理 ==========================
   const [hasNotification, setHasNotification] = useState(false);
@@ -71,6 +68,7 @@ export default function Header({ onSelectProject }: HeaderProps) {
 
   //* ================== プロジェクトバー処理 ==========================
   const [projects, setProjects] = useState<Project[]>([]);
+  const { setSelectedProjectId } = useProject();
 
   useEffect(() => {
     const fetchPoints = async () => {
@@ -116,14 +114,14 @@ export default function Header({ onSelectProject }: HeaderProps) {
               <div className="max-h-80 overflow-y-auto">
                 {projects.length === 0 ? (
                   <p className="text-sm text-gray-500">
-                    お知らせはありません
+                    プロジェクトはありません
                   </p>
                 ) : (
                   projects.map((project) => (
                     <button
                       key={project.id}
                       type="button"
-                      onClick={() => onSelectProject(project.id)}
+                      onClick={() => setSelectedProjectId(project.id)}
                       className="w-full border-b p-2 text-left transition hover:bg-gray-100"
                     >
                       <p className="text-sm">
