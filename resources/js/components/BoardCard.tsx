@@ -5,21 +5,63 @@ import type { Task } from "../types/task";
 import type { Status } from "../types/statuses";
 import type { EditedTasks } from "../types/EditedTasks";
 import type { Categories } from "../types/categories";
+import { useProject } from "../context/Projectcontext";
 
-type Props = {
+type BoardData = {
   tasks: Task[];
   statuses: Status[];
   editedTasks: EditedTasks;
-  onOpenModal?: () => void;
   categories: Categories[];
 }
 
-function BoardCard({ tasks, statuses, editedTasks, onOpenModal,categories }: Props) {
+type Props = {
+  onOpenModal?: () => void;
+}
+
+function BoardCard({ onOpenModal }: Props) {
+
+  const { selectedProjectId } = useProject();
 
   // 状態管理
+  const [boardData, setBoardData] = useState<BoardData | null>(null)
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [open, setOpen] = useState(false);
-  const [boardTasks, setBoardTasks] = useState<EditedTasks>(editedTasks);
+  const [boardTasks, setBoardTasks] = useState<EditedTasks | null>(null);
+
+  //* プロジェクトが変わったら再度取得
+  useEffect(() => {
+    const fetchBoard = async () => {
+      const response = await fetch(`/api/projects/${selectedProjectId}/board`);
+      if (!response.ok) throw new Error("Board情報の取得に失敗しました");
+      const data = await response.json();
+      setBoardData(data.data);
+      setBoardTasks(data.data.editedTasks);
+    };
+    fetchBoard();
+  }, [selectedProjectId]);
+
+  //* タスクモーダルを開く処理（お知らせから）
+  useEffect(() => {
+    const handleOpenTask = (event: Event) => {
+      const customEvent = event as CustomEvent<{ taskId: number; commentId: number }>;
+      const { taskId, commentId } = customEvent.detail;
+      if (!boardData) return;
+      const task = boardData.tasks.find((task) => task.id === taskId);
+      if (!task) return;
+      setSelectedTask(task);
+      setOpen(true);
+    };
+    window.addEventListener("open-task", handleOpenTask);
+    return () => {
+      window.removeEventListener("open-task", handleOpenTask);
+    };
+  }, [boardData]);
+
+  if (!boardData || !boardTasks) {
+    return <div>Loading...</div>;
+  }
+
+  const { tasks, statuses, categories } = boardData;
 
   //* タスク個数計算
   /// 件数保存する箱を準備
@@ -33,25 +75,10 @@ function BoardCard({ tasks, statuses, editedTasks, onOpenModal,categories }: Pro
     }
   }
 
-  //* タスクモーダルを開く処理（お知らせから）
-  useEffect(() => {
-    const handleOpenTask = (event: Event) => {
-      const customEvent = event as CustomEvent<{ taskId: number; commentId: number }>;
-      const { taskId, commentId } = customEvent.detail;
-      const task = tasks.find((task) => task.id === taskId);
-      if (!task) return;
-      setSelectedTask(task);
-      setOpen(true);
-    };
-    window.addEventListener("open-task", handleOpenTask);
-    return () => {
-      window.removeEventListener("open-task", handleOpenTask);
-    };
-  }, [tasks]);
-
   // 更新された1件を適切な場所へ移動させる処理
   const handleTaskUpdated = (updatedTask: Task, level: "super" | "warning" | "normal") => {
     setBoardTasks((prev) => {
+      if (!prev) return prev;
       const newTasks = structuredClone(prev);
 
       // 今いる場所から削除
