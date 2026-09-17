@@ -34,6 +34,7 @@ export default function TaskCommentTextarea({ taskId, onCommentCreated, users }:
     }
   }
 
+  //* メンション機能
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setNowComments(value);
@@ -62,7 +63,7 @@ export default function TaskCommentTextarea({ taskId, onCommentCreated, users }:
       />
       {mentionOpen && mentionUsers.length > 0 && (
         <div className="absolute bottom-full left-0 mb-2 w-full">
-          <Command className="rounded-lg border shadow-md">
+          <Command className="rounded-lg border shadow-md bg-white">
             <CommandList>
               <CommandGroup heading="ユーザー">
                 {mentionUsers.map((user) => (
