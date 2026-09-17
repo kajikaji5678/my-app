@@ -7,6 +7,7 @@ use App\Http\Controllers\TaskBoardController;
 use App\Http\Controllers\CMS\CategoryController;
 use App\Http\Controllers\CMS\TypeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentUserController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\ProjectController;
 
@@ -44,12 +45,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 
     Route::get('/user', function(Request $request) {return $request->user();});
+    Route::get('/users', [CommentUserController::class, 'index']);
     Route::post('/comments/{comment}/replies', [CommentController::class, 'replyCommentStore']);
 
     Route::get('/notification', [NotificationController::class, 'index']);
     Route::put('/notifications/{id}/read', [NotificationController::class, 'read']);
 
     Route::get('/projects/{project}/board', [TaskBoardController::class, 'getTasksAPI']);
-
     Route::get('/projects', [ProjectController::class, 'index']);
 });
