@@ -13,6 +13,7 @@ export type Task = {
   schedule: string;
 
   responsible_user_id: number;
+  responsible_user_name: string;
 
   category: {
     id: number;
@@ -37,7 +38,9 @@ export type TaskFormData = {
   status_id: number;
   schedule: string;
   estimated_time: number;
-  real_time: number
+  real_time: number;
+  responsible_user_name: string;
+  priority: string;
 };
 
 export type TaskComment = {

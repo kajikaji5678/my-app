@@ -80,6 +80,7 @@ use Illuminate\Support\Carbon;
  * @property-read Task|null $parent
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereParentTaskId($value)
+ * @property-read \App\Models\User|null $responsibleUser
  * @mixin \Eloquent
  */
 class Task extends Model
@@ -159,5 +160,10 @@ class Task extends Model
     public function childlen()
     {
         return $this->hasMany(Task::class, 'parent_task_id');
+    }
+
+    public function responsibleUser()
+    {
+        return $this->belongsTo(User::class, 'responsible_user_id');
     }
 }

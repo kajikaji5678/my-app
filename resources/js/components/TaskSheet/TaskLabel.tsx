@@ -33,7 +33,9 @@ export default function TaskLabel({ task, onTaskUpdate, onOpenChange, statuses, 
     status_id: task.status_id,
     schedule: task.schedule,
     estimated_time: task.estimated_time,
-    real_time: task.real_time
+    real_time: task.real_time,
+    responsible_user_name: task.responsible_user_name,
+    priority: task.priority,
   });
   const rows = getTaskDetailRows(task);
 

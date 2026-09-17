@@ -128,7 +128,7 @@ class TaskBoardController extends Controller
     //~ 以下 @jsonからAPIへの移行のため
     public function getTasksAPI(Project $project)
     {
-        $tasks = Task::with('type', 'category', 'status')->where('project_id', $project->id)->get();
+        $tasks = Task::with('type', 'category', 'status', 'responsibleUser')->where('project_id', $project->id)->get();
         $data = $this->boardService->getBoardData($project->id, $tasks);
 
         return new BoardResource($data);

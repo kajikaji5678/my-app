@@ -74,6 +74,8 @@ use App\Models\Task;
  * @property-read int|null $task_user2_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CommentMention> $mentions
  * @property-read int|null $mentions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Task> $responsibleTasks
+ * @property-read int|null $responsible_tasks_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -176,6 +178,11 @@ class User extends Authenticatable
     public function mentions()
     {
         return $this->hasMany(CommentMention::class);
+    }
+
+    public function responsibleTasks()
+    {
+        return $this->hasMany(Task::class, 'responsible_user_id');
     }
 }
 

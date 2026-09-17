@@ -126,7 +126,7 @@ function BoardCard({ onOpenModal }: Props) {
             normalTasks={boardTasks.normal[`status_${status.id}`] ?? []}
             //~ 未使用および子の定義づけにも関連してないため削除
             // tasks={tasks}
-            onTaskClick={(task) => { setSelectedTask(task); setOpen(true); }}
+            onTaskClick={(task) => { setSelectedTask(task); setOpen(true); console.log(task)}}
           />
         </div>
       ))}

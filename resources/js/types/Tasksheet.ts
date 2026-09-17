@@ -51,5 +51,17 @@ export function getTaskDetailRows(task: Task): Row[] {
       value: task.real_time,
       type: "text",
     },
+    {
+      label: "タスク責任者",
+      key: "responsible_user_name",
+      value: task.responsible_user_name,
+      type: "text"
+    },
+    {
+      label: "優先順位",
+      key: "priority",
+      value: task.priority,
+      type: "text"
+    }
   ];
 }
