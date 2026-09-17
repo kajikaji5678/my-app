@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "../../types/user";
 import { TaskCommentDialog } from "./TaskCommentDialog";
 
+type Users = {
+  id: number;
+  name: string;
+}
+
 export default function TaskCommnets({ taskId }: { taskId: number }) {
 
   const [openReplyIds, setOpenReplyIds] = useState<number[]>([]);
@@ -23,6 +28,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
   const [replyCommentId, setReplyCommentId] = useState<number | null>(null);
   const [replyBody, setReplyBody] = useState("");
+  const [users, setUsers] = useState<Users[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -32,7 +38,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             Accept: "application/json"
           }
         });
-        if (!response.ok) throw new Error("ユーザー情報の取得失敗");
+        if (!response.ok) throw new Error("自身のユーザー情報の取得失敗");
         const user = await response.json();
         setCurrentUser(user);
       } catch (e) {
@@ -41,6 +47,25 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
     }
 
     fetchUser();
+  }, []);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/users", {
+          headers: {
+            Accept: "application/json"
+          }
+        });
+        if (!response.ok) throw new Error("ユーザー全員の情報の取得失敗");
+        const users = await response.json();
+        setUsers(users);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    fetchUsers();
   }, []);
 
   const handleSubmit = async () => {
@@ -72,7 +97,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const handleDelete = async (commentId: number) => {
     try {
       await deleteComment(commentId);
-      setComments((prev) => prev.filter((comment) => comment.id !== commentId).map((comment) => ({...comment, replies: (comment.replies ?? []).filter((reply) => reply.id !== commentId)})));
+      setComments((prev) => prev.filter((comment) => comment.id !== commentId).map((comment) => ({ ...comment, replies: (comment.replies ?? []).filter((reply) => reply.id !== commentId) })));
     } catch (e) {
       console.error(e);
       setDeleteError({ commentId, message: e instanceof Error ? e.message : "予期せぬエラーが発生しました。" });
