@@ -7,22 +7,27 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "../../types/user";
 import { TaskCommentDialog } from "./TaskCommentDialog";
+import TaskCommentTextarea from "./TaskCommentTextarea";
+
+type Users = {
+  id: number;
+  name: string;
+}
 
 export default function TaskCommnets({ taskId }: { taskId: number }) {
 
   const [openReplyIds, setOpenReplyIds] = useState<number[]>([]);
   const [comments, setComments] = useState<TaskComment[]>([]);
-  const [nowComments, setNowComments] = useState("");
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
   const [editBody, setEditBody] = useState("");
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [editError, setEditError] = useState<{ commentId: number; message: string } | null>(null);
   const [deleteError, setDeleteError] = useState<{ commentId: number; message: string } | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
   const [replyCommentId, setReplyCommentId] = useState<number | null>(null);
   const [replyBody, setReplyBody] = useState("");
+  const [users, setUsers] = useState<Users[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -32,7 +37,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             Accept: "application/json"
           }
         });
-        if (!response.ok) throw new Error("ユーザー情報の取得失敗");
+        if (!response.ok) throw new Error("自身のユーザー情報の取得失敗");
         const user = await response.json();
         setCurrentUser(user);
       } catch (e) {
@@ -43,18 +48,24 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
     fetchUser();
   }, []);
 
-  const handleSubmit = async () => {
-    if (!nowComments.trim()) return;
-    try {
-      const newComment = await createComments(taskId, nowComments);
-      console.log(newComment);
-      setComments((prev) => [...prev, newComment]);
-      setNowComments("");
-    } catch (e) {
-      console.error(e);
-      setSubmitError(e instanceof Error ? e.message : "予期せぬエラーが発生しました。");
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/users", {
+          headers: {
+            Accept: "application/json"
+          }
+        });
+        if (!response.ok) throw new Error("ユーザー全員の情報の取得失敗");
+        const users = await response.json();
+        setUsers(users);
+      } catch (e) {
+        console.error(e);
+      }
     }
-  }
+
+    fetchUsers();
+  }, []);
 
   const handleEdit = async () => {
     if (!editBody.trim() || editCommentId === null) return;
@@ -72,7 +83,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const handleDelete = async (commentId: number) => {
     try {
       await deleteComment(commentId);
-      setComments((prev) => prev.filter((comment) => comment.id !== commentId).map((comment) => ({...comment, replies: (comment.replies ?? []).filter((reply) => reply.id !== commentId)})));
+      setComments((prev) => prev.filter((comment) => comment.id !== commentId).map((comment) => ({ ...comment, replies: (comment.replies ?? []).filter((reply) => reply.id !== commentId) })));
     } catch (e) {
       console.error(e);
       setDeleteError({ commentId, message: e instanceof Error ? e.message : "予期せぬエラーが発生しました。" });
@@ -249,23 +260,11 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             })}
           </div>
         </ScrollArea>
-        <div className="space-y-2 shrink-0 border-t bg-white p-3">
-          <Textarea
-            placeholder="コメントを入力してください"
-            value={nowComments}
-            onChange={(e) => setNowComments(e.target.value)}
-          />
-          <div className="flex justify-end">
-            <Button
-              disabled={!nowComments.trim()}
-              className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
-              onClick={handleSubmit}
-            >
-              送信
-            </Button>
-            {submitError && <p className="text-sm text-red-500">{submitError}</p>}
-          </div>
-        </div>
+        <TaskCommentTextarea
+          taskId={taskId}
+          onCommentCreated={(newComment) => setComments((prev) => [...prev, newComment])}
+          users={users}
+        />
 
         <TaskCommentDialog
           isDeleteOpen={isDeleteOpen}
