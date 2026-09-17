@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Http\Resources\BoardResource;
 use App\Models\Project;
 use App\Models\Task;
@@ -22,15 +23,6 @@ class TaskBoardController extends Controller
         $this->boardService = $boardService;
     }
 
-    public function get()
-    {
-        $projectId = 1;
-        $tasks = Task::with('type')->with('category')->with('status')->where('project_id', $projectId)->get();
-        $data = $this->boardService->getBoardData($projectId, $tasks);
-
-        return view('toDo.borad', $data);
-    }
-
     public function updateTask(Request $request, $id)
     {
         $validated = $request->validate([
@@ -39,7 +31,7 @@ class TaskBoardController extends Controller
             'deadline_at' => 'nullable|date',
             'estimated_time' => 'nullable|integer|min:0',
             'real_time' => 'nullable|integer|min:0',
-            'schedule'=> 'required|string|max:255',
+            'schedule' => 'required|string|max:255',
         ]);
 
         $task = Task::findOrFail($id);
@@ -50,7 +42,7 @@ class TaskBoardController extends Controller
 
         return response()->json([
             'message' => '更新しました',
-            'task'=> $task->load(['category', 'status', 'type']),
+            'task' => $task->load(['category', 'status', 'type']),
             'level' => $level
         ]);
     }
@@ -132,5 +124,24 @@ class TaskBoardController extends Controller
         $data = $this->boardService->getBoardData($project->id, $tasks);
 
         return new BoardResource($data);
+    }
+
+    //~ タスクcreate
+    public function store(StoreTaskRequest $request, Project $project)
+    {
+        $task = Task::create([
+            'task_name' => $request->task_name,
+            'status' => 'null',
+            'project_id' => $project->id,
+            'category_id' => $request->category_id,
+            'type_id' => $request->type_id,
+            'status_id' => $request->status_id,
+            'real_time' => $request->real_time,
+            'estimated_time' => $request->estimated_time,
+            'responsible_user_id' => $request->responsible_user_id,
+            'added_at' => now(),
+            'deadline_at' => $request->deadline_at,
+            'completed_at' => null,
+        ]);
     }
 }
