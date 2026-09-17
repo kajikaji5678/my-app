@@ -18,11 +18,9 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
 
   const [openReplyIds, setOpenReplyIds] = useState<number[]>([]);
   const [comments, setComments] = useState<TaskComment[]>([]);
-  const [nowComments, setNowComments] = useState("");
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
   const [editBody, setEditBody] = useState("");
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [editError, setEditError] = useState<{ commentId: number; message: string } | null>(null);
   const [deleteError, setDeleteError] = useState<{ commentId: number; message: string } | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -30,7 +28,6 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [replyCommentId, setReplyCommentId] = useState<number | null>(null);
   const [replyBody, setReplyBody] = useState("");
   const [users, setUsers] = useState<Users[]>([]);
-  const [mentionOpen, setMentionOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -69,18 +66,6 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
 
     fetchUsers();
   }, []);
-
-  const handleSubmit = async () => {
-    if (!nowComments.trim()) return;
-    try {
-      const newComment = await createComments(taskId, nowComments);
-      setComments((prev) => [...prev, newComment]);
-      setNowComments("");
-    } catch (e) {
-      console.error(e);
-      setSubmitError(e instanceof Error ? e.message : "予期せぬエラーが発生しました。");
-    }
-  }
 
   const handleEdit = async () => {
     if (!editBody.trim() || editCommentId === null) return;
@@ -278,6 +263,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
         <TaskCommentTextarea
           taskId={taskId}
           onCommentCreated={(newComment) => setComments((prev) => [...prev, newComment])}
+          users={users}
         />
 
         <TaskCommentDialog
