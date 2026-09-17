@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "../../types/user";
 import { TaskCommentDialog } from "./TaskCommentDialog";
+import TaskCommentTextarea from "./TaskCommentTextarea";
 
 type Users = {
   id: number;
@@ -29,6 +30,7 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
   const [replyCommentId, setReplyCommentId] = useState<number | null>(null);
   const [replyBody, setReplyBody] = useState("");
   const [users, setUsers] = useState<Users[]>([]);
+  const [mentionOpen, setMentionOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -72,7 +74,6 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
     if (!nowComments.trim()) return;
     try {
       const newComment = await createComments(taskId, nowComments);
-      console.log(newComment);
       setComments((prev) => [...prev, newComment]);
       setNowComments("");
     } catch (e) {
@@ -274,23 +275,10 @@ export default function TaskCommnets({ taskId }: { taskId: number }) {
             })}
           </div>
         </ScrollArea>
-        <div className="space-y-2 shrink-0 border-t bg-white p-3">
-          <Textarea
-            placeholder="コメントを入力してください"
-            value={nowComments}
-            onChange={(e) => setNowComments(e.target.value)}
-          />
-          <div className="flex justify-end">
-            <Button
-              disabled={!nowComments.trim()}
-              className="py-2 px-4 rounded bg-blue-400 text-black cursor-pointer"
-              onClick={handleSubmit}
-            >
-              送信
-            </Button>
-            {submitError && <p className="text-sm text-red-500">{submitError}</p>}
-          </div>
-        </div>
+        <TaskCommentTextarea
+          taskId={taskId}
+          onCommentCreated={(newComment) => setComments((prev) => [...prev, newComment])}
+        />
 
         <TaskCommentDialog
           isDeleteOpen={isDeleteOpen}
