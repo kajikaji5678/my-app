@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/toDo/main', [MainController::class, 'get']);
 
     // * お知らせ
-    Route::get('/toDo/notification/{id}', [NotificationController::class, 'get'])->name('notification.open');
+    // Route::get('/toDo/notification/{id}', [NotificationController::class, 'get'])->name('notification.open');
 
     //* タスクボード
     Route::get('/toDo/board', [TaskBoardController::class, 'get']);

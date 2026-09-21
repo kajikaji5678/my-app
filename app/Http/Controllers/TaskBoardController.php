@@ -23,6 +23,11 @@ class TaskBoardController extends Controller
         $this->boardService = $boardService;
     }
 
+    public function get()
+    {
+        return view("toDo.borad");
+    }
+
     public function updateTask(Request $request, $id)
     {
         $validated = $request->validate([
