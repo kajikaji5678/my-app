@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Resources\BoardResource;
+use App\Http\Resources\TaskResource;
 use App\Models\Project;
 use App\Models\Task;
 use App\Services\BoardService;
+use App\Services\TaskCreateService;
 use App\Services\UserTaskProcessing;
 use Illuminate\Http\Request;
 
@@ -17,10 +19,13 @@ class TaskBoardController extends Controller
     // todo 6/1 サービスコンテナに責務を分担する
 
     private BoardService $boardService;
+    private TaskCreateService $taskCreateService;
 
-    public function __construct(BoardService $boardService)
+
+    public function __construct(BoardService $boardService, TaskCreateService $taskCreateService)
     {
         $this->boardService = $boardService;
+        $this->taskCreateService = $taskCreateService;
     }
 
     public function get()
@@ -134,19 +139,7 @@ class TaskBoardController extends Controller
     //~ タスクcreate
     public function store(StoreTaskRequest $request, Project $project)
     {
-        $task = Task::create([
-            'task_name' => $request->task_name,
-            'status' => 'null',
-            'project_id' => $project->id,
-            'category_id' => $request->category_id,
-            'type_id' => $request->type_id,
-            'status_id' => $request->status_id,
-            'real_time' => $request->real_time,
-            'estimated_time' => $request->estimated_time,
-            'responsible_user_id' => $request->responsible_user_id,
-            'added_at' => now(),
-            'deadline_at' => $request->deadline_at,
-            'completed_at' => null,
-        ]);
+        $task = $this->taskCreateService->create($project, $request->validate());
+        return new TaskResource($task);
     }
 }
