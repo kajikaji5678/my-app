@@ -16,7 +16,9 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
       open={open}
       onOpenChange={onOpenChange}
     >
-      <DialogContent className="h-4/5 px-8 py-6 min-w-[80vw] bg-white">
+      <DialogContent
+        className="h-4/5 px-8 py-6 min-w-[80vw] bg-white"
+      >
         <DialogHeader>
           <TextAnimate
             animation="slideUp"
