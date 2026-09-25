@@ -17,13 +17,14 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
       onOpenChange={onOpenChange}
     >
       <DialogContent
-        className="h-4/5 px-8 py-6 min-w-[80vw] bg-white"
+        className="h-4/5 px-8 py-6 min-w-[80vw] bg-white data-[state=open]:[animation-duration:500ms] data-[state=closed]:[animation-duration:300ms]"
       >
         <DialogHeader>
           <TextAnimate
             animation="slideUp"
             by="character"
             className="text-lg text-black"
+            delay={0.5}
           >
             タスクを作成する
           </TextAnimate>
