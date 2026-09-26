@@ -44,7 +44,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/comments/{comment}', [CommentController::class, 'update']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 
-    Route::get('/user', function(Request $request) {return $request->user();});
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
     Route::get('/users', [CommentUserController::class, 'index']);
     Route::post('/comments/{comment}/replies', [CommentController::class, 'replyCommentStore']);
 
@@ -53,4 +55,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/projects/{project}/board', [TaskBoardController::class, 'getTasksAPI']);
     Route::get('/projects', [ProjectController::class, 'index']);
+
+    Route::get('/projects/{project}/task-form', [TaskBoardController::class, 'getTaskRelatedInfomation']);
 });

@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TextAnimate } from "@/components/ui/text-animate";
+import { useEffect, useState } from "react";
+import { useProject } from "../../context/Projectcontext";
+import type { Category, TaskFormResponse, Type, Status } from "resources/js/types/TaskCreate";
 
 
 type Props = {
@@ -11,6 +15,26 @@ type Props = {
 }
 
 export default function TaskCreateModal({ open, onOpenChange }: Props) {
+
+  const { selectedProjectId } = useProject();
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [types, setTypes] = useState<Type[]>([]);
+  const [status, setStatus] = useState<Status[]>([]);
+
+  useEffect(() => {
+    if (!selectedProjectId) return;
+    const fetchTaskFormData = async () => {
+      const response = await fetch(`/api/projects/${selectedProjectId}/task-form`);
+      if (!response.ok) throw new Error("Taskフォームデータの取得失敗");
+      const data: TaskFormResponse = await response.json();
+      setCategories(data.categories);
+      setTypes(data.types);
+      setStatus(data.status);
+    };
+    fetchTaskFormData();
+  }, [selectedProjectId])
+
   return (
     <Dialog
       open={open}
@@ -39,6 +63,21 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>カテゴリ</Label>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="カテゴリを選択" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="p-2 bg-white">
+                    {categories.map((category) => (
+                      <SelectItem
+                        key={category.id}
+                        value={String(category.id)}
+                      >
+                        {category.category_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label>タイプ</Label>
