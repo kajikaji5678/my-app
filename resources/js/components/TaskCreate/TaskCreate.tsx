@@ -7,7 +7,9 @@ import { TextAnimate } from "@/components/ui/text-animate";
 import { useEffect, useState } from "react";
 import { useProject } from "../../context/Projectcontext";
 import type { Category, TaskFormResponse, Type, Status } from "resources/js/types/TaskCreate";
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { taskCreateSchema, type TaskCreateForm } from "../../schemas/TaskCreate";
 
 type Props = {
   open: boolean;
@@ -21,6 +23,26 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [types, setTypes] = useState<Type[]>([]);
   const [statuses, setStatus] = useState<Status[]>([]);
+
+  const onSubmit = (data: TaskCreateForm) => {
+    console.log(data);
+  }
+
+  const form = useForm<TaskCreateForm>({
+    resolver: zodResolver(taskCreateSchema),
+    defaultValues: {
+      task_name: "",
+      category_id: undefined,
+      type_id: undefined,
+      status_id: undefined,
+      priority: undefined,
+      responsible_user_id: undefined,
+      deadline_at: "",
+      real_time: undefined,
+      estimated_time: undefined,
+      schedule: ""
+    }
+  })
 
   useEffect(() => {
     if (!selectedProjectId) return;
@@ -41,7 +63,7 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
       onOpenChange={onOpenChange}
     >
       <DialogContent
-        className="h-4/5 px-8 py-6 min-w-[80vw] bg-white data-[state=open]:[animation-duration:500ms] data-[state=closed]:[animation-duration:300ms]"
+        className="flex flex-col h-4/5 px-8 py-6 min-w-[80vw] bg-white data-[state=open]:[animation-duration:500ms] data-[state=closed]:[animation-duration:300ms]"
       >
         <DialogHeader>
           <TextAnimate
@@ -55,10 +77,18 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
           <DialogDescription className="text-sm mb-2 font-semibold text-gray-500">
             新しいタスクの情報を入力してください。
           </DialogDescription>
+
+        </DialogHeader>
+        <form className="flex-1 overflow-y-auto" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="task_name">タスク名</Label>
-              <Input id="task_name" placeholder="タスク名を入力" />
+              <Input id="task_name" placeholder="タスク名を入力" {...form.register("task_name")} />
+              {form.formState.errors.task_name && (
+                <p className="text-sm text-red-500">
+                  {form.formState.errors.task_name.message}
+                </p>
+              )}
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -129,7 +159,7 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
             </div>
             <div className="space-y-2">
               <Label>期限</Label>
-              <Input type="data" />
+              <Input type="date" />
             </div>
           </div>
           <div className="space-y-2">
@@ -156,14 +186,14 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
               キャンセル
             </Button>
             <Button
-              type="button"
+              type="submit"
               variant="outline"
               className="border-2 border-blue-200 hover:border-blue-400"
             >
               タスクを追加
             </Button>
           </div>
-        </DialogHeader>
+        </form>
       </DialogContent>
     </Dialog>
   )
