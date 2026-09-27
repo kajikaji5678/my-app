@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{{ asset('css/board.css') }}">
   <link rel="stylesheet" href="{{ asset('css/projectbar.css') }}">
   @viteReactRefresh
-  @vite(['resources/css/app.css', 'resources/js/entries/entries.tsx'])
+  @vite(['resources/css/app.css', 'resources/js/entries/MasterSettings.tsx'])
 </head>
 
 <body class="w-full h-full">

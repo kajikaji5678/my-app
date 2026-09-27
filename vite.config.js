@@ -13,6 +13,7 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/js/app.tsx",
+                "resources/js/entries/Assign.tsx"
             ],
             refresh: true,
         }),

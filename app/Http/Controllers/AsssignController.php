@@ -34,6 +34,11 @@ class AsssignController extends Controller
         return view('toDo.assign', $data, compact('assigns'));
     }
 
+    public function view()
+    {
+        return view('toDo.assign');
+    }
+
     public function step1(Request $request)
     {
         $validated = $request->validate([

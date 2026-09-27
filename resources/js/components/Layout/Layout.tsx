@@ -2,8 +2,6 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import ProjectBar from "../ProjectBar";
 import type { ReactNode } from "react";
-import { useState } from "react";
-import { useProject } from "../../context/Projectcontext";
 
 type Props = {
   children?: ReactNode;
