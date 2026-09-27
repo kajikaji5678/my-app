@@ -20,7 +20,7 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [types, setTypes] = useState<Type[]>([]);
-  const [status, setStatus] = useState<Status[]>([]);
+  const [statuses, setStatus] = useState<Status[]>([]);
 
   useEffect(() => {
     if (!selectedProjectId) return;
@@ -30,7 +30,7 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
       const data: TaskFormResponse = await response.json();
       setCategories(data.categories);
       setTypes(data.types);
-      setStatus(data.status);
+      setStatus(data.statuses);
     };
     fetchTaskFormData();
   }, [selectedProjectId])
@@ -81,11 +81,41 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
               </div>
               <div className="space-y-2">
                 <Label>タイプ</Label>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="タイプを選択" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="p-2 bg-white">
+                    {types.map((type) => (
+                      <SelectItem
+                        key={type.id}
+                        value={String(type.id)}
+                      >
+                        {type.type_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>ステータス</Label>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="ステータスを選択" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="p-2 bg-white">
+                    {statuses.map((status) => (
+                      <SelectItem
+                        key={status.id}
+                        value={String(status.id)}
+                      >
+                        {status.status_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label>優先度</Label>

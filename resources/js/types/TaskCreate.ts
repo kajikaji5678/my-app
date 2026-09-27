@@ -16,5 +16,5 @@ export type Status = {
 export type TaskFormResponse = {
   categories: Category[];
   types: Type[];
-  status: Status[];
+  statuses: Status[];
 }
