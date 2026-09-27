@@ -13,7 +13,7 @@ class StoreTaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class StoreTaskRequest extends FormRequest
      */
     public function rules(): array
     {
+        \Log::info('Task store reached');
         return [
             'task_name' => ['required', 'string', 'max:255'],
             'category_id' => ['nullable', 'exists:categories,id'],

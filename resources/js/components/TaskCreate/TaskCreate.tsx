@@ -24,8 +24,26 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
   const [types, setTypes] = useState<Type[]>([]);
   const [statuses, setStatus] = useState<Status[]>([]);
 
-  const onSubmit = (data: TaskCreateForm) => {
-    console.log(data);
+  const onSubmit = async (data: TaskCreateForm) => {
+    if (!selectedProjectId) return;
+    const response = await fetch(
+      `/api/projects/${selectedProjectId}/tasks`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN":
+            document
+              .querySelector('meta[name="csrf-token"]')
+              ?.getAttribute("content") ?? "",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    if (!response.ok) throw new Error("タスクの作成に失敗");
+    const task = await response.json();
+    console.log(task);
   }
 
   const form = useForm<TaskCreateForm>({
@@ -34,7 +52,7 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
       task_name: "",
       category_id: undefined,
       type_id: undefined,
-      status_id: undefined,
+      status_id: "",
       priority: undefined,
       responsible_user_id: undefined,
       deadline_at: "",
@@ -55,7 +73,7 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
       setStatus(data.statuses);
     };
     fetchTaskFormData();
-  }, [selectedProjectId])
+  }, [selectedProjectId]);
 
   return (
     <Dialog
@@ -131,7 +149,12 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>ステータス</Label>
-                <Select>
+                <Select 
+                  value={form.watch("status_id")}
+                  onValueChange={(value) => {
+                    form.setValue("status_id", value, {shouldValidate: true})
+                  }}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="ステータスを選択" />
                   </SelectTrigger>
@@ -145,6 +168,11 @@ export default function TaskCreateModal({ open, onOpenChange }: Props) {
                       </SelectItem>
                     ))}
                   </SelectContent>
+                  {form.formState.errors.status_id && (
+                    <p className="text-sm text-red-500">
+                      {form.formState.errors.status_id.message}
+                    </p>
+                  )}
                 </Select>
               </div>
               <div className="space-y-2">

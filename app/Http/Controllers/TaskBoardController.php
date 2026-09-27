@@ -142,7 +142,7 @@ class TaskBoardController extends Controller
     //~ タスクcreate
     public function store(StoreTaskRequest $request, Project $project)
     {
-        $task = $this->taskCreateService->create($project, $request->validate());
+        $task = $this->taskCreateService->create($project, $request->validated());
         return new TaskResource($task);
     }
 

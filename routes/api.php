@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskBoardController;
 use App\Http\Controllers\CMS\CategoryController;
 use App\Http\Controllers\CMS\TypeController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\CommentUserController;
+use App\Http\Controllers\Comments\CommentController;
+use App\Http\Controllers\Comments\CommentUserController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\ProjectController;
 
@@ -57,4 +57,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/projects', [ProjectController::class, 'index']);
 
     Route::get('/projects/{project}/task-form', [TaskBoardController::class, 'getTaskRelatedInfomation']);
+    Route::post('/projects/{project}/tasks', [TaskBoardController::class, 'store']);
 });
