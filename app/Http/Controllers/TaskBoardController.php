@@ -11,6 +11,9 @@ use App\Services\BoardService;
 use App\Services\TaskCreateService;
 use App\Services\UserTaskProcessing;
 use Illuminate\Http\Request;
+use App\Models\Status;
+use App\Models\Category;
+use App\Models\Type;
 
 class TaskBoardController extends Controller
 {
@@ -139,7 +142,16 @@ class TaskBoardController extends Controller
     //~ タスクcreate
     public function store(StoreTaskRequest $request, Project $project)
     {
-        $task = $this->taskCreateService->create($project, $request->validate());
+        $task = $this->taskCreateService->create($project, $request->validated());
         return new TaskResource($task);
+    }
+
+    public function getTaskRelatedInfomation(Project $project)
+    {
+        return response()->json([
+            'statuses' => Status::where('project_id', $project->id)->get(),
+            'categories' => Category::where('project_id', $project->id)->get(),
+            'types' => Type::where('projects_id', $project->id)->get(),
+        ]);
     }
 }

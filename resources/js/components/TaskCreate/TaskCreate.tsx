@@ -1,0 +1,228 @@
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { TextAnimate } from "@/components/ui/text-animate";
+import { useEffect, useState } from "react";
+import { useProject } from "../../context/Projectcontext";
+import type { Category, TaskFormResponse, Type, Status } from "resources/js/types/TaskCreate";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { taskCreateSchema, type TaskCreateForm } from "../../schemas/TaskCreate";
+
+type Props = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export default function TaskCreateModal({ open, onOpenChange }: Props) {
+
+  const { selectedProjectId } = useProject();
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [types, setTypes] = useState<Type[]>([]);
+  const [statuses, setStatus] = useState<Status[]>([]);
+
+  const onSubmit = async (data: TaskCreateForm) => {
+    if (!selectedProjectId) return;
+    const response = await fetch(
+      `/api/projects/${selectedProjectId}/tasks`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN":
+            document
+              .querySelector('meta[name="csrf-token"]')
+              ?.getAttribute("content") ?? "",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    if (!response.ok) throw new Error("タスクの作成に失敗");
+    const task = await response.json();
+    console.log(task);
+  }
+
+  const form = useForm<TaskCreateForm>({
+    resolver: zodResolver(taskCreateSchema),
+    defaultValues: {
+      task_name: "",
+      category_id: undefined,
+      type_id: undefined,
+      status_id: "",
+      priority: undefined,
+      responsible_user_id: undefined,
+      deadline_at: "",
+      real_time: undefined,
+      estimated_time: undefined,
+      schedule: ""
+    }
+  })
+
+  useEffect(() => {
+    if (!selectedProjectId) return;
+    const fetchTaskFormData = async () => {
+      const response = await fetch(`/api/projects/${selectedProjectId}/task-form`);
+      if (!response.ok) throw new Error("Taskフォームデータの取得失敗");
+      const data: TaskFormResponse = await response.json();
+      setCategories(data.categories);
+      setTypes(data.types);
+      setStatus(data.statuses);
+    };
+    fetchTaskFormData();
+  }, [selectedProjectId]);
+
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <DialogContent
+        className="flex flex-col h-4/5 px-8 py-6 min-w-[80vw] bg-white data-[state=open]:[animation-duration:500ms] data-[state=closed]:[animation-duration:300ms]"
+      >
+        <DialogHeader>
+          <TextAnimate
+            animation="slideUp"
+            by="character"
+            className="text-lg text-black"
+            delay={0.5}
+          >
+            タスクを作成する
+          </TextAnimate>
+          <DialogDescription className="text-sm mb-2 font-semibold text-gray-500">
+            新しいタスクの情報を入力してください。
+          </DialogDescription>
+
+        </DialogHeader>
+        <form className="flex-1 overflow-y-auto" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="task_name">タスク名</Label>
+              <Input id="task_name" placeholder="タスク名を入力" {...form.register("task_name")} />
+              {form.formState.errors.task_name && (
+                <p className="text-sm text-red-500">
+                  {form.formState.errors.task_name.message}
+                </p>
+              )}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>カテゴリ</Label>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="カテゴリを選択" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="p-2 bg-white">
+                    {categories.map((category) => (
+                      <SelectItem
+                        key={category.id}
+                        value={String(category.id)}
+                      >
+                        {category.category_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>タイプ</Label>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="タイプを選択" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="p-2 bg-white">
+                    {types.map((type) => (
+                      <SelectItem
+                        key={type.id}
+                        value={String(type.id)}
+                      >
+                        {type.type_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>ステータス</Label>
+                <Select 
+                  value={form.watch("status_id")}
+                  onValueChange={(value) => {
+                    form.setValue("status_id", value, {shouldValidate: true})
+                  }}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="ステータスを選択" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="p-2 bg-white">
+                    {statuses.map((status) => (
+                      <SelectItem
+                        key={status.id}
+                        value={String(status.id)}
+                      >
+                        {status.status_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                  {form.formState.errors.status_id && (
+                    <p className="text-sm text-red-500">
+                      {form.formState.errors.status_id.message}
+                    </p>
+                  )}
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>優先度</Label>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>担当者</Label>
+              <Input />
+            </div>
+            <div className="space-y-2">
+              <Label>期限</Label>
+              <Input type="date" />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label>見積もり時間</Label>
+            <Input
+              id="estimated_time"
+              type="number"
+              min={0}
+              placeholder="分"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="schedule">スケジュール</Label>
+            <Input
+              id="schedule"
+              placeholder="スケジュールを入力"
+            />
+          </div>
+          <div className="flex justify-end gap-2 pt-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}>
+              キャンセル
+            </Button>
+            <Button
+              type="submit"
+              variant="outline"
+              className="border-2 border-blue-200 hover:border-blue-400"
+            >
+              タスクを追加
+            </Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
